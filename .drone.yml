@@ -1,0 +1,164 @@
+---
+kind: pipeline
+name: Assignment 1
+
+clone:
+  disable: true
+
+steps:
+- name: clone
+  image: localhost:5000/plugins/git-user
+
+- name: check
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/check.py
+  depends_on:
+  - clone
+
+- name: Check double include of header src/Tree.hpp
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A1_tree.py hpp
+  depends_on:
+  - check
+
+- name: Check existence of Tree
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A1_tree.py class
+  depends_on:
+  - check
+
+- name: Check existence of Tree::Node, and its members
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A1_tree.py node
+  depends_on:
+  - check
+
+- name: Check Tree::Node::prev
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A1_tree.py prev
+  depends_on:
+  - check
+
+- name: Check Tree::Node::next
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A1_tree.py next
+  depends_on:
+  - check
+
+- name: Check Tree being Regular
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A1_tree.py regular
+  depends_on:
+  - check
+
+- name: Check Tree::size
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A1_tree.py size
+  depends_on:
+  - check
+
+- name: Check Tree::empty
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A1_tree.py empty
+  depends_on:
+  - check
+
+- name: Check Tree::insert
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A1_tree.py insert
+  depends_on:
+  - check
+
+- name: Check Tree::find
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A1_tree.py find
+  depends_on:
+  - check
+
+- name: Check Tree::clear
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A1_tree.py clear
+  depends_on:
+  - check
+
+- name: Check Tree::front
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A1_tree.py front
+  depends_on:
+  - check
+
+- name: Check Tree::back
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A1_tree.py back
+  depends_on:
+  - check
+
+- name: Check Tree::begin
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A1_tree.py begin
+  depends_on:
+  - check
+
+- name: Check Tree::end
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A1_tree.py end
+  depends_on:
+  - check
+
+- name: Check empty
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A1_tree.py runEmpty
+  depends_on:
+  - check
+
+- name: Check insert
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A1_tree.py runInsert
+  depends_on:
+  - check
+
+- name: Check operator==
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A1_tree.py runEqual
+  depends_on:
+  - check
+
+- name: Check copy ctor
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A1_tree.py runCopy
+  depends_on:
+  - check
+
+- name: Check find
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A1_tree.py runFind
+  depends_on:
+  - check
+
+- name: Check clear
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A1_tree.py runClear
+  depends_on:
+  - check
