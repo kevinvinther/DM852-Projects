@@ -1,21 +1,17 @@
-# Compiler flags
-CC = g++
-CFLAGS = -Wall -Wextra -Werror -pedantic -std=c++11
+CPPFLAGS=
+CXXFLAGS=-g -O2 $(SANFLAGS)
+LDFLAGS=$(SANFLAGS)
+LIBS=
 
-# Sanitizer flags
-SANITIZE_ADDRESS = -fsanitize=address
-SANITIZE_LEAK = -fsanitize=leak
-SANITIZE_UNDEFINED = -fsanitize=undefined
+SANFLAGS=-fsanitize=undefined -fsanitize=address -fsanitize=leak
 
-# Object files
-OBJS = Tree.o
+.PHONY: all
+all: Tree
 
-# Targets
-all: $(OBJS)
+Tree: Tree.o
+	$(CXX) $(LDFLAGS) -o $@ $^ $(LIBS)
 
-Tree.o: Tree.cpp Tree.hpp
-	$(CC) $(CFLAGS) $(SANITIZE_ADDRESS) $(SANITIZE_LEAK) $(SANITIZE_UNDEFINED) -c Tree.cpp -o Tree.o
-
+.PHONY: clean
 clean:
-	rm -f $(OBJS)
+	rm -f *.o Tree
 
