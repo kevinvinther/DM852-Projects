@@ -78,15 +78,33 @@ const Tree::Node *Tree::Node::prev() const {
 
 Tree::Tree() : root(nullptr) {}
 
-// Returns the number of elements stored.
-// Time Complexity Explanation:
-//      This function calls another function, which runs in linear time.
-// Time Complexity: O(n)
-int Tree::size() const { return Tree::size_traversal(Tree::root); }
+Tree::Tree(const Tree &other) : root(Tree::TreeCopy(other.root)) {}
 
-// Helper function for size. Traverses the tree recursively and adds 1 for each
-// new node.
-// Time Complexity: O(n)
+Tree::Node *Tree::TreeCopy(Node *root) {
+	if (root) {
+		Tree::Node *newNode = new Tree::Node(root->key, root->value);
+		newNode->left = TreeCopy(root->left);
+		if (newNode->left) {
+			newNode->left->parent = newNode;
+		}
+		newNode->right = TreeCopy(root->right);
+		if (newNode->right) {
+			newNode->right->parent = newNode;
+		}
+		return newNode;
+	}
+	return nullptr;
+}
+
+Tree &Tree::operator=(const Tree &other) {
+	Tree::clear(); // Clear the current tree, this will make sure that both
+				   // trees have the same structure (as opposed to checking if
+				   // they're equal).
+	this->root = Tree::TreeCopy(other.root);
+	return *this;
+}
+
+int Tree::size() const { return Tree::size_traversal(Tree::root); }
 int Tree::size_traversal(Node *node) const {
 	if (node == nullptr) {
 		return 0;
@@ -95,19 +113,7 @@ int Tree::size_traversal(Node *node) const {
 				Tree::size_traversal(node->right));
 	}
 }
-
-// Returns `true` iff the container is empty, i.e. `empty() == (size() == 0)`
-// Time Complexity Explanation:
-//      This function calls another function, which runs in linear time.
-// Time Complexity: O(n)
 bool Tree::empty() const { return Tree::size() == 0; }
-
-// Inserts a new element in the tree, or overwrites the value for `key` if it
-// already exists. Returns a pointer to the newly inserted/updated node, and a
-// boolean being `true` if a new node was inserted, and `false` if an existing
-// node was updated.
-//
-// Time Complexity: O(n)
 std::pair<Tree::Node *, bool> Tree::insert(int key, const std::string &value) {
 	Tree::Node *current = Tree::find(key);
 	// If the key already exists, we update it:
@@ -147,11 +153,6 @@ std::pair<Tree::Node *, bool> Tree::insert(int key, const std::string &value) {
 	}
 }
 
-// Looks up the given key and returns a pointer to the node containing it, or
-// `nullptr` if no such node exists.
-// Time Complexity Explanation:
-//      I have not implemented self-balancing tree, therefore not O(log n).
-// Time Complexity: O(n)
 Tree::Node *Tree::find(int key) {
 	Tree::Node *current = Tree::root;
 	while (current->key != key) {
@@ -167,14 +168,11 @@ Tree::Node *Tree::find(int key) {
 	return current;
 }
 
-// Looks up the given key and returns a pointer to the node containing it, or
-// `nullptr` if no such node exists.
 const Tree::Node *Tree::find(int key) const {
 	// We simply cast the non-const version as const.
 	return const_cast<Tree *>(this)->find(key);
 }
 
-// Erase all elements
 void Tree::clear() {
 	// This function calls a helper function, which recursively traverses each
 	// node, and then deletes the node if it exists.
@@ -236,5 +234,23 @@ const Tree::Node *Tree::end() const { return nullptr; }
 
 // O(n)
 Tree::~Tree() { Tree::clear(); }
+
+bool Tree::operator==(const Tree &other) {
+        return compareTraversal(this->root, other.root);
+}
+
+bool Tree::operator!=(const Tree &other) {
+        return !compareTraversal(this->root, other.root);
+}
+
+bool Tree::compareTraversal(Tree::Node *root, Tree::Node *otherRoot) {
+        if (root->key != otherRoot->key || root->value != otherRoot->value) {
+                return false;
+        } 
+        compareTraversal(root->left, otherRoot->left);
+        compareTraversal(root->right, otherRoot->right);
+        return true;
+}
+
 
 } // namespace DM852

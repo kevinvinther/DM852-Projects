@@ -361,6 +361,93 @@ class Tree {
 	 */
 	~Tree();
 
+	/*
+	 * Compare two Trees
+	 *
+	 * This function calls a helper function to decide whether two trees are
+	 * equal or not.
+	 *
+	 * Arguments
+	 * ---------
+	 *      - const Tree &other
+	 *              - The tree to be compared with
+	 *
+	 * Returns
+	 * -------
+	 *      - true if the two trees are equal
+	 *      - false otherwise
+	 *
+	 * Time Complexity
+	 * ---------------
+	 *      - O(n)
+	 *      - The helper function recurisvely traverses through both of the
+	 *              trees at the same time, going through each node.
+	 */
+	bool operator==(const Tree &other);
+	/*
+	 * Compare two Trees
+	 *
+	 * This function calls a helper function to decide whether two trees are
+	 * equal or not.
+	 *
+	 * Arguments
+	 * ---------
+	 *      - const Tree &other
+	 *              - The tree to be compared with
+	 *
+	 * Returns
+	 * -------
+	 *      - true if the two trees are not equal
+	 *      - false otherwise
+	 *
+	 * Time Complexity
+	 * ---------------
+	 *      - O(n)
+	 *      - The helper function recurisvely traverses through both of the
+	 *        trees at the same time, going through each node.
+	 */
+	bool operator!=(const Tree &other);
+
+	/*
+	 * This constructor creates a new tree that is a copy of the other tree.
+	 *
+	 * Arguments
+	 * ---------
+	 *      - const Tree &other
+	 *              - The tree to be copied
+	 *
+	 * Returns
+	 * -------
+	 *      - Copied tree
+	 *
+	 * Time Complexity
+	 * ---------------
+	 *      - O(n)
+	 *      - This function uses a helper function which runs recursively
+	 *              through all nodes.
+	 */
+	Tree(const Tree &other);
+
+	/*
+	 * This constructor creates a new tree that is a copy of the other tree.
+	 *
+	 * Arguments
+	 * ---------
+	 *      - const Tree &other
+	 *              - The tree to be copied
+	 *
+	 * Returns
+	 * -------
+	 *      - Copied tree
+	 *
+	 * Time Complexity
+	 * ---------------
+	 *      - O(n)
+	 *      - This function uses a helper function which runs recursively
+	 *              through all nodes.
+	 */
+	Tree &operator=(const Tree &other);
+
   private:
 	/*
 	 * Helper function for clear()
@@ -406,6 +493,51 @@ class Tree {
 	 * The root of the tree. Set during insert()
 	 */
 	Node *root;
+
+	/*
+	 * Compares two trees from the starting point of two nodes.
+	 *
+	 * This function recursively checks if both nodes have the same key and the
+	 * same value. If not, `false` is immediately returned.
+	 *
+	 * Arguments
+	 * ---------
+	 *       - Node* root
+	 *               - Root of tree one
+	 *       - Node* otherRoot
+	 *               - Root of other tree
+	 *
+	 * Returns
+	 * -------
+	 *      - true if both trees are equal from roots down
+	 *      - false otherwise
+	 *
+	 * Time Complexity
+	 * ---------------
+	 *      - O(n)
+	 *      - This function recursively goes through all nodes of a tree.
+	 */
+	bool compareTraversal(Node *root, Node *otherRoot);
+
+	/*
+	 * Helper function to copy tree from root node
+	 *
+	 * Arguments
+	 * ---------
+	 *       - root
+	 *               - Used to specify which node it should start copying from.
+	 * Will not copy from above this node
+	 *
+	 * Returns
+	 * -------
+	 *       - Node with all the properties of the other tree root node
+	 *
+	 * Time Complexity
+	 * ---------------
+	 *       - O(n)
+	 *       - Goes through all nodes recursively
+	 */
+	Node *TreeCopy(Node *root);
 };
 
 } // namespace DM852
