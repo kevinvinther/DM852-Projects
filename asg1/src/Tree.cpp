@@ -76,6 +76,8 @@ const Tree::Node *Tree::Node::prev() const {
 // TREE CLASS
 // -------------------------------------------------
 
+Tree::Tree() : root(nullptr) {}
+
 // Returns the number of elements stored.
 // Time Complexity Explanation:
 //      This function calls another function, which runs in linear time.
@@ -188,7 +190,16 @@ void Tree::clearTraversal(Tree::Node *node) {
 	}
 }
 
-std::string &Tree::front() { return Tree::root->value; }
+std::string &Tree::front() { 
+	Node *node = Tree::root;
+	if (node == nullptr) {
+		throw "Root doesn't exist";
+	}
+	while (node->left != nullptr) {
+		node = node->left;
+	}
+	return node->value;
+}
 const std::string &Tree::front() const {
 	return const_cast<Tree *>(this)->front();
 }

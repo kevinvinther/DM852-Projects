@@ -11,6 +11,9 @@ all: Tree
 Tree: Tree.o
 	$(CXX) $(LDFLAGS) -o $@ $^ $(LIBS)
 
+Tree.o: Tree.cpp Tree.hpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
 .PHONY: clean
 clean:
 	rm -f *.o Tree
