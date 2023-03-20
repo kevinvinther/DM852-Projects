@@ -1,0 +1,229 @@
+#include "Tree.hpp"
+
+namespace DM852 {
+
+// -------------------------------------------------
+// NODE CLASS
+// -------------------------------------------------
+
+// Default Constructor
+Tree::Node::Node()
+	: key(0), value(nullptr), parent(nullptr), left(nullptr), right(nullptr) {}
+Tree::Node::Node(int key, const std::string &value)
+	: key(key), value(value), parent(nullptr), left(nullptr), right(nullptr) {}
+
+// Returns the node with the smallest key larger than the key in this node.
+// Returns nullptr if no such node exists.
+Tree::Node *Tree::Node::next() {
+	if (Tree::Node::right != nullptr) {
+		Node *next = Tree::Node::right;
+		// In a binary search tree the right-side is larger, and we want to find
+		// the smallest number that is still larger. Therefore we first go to
+		// the right, and keep going left until we get the smallest larger
+		// number.
+		while (next->left != nullptr) {
+			next = next->left;
+		}
+		return next;
+	} else { // The right node does not exist
+		Tree::Node *next = this;
+		while (next->parent) {
+			if (next != next->parent->right) {
+				return next->parent;
+			}
+		}
+		return next;
+	}
+}
+
+// Returns the node with the smallest key larger than the key in this node.
+// Returns nullptr if no such node exists.
+const Tree::Node *Tree::Node::next() const {
+	return const_cast<Node *>(this)->next();
+}
+
+// Returns the node with the largest key smaller than the key in this node.
+// Returns nullptr if no such node exists.
+Tree::Node *Tree::Node::prev() {
+	if (Tree::Node::left != nullptr) {
+		Node *next = Tree::Node::left;
+		// In a binary search tree the right-side is larger, and we want to find
+		// the smallest number that is still larger. Therefore we first go to
+		// the right, and keep going left until we get the smallest larger
+		// number.
+		while (next->right != nullptr) {
+			next = next->right;
+		}
+		return next;
+	} else { // The right node does not exist
+		Tree::Node *next = this;
+		while (next->parent) {
+			if (next != next->parent->left) {
+				return next->parent;
+			}
+		}
+		return next;
+	}
+}
+
+// Returns the node with the largest key smaller than the key in this node.
+// Returns nullptr if no such node exists.
+const Tree::Node *Tree::Node::prev() const {
+	return const_cast<Node *>(this)->prev();
+}
+
+// -------------------------------------------------
+// TREE CLASS
+// -------------------------------------------------
+
+// Returns the number of elements stored.
+// Time Complexity Explanation:
+//      This function calls another function, which runs in linear time.
+// Time Complexity: O(n)
+int Tree::size() const { return Tree::size_traversal(Tree::root); }
+
+// Helper function for size. Traverses the tree recursively and adds 1 for each
+// new node.
+// Time Complexity: O(n)
+int Tree::size_traversal(Node *node) const {
+	if (node == nullptr) {
+		return 0;
+	} else {
+		return (Tree::size_traversal(node->left) + 1 +
+				Tree::size_traversal(node->right));
+	}
+}
+
+// Returns `true` iff the container is empty, i.e. `empty() == (size() == 0)`
+// Time Complexity Explanation:
+//      This function calls another function, which runs in linear time.
+// Time Complexity: O(n)
+bool Tree::empty() const { return Tree::size() == 0; }
+
+// Inserts a new element in the tree, or overwrites the value for `key` if it
+// already exists. Returns a pointer to the newly inserted/updated node, and a
+// boolean being `true` if a new node was inserted, and `false` if an existing
+// node was updated.
+//
+// Time Complexity: O(n)
+std::pair<Tree::Node *, bool> Tree::insert(int key, const std::string &value) {
+	Tree::Node *current = Tree::find(key);
+	// If the key already exists, we update it:
+	if (current != nullptr) {
+		current->value = value;
+		return {current, false};
+	}
+	// If no node exists (i.e. there is no root), we create one:
+	if (Tree::root == nullptr) {
+		Tree::root = new Tree::Node(key, value);
+		return {Tree::root, true};
+	}
+
+	// If the key does not exist, and root exists, we create a new node:
+	Tree::Node *newNode = new Tree::Node(key, value);
+	current = root;
+	// clang-format off
+	while (true) {
+                if(key < current->key) {
+                        if(!(current->left == nullptr)) {
+                                current = current->left;
+                        } else {
+                                newNode = current->left;
+                                newNode->parent = current;
+                                newNode->parent->left = newNode;
+                                return {newNode, true};
+                        } 
+                } else { // key > current->key
+                        if(!(current->right == nullptr)) {
+                                current = current->right;
+                        } else {
+                                newNode = current->right;
+                                newNode->parent = current;
+                                newNode->parent->right = newNode;
+                        }
+                }
+	}
+}
+
+// Looks up the given key and returns a pointer to the node containing it, or
+// `nullptr` if no such node exists.
+// Time Complexity Explanation:
+//      I have not implemented self-balancing tree, therefore not O(log n).
+// Time Complexity: O(n)
+Tree::Node *Tree::find(int key) {
+	Tree::Node *current = Tree::root;
+	while (current->key != key) {
+		if (key < current->key) {
+			current = current->left;
+		} else {
+			current = current->right;
+		}
+		if (current->left == nullptr && current->right == nullptr) {
+			return nullptr;
+		}
+	}
+	return current;
+}
+
+// Looks up the given key and returns a pointer to the node containing it, or
+// `nullptr` if no such node exists.
+const Tree::Node *Tree::find(int key) const {
+	// We simply cast the non-const version as const.
+	return const_cast<Tree *>(this)->find(key);
+}
+
+// Erase all elements
+void Tree::clear() {
+	// This function calls a helper function, which recursively traverses each
+	// node, and then deletes the node if it exists.
+	Tree::clearTraversal(Tree::root);
+	Tree::root = nullptr;
+}
+
+void Tree::clearTraversal(Tree::Node *node) {
+	if (node) {
+		clearTraversal(node->left);
+		clearTraversal(node->right);
+		delete node;
+	}
+}
+
+std::string &Tree::front() { return Tree::root->value; }
+const std::string &Tree::front() const {
+	return const_cast<Tree *>(this)->front();
+}
+std::string &Tree::back() {
+	Node *node = Tree::root;
+	if (node == nullptr) {
+		throw "Root doesn't exist";
+	}
+	while (node->right != nullptr) {
+		node = node->right;
+	}
+	return node->value;
+}
+const std::string &Tree::back() const {
+	return const_cast<Tree *>(this)->back();
+}
+
+Tree::Node *Tree::begin() {
+	Node *node = Tree::root;
+	while (node->left != nullptr) {
+		node = node->left;
+	}
+	return node;
+}
+const Tree::Node *Tree::begin() const {
+	Node *node = Tree::root;
+	while (node->left != nullptr) {
+		node = node->left;
+	}
+	return node;
+}
+Tree::Node *Tree::end() { return nullptr; }
+const Tree::Node *Tree::end() const { return nullptr; }
+
+// O(n)
+Tree::~Tree() { Tree::clear(); }
+
+} // namespace DM852
