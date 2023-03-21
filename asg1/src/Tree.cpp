@@ -173,14 +173,11 @@ std::pair<Tree::Node *, bool> Tree::insert(int key, const std::string &value) {
 
 Tree::Node *Tree::find(int key) {
 	Tree::Node *current = Tree::root;
-	while (current->key != key) {
+	while (current != nullptr && current->key != key) {
 		if (key < current->key) {
 			current = current->left;
 		} else {
 			current = current->right;
-		}
-		if (current->left == nullptr && current->right == nullptr) {
-			return nullptr;
 		}
 	}
 	return current;
