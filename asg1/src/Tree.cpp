@@ -15,12 +15,13 @@ Tree::Node::Node(int key, const std::string &value)
 
 // Destructor, deletes the node and all its children
 Tree::Node::~Node() {
-	if (Tree::Node::left != nullptr) {
-		delete Tree::Node::left;
-	}
-	if (Tree::Node::right != nullptr) {
-		delete Tree::Node::right;
-	}
+	/* if (Tree::Node::left != nullptr) { */
+	/* 	delete Tree::Node::left; */
+	/* } */
+	/* if (Tree::Node::right != nullptr) { */
+	/* 	delete Tree::Node::right; */
+	/* } */
+	// DO NOTHING
 }
 
 // Returns the node with the smallest key larger than the key in this node.
