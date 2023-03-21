@@ -9,6 +9,7 @@ namespace DM852 {
 // Default Constructor
 Tree::Node::Node()
 	: key(0), value(nullptr), parent(nullptr), left(nullptr), right(nullptr) {}
+	: key(0), value(""), parent(nullptr), left(nullptr), right(nullptr) {}
 
 Tree::Node::Node(int key, const std::string &value)
 	: key(key), value(value), parent(nullptr), left(nullptr), right(nullptr) {}
