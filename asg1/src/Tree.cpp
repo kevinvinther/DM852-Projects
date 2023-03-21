@@ -254,8 +254,16 @@ bool Tree::operator==(const Tree &other) {
         return compareTraversal(this->root, other.root);
 }
 
+bool Tree::operator==(const Tree &other) const {
+        return const_cast<Tree *>(this)->compareTraversal(this->root, other.root);
+}
+
 bool Tree::operator!=(const Tree &other) {
         return !compareTraversal(this->root, other.root);
+}
+
+bool Tree::operator!=(const Tree &other) const {
+        return !const_cast<Tree *>(this)->compareTraversal(this->root, other.root);
 }
 
 bool Tree::compareTraversal(Tree::Node *root, Tree::Node *otherRoot) {

@@ -399,6 +399,10 @@ class Tree {
 	 */
 	bool operator==(const Tree &other);
 	/*
+	 * Const version of ==
+	 */
+	bool operator==(const Tree &other) const;
+	/*
 	 * Compare two Trees
 	 *
 	 * This function calls a helper function to decide whether two trees are
@@ -421,6 +425,10 @@ class Tree {
 	 *        trees at the same time, going through each node.
 	 */
 	bool operator!=(const Tree &other);
+	/*
+	 * Const version of !=
+	 */
+	bool operator!=(const Tree &other) const;
 
 	/*
 	 * This constructor creates a new tree that is a copy of the other tree.
