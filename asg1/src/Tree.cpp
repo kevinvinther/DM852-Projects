@@ -232,6 +232,9 @@ const std::string &Tree::back() const {
 }
 
 Tree::Node *Tree::begin() {
+        if(Tree::empty() || Tree::root == nullptr) {
+                return nullptr;
+        }
 	Node *node = Tree::root;
 	while (node->left != nullptr) {
 		node = node->left;
