@@ -5,7 +5,6 @@
 
 #ifndef TREE_H
 #define TREE_H
-
 namespace DM852 {
 class Tree {
   public:
