@@ -1,6 +1,5 @@
 #include "../src/Tree.hpp"
 #include <cassert>
-#include <iostream>
 
 #define TEST(condition, message) assert((condition) && message);
 
