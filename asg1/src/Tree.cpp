@@ -8,7 +8,6 @@ namespace DM852 {
 
 // Default Constructor
 Tree::Node::Node()
-	: key(0), value(nullptr), parent(nullptr), left(nullptr), right(nullptr) {}
 	: key(0), value(""), parent(nullptr), left(nullptr), right(nullptr) {}
 
 Tree::Node::Node(int key, const std::string &value)
@@ -148,18 +147,23 @@ std::pair<Tree::Node *, bool> Tree::insert(int key, const std::string &value) {
                         if(!(current->left == nullptr)) {
                                 current = current->left;
                         } else {
-                                newNode = current->left;
+                                /* newNode = current->left; */
+                                /* newNode->parent = current; */
+                                /* newNode->parent->left = newNode; */
+                                current->left = newNode;
                                 newNode->parent = current;
-                                newNode->parent->left = newNode;
                                 return {newNode, true};
                         } 
                 } else { // key > current->key
                         if(!(current->right == nullptr)) {
                                 current = current->right;
                         } else {
-                                newNode = current->right;
+                                /* newNode = current->right; */
+                                /* newNode->parent = current; */
+                                /* newNode->parent->right = newNode; */
+                                current->right = newNode;
                                 newNode->parent = current;
-                                newNode->parent->right = newNode;
+                                return {newNode, true};
                         }
                 }
 	}
@@ -256,12 +260,19 @@ bool Tree::operator!=(const Tree &other) {
 }
 
 bool Tree::compareTraversal(Tree::Node *root, Tree::Node *otherRoot) {
+        // If the roots neither of the roots exist, we say that they are equal
+        if (!root && !otherRoot) {
+                return true;
+        }
+        // If one of the roots exist, but not the other, we say that they are not equal
+        if (!root || !otherRoot) {
+                return false;
+        }
+        // If the keys and values are not equal, we say that they are not equal
         if (root->key != otherRoot->key || root->value != otherRoot->value) {
                 return false;
         } 
-        compareTraversal(root->left, otherRoot->left);
-        compareTraversal(root->right, otherRoot->right);
-        return true;
+        return compareTraversal(root->left, otherRoot->left) && compareTraversal(root->right, otherRoot->right);
 }
 
 

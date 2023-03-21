@@ -504,7 +504,7 @@ class Tree {
 	 */
 	int size_traversal(Node *node) const;
 	/*
-	 * The root of the tree. Set during insert()
+	 * The root of the tree. Set during insert() or default constructor
 	 */
 	Node *root;
 
