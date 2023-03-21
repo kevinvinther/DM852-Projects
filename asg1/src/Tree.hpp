@@ -314,6 +314,7 @@ class Tree {
 	 * Returns
 	 * -------
 	 *      - The first node in the tree.
+	 *      - Nullptr if the tree is empty
 	 *
 	 * Time Complexity
 	 * ---------------
