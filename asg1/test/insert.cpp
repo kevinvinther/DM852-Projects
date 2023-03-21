@@ -39,4 +39,12 @@ void testInsert() {
          "Back() did not find the correct last value");
     TEST(insertTree->size() == 10, "size() did not return the correct size.")
   }
+  {
+    DM852::Tree *insertTree = new DM852::Tree();
+    insertTree->insert(1, "This is the first value");
+    auto [node, boolean] = insertTree->insert(1, "new value");
+    TEST(boolean == false, "Insert returned true when inserting an old key");
+    TEST(insertTree->find(1)->value == "new value",
+         "Insert assigned wrong value to node");
+  }
 }
