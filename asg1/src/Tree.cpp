@@ -9,8 +9,19 @@ namespace DM852 {
 // Default Constructor
 Tree::Node::Node()
 	: key(0), value(nullptr), parent(nullptr), left(nullptr), right(nullptr) {}
+
 Tree::Node::Node(int key, const std::string &value)
 	: key(key), value(value), parent(nullptr), left(nullptr), right(nullptr) {}
+
+// Destructor, deletes the node and all its children
+Tree::Node::~Node() {
+	if (Tree::Node::left != nullptr) {
+		delete Tree::Node::left;
+	}
+	if (Tree::Node::right != nullptr) {
+		delete Tree::Node::right;
+	}
+}
 
 // Returns the node with the smallest key larger than the key in this node.
 // Returns nullptr if no such node exists.
