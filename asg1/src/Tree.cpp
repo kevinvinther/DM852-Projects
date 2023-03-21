@@ -13,17 +13,6 @@ Tree::Node::Node()
 Tree::Node::Node(int key, const std::string &value)
 	: key(key), value(value), parent(nullptr), left(nullptr), right(nullptr) {}
 
-// Destructor, deletes the node and all its children
-Tree::Node::~Node() {
-	/* if (Tree::Node::left != nullptr) { */
-	/* 	delete Tree::Node::left; */
-	/* } */
-	/* if (Tree::Node::right != nullptr) { */
-	/* 	delete Tree::Node::right; */
-	/* } */
-	// DO NOTHING
-}
-
 // Returns the node with the smallest key larger than the key in this node.
 // Returns nullptr if no such node exists.
 Tree::Node *Tree::Node::next() {
@@ -150,9 +139,6 @@ std::pair<Tree::Node *, bool> Tree::insert(int key, const std::string &value) {
                         if(!(current->left == nullptr)) {
                                 current = current->left;
                         } else {
-                                /* newNode = current->left; */
-                                /* newNode->parent = current; */
-                                /* newNode->parent->left = newNode; */
                                 current->left = newNode;
                                 newNode->parent = current;
                                 return {newNode, true};
@@ -161,9 +147,6 @@ std::pair<Tree::Node *, bool> Tree::insert(int key, const std::string &value) {
                         if(!(current->right == nullptr)) {
                                 current = current->right;
                         } else {
-                                /* newNode = current->right; */
-                                /* newNode->parent = current; */
-                                /* newNode->parent->right = newNode; */
                                 current->right = newNode;
                                 newNode->parent = current;
                                 return {newNode, true};

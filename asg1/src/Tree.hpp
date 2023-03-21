@@ -103,21 +103,6 @@ class Tree {
 		 *      - Nothing
 		 */
 		Node(int key, const std::string &value);
-		/*
-		 * Destructor for node.
-		 *
-		 * Deletes the node and all data associated with it.
-		 *
-		 * Arguments
-		 * ---------
-		 *      - None
-		 *
-		 * Returns
-		 * -------
-		 *      - None
-		 *
-		 */
-		~Node();
 	};
 	/*
 	 * Get the size of the tree.
