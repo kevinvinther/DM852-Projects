@@ -42,8 +42,9 @@ Tree::Node *Tree::Node::next() {
 			if (next != next->parent->right) {
 				return next->parent;
 			}
+			next = next->parent;
 		}
-		return next;
+		return nullptr;
 	}
 }
 
@@ -72,8 +73,9 @@ Tree::Node *Tree::Node::prev() {
 			if (next != next->parent->left) {
 				return next->parent;
 			}
+			next = next->parent;
 		}
-		return next;
+		return nullptr;
 	}
 }
 
