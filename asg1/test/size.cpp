@@ -13,6 +13,4 @@ void testSize() {
   }
 
   delete sizeTree;
-  TEST(sizeTree->size() == 0,
-       "The size of the Tree should be zero after delete");
 }

@@ -8,4 +8,6 @@ void testFind() {
 
   auto [node, _] = findTree->insert(1, "This is the first value");
   TEST(findTree->find(1) == node, "find() did not return the correct node");
+
+  delete findTree;
 }

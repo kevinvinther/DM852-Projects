@@ -10,4 +10,7 @@ void testCopyable() {
   DM852::Tree *copyTree3 = copyTree;
   TEST(*copyTree3 == *copyTree,
        "Two copies trees are not equal with = operator");
+
+  delete copyTree;
+  delete copyTree2;
 }

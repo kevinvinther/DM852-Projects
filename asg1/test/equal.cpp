@@ -18,4 +18,7 @@ void testEquality() {
   tree1->clear();
   tree2->clear();
   TEST(*tree1 == *tree2, "Two empty trees are not equal after clear()");
+
+  delete tree1;
+  delete tree2;
 }

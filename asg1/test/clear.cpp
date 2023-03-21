@@ -9,4 +9,6 @@ void testClear() {
   clearTree->clear();
   TEST(clearTree->size() == 0,
        "The tree did not clear after using the clear() function");
+
+  delete clearTree;
 }

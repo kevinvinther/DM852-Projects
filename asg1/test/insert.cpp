@@ -19,6 +19,7 @@ void testInsert() {
     TEST(insertTree->find(1) == node,
          "Insert did not correctly set the key.\nNOTE: This may also be an "
          "error with find()")
+    delete insertTree;
   }
   {
     DM852::Tree *insertTree = new DM852::Tree();
@@ -38,6 +39,8 @@ void testInsert() {
     TEST(insertTree->back() == "This is the last value",
          "Back() did not find the correct last value");
     TEST(insertTree->size() == 10, "size() did not return the correct size.")
+
+    delete insertTree;
   }
   {
     DM852::Tree *insertTree = new DM852::Tree();
@@ -46,5 +49,7 @@ void testInsert() {
     TEST(boolean == false, "Insert returned true when inserting an old key");
     TEST(insertTree->find(1)->value == "new value",
          "Insert assigned wrong value to node");
+
+    delete insertTree;
   }
 }
