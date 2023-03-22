@@ -1,25 +1,23 @@
 #include "test.hpp"
 #include <iostream>
 
+#define passed(function)                                                       \
+  std::cout << "TESTS: " << function << "pased!\n-------------------------"    \
+            << std::endl;
+
 int main() {
   testClear();
-  std::cout << "TESTS: testClear() passed!" << std::endl;
-  std::cout << "-------------------------" << std::endl;
+  passed("testClear()");
   testCopyable();
-  std::cout << "TESTS: testCopyable() passed!" << std::endl;
-  std::cout << "-------------------------" << std::endl;
+  passed("testCopyable()");
   testFind();
-  std::cout << "TESTS: testFind() passed!" << std::endl;
-  std::cout << "-------------------------" << std::endl;
+  passed("testFind()");
   testEquality();
-  std::cout << "TESTS: testEquality() passed!" << std::endl;
-  std::cout << "-------------------------" << std::endl;
+  passed("testEquality()");
   testInsert();
-  std::cout << "TESTS: testInsert() passed!" << std::endl;
-  std::cout << "-------------------------" << std::endl;
+  passed("testInsert()");
   testSize();
-  std::cout << "TESTS: testSize() passed!" << std::endl;
-  std::cout << "-------------------------" << std::endl;
+  passed("testSize()");
   std::cout << "TESTS: Passed all tests!" << std::endl;
   return 0;
 }
