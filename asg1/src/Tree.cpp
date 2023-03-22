@@ -1,5 +1,9 @@
 #include "Tree.hpp"
 
+/* The documentation for the functions can be found in the headerfiles. The
+ * documentation in the C++ file is more specific to code that may be confusing.
+ * Time complexity is to be found in the header file along with the
+ * documentation.*/
 namespace DM852 {
 
 // -------------------------------------------------
