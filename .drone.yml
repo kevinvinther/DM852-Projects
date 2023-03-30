@@ -162,3 +162,216 @@ steps:
   - python3 /dm852/test_A1_tree.py runClear
   depends_on:
   - check
+---
+kind: pipeline
+name: Assignment 2
+
+clone:
+  disable: true
+
+steps:
+- name: clone
+  image: localhost:5000/plugins/git-user
+
+- name: check
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/check.py
+  depends_on:
+  - clone
+
+- name: Check double include of header src/Tree.hpp
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py hpp
+  depends_on:
+  - check
+
+- name: Check existence of Tree
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py class
+  depends_on:
+  - check
+
+- name: Check existence of Tree:iterator and its basic properties
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py iterator
+  depends_on:
+  - check
+
+- name: Check that Tree::iterator is a forward iterator
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py iteratorF
+  depends_on:
+  - check
+
+- name: Check that Tree::iterator is a bidirectional iterator
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py iteratorBi
+  depends_on:
+  - check
+
+- name: Check that the iterator_traits of Tree:iterator are correc
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py iteratorTraits
+  depends_on:
+  - check
+
+- name: Check existence of Tree:const_iterator and its basic properties
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py constiterator
+  depends_on:
+  - check
+
+- name: Check that Tree::const_iterator is a forward iterator
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py constiteratorF
+  depends_on:
+  - check
+
+- name: Check that Tree::const_iterator is a bidirectional iterator
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py constiteratorBi
+  depends_on:
+  - check
+
+- name: Check that the iterator_traits of Tree:const_iterator are correct
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py constiteratorTraits
+  depends_on:
+  - check
+
+- name: Check that const_iterator is convertible to iterator
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py iteratorConversion
+  depends_on:
+  - check
+
+- name: Check Tree being Regular
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py regular
+  depends_on:
+  - check
+
+- name: Check Tree::size
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py size
+  depends_on:
+  - check
+
+- name: Check Tree::empty
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py empty
+  depends_on:
+  - check
+
+- name: Check Tree::insert
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py insert
+  depends_on:
+  - check
+
+- name: Check Tree::find
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py find
+  depends_on:
+  - check
+
+- name: Check Tree::clear
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py clear
+  depends_on:
+  - check
+
+- name: Check Tree::front
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py front
+  depends_on:
+  - check
+
+- name: Check Tree::back
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py back
+  depends_on:
+  - check
+
+- name: Check Tree::begin
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py begin
+  depends_on:
+  - check
+
+- name: Check Tree::end
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py end
+  depends_on:
+  - check
+
+- name: Check Tree::Tree(Comp comp)
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py compCtor
+  depends_on:
+  - check
+
+- name: Check empty
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py runEmpty
+  depends_on:
+  - check
+
+- name: Check insert
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py runInsert
+  depends_on:
+  - check
+
+- name: Check operator==
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py runEqual
+  depends_on:
+  - check
+
+- name: Check copy ctor
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py runCopy
+  depends_on:
+  - check
+
+- name: Check find
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py runFind
+  depends_on:
+  - check
+
+- name: Check clear
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py runClear
+  depends_on:
+  - check
