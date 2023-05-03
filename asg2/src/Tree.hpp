@@ -4,6 +4,11 @@ namespace DM852 {
 template <typename Key, typename Value, typename Comp = std::less<Key>>
 class Tree {
 public:
+  Tree(const Tree &) = delete;
+  Tree(Tree &&) = delete;
+  Tree &operator=(const Tree &) = delete;
+  Tree &operator=(Tree &&) = delete;
+
   class iterator {
   public:
   private:
