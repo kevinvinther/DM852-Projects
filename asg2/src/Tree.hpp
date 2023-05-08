@@ -8,14 +8,6 @@
 // (Though the format may be wrong, inspiration from
 // https://en.wikipedia.org/wiki/Doxygen?useskin=vector)
 
-/*
-** @file
-** @author Kevin Vinther
-** @version 1.0
-** @section DESCRIPTION
-** A generic binary search tree implementation.
-*/
-
 namespace DM852 {
 template <typename Key, typename Value, typename Comp = std::less<Key>>
 class Tree {
@@ -23,10 +15,6 @@ public:
   using value_type = std::pair<const Key, Value>;
 
 private:
-  /*
-  ** Node class for the binary search tree.
-  ** Contains a key, value, and pointers to the parent, left and right nodes.
-  */
   class Node {
   public:
     using value_type = std::pair<const Key, Value>;
@@ -39,21 +27,10 @@ private:
     value_type *values;
     Comp comp;
 
-    /*
-     * Constructor that initializes the node with the given key and value, and
-     * sets next and prev to nullptr.
-     *
-     * @param key The key of the node.
-     * @param value The value of the node.
-     * @param comp The comparator used to compare keys.
-     */
     Node(const Key key, const Value value, Comp cmp)
         : comp(cmp), values(new value_type(key, value)), left(nullptr),
           right(nullptr), parent(nullptr) {}
 
-    /*
-    ** Destructor for the node.
-    */
     ~Node() {
       delete values;
       if (left) {
@@ -67,61 +44,22 @@ private:
       parent = nullptr;
     }
 
-    /*
-    ** Equality operator for the node.
-    **
-    ** @param &other The node to compare to.
-    **
-    ** @return True if the nodes are equal, false otherwise.
-    */
     bool operator==(Node &other) {
-      // When (!comp(key, other.key) && !comp(other.key, key) is true, the keys
-      // are equal.
-      // values->first is the key.
       return (!(comp(values->first, other.values->first) &&
                 !comp(other.values->first, values->first)) &&
               values->second == other.values->second);
     }
 
-    /*
-    ** Const equality operator for the node.
-    **
-    ** @param &other The node to compare to.
-    **
-    ** @return True if the nodes are equal, false otherwise.
-    */
     bool operator==(const Node &other) const {
-      // When (!comp(key, other.key) && !comp(other.key, key) is true, the keys
-      // are equal.
-      // values->first is the key.
       return (!(comp(values->first, other.values->first) &&
                 !comp(other.values->first, values->first)) &&
               values->second == other.values->second);
     }
 
-    /*
-    ** Inequality operator for the node.
-    **
-    ** @param &other The node to compare to.
-    **
-    ** @return True if the nodes are not equal, false otherwise.
-    */
     bool operator!=(Node &other) { return !(*this == other); }
 
-    /*
-    ** Inequality operator for the node.
-    **
-    ** @param &other The node to compare to.
-    **
-    ** @return True if the nodes are not equal, false otherwise.
-    */
     bool operator!=(const Node &other) const { return !(*this == other); }
 
-    /*
-    ** Goes right once, and then left as much as possible
-    **
-    ** @return The next node in the tree. If none return nullptr.
-    */
     Node *next() {
       if (right != nullptr) {
         Node *next = right;
@@ -247,8 +185,35 @@ public:
       : comp(Comp()), node_count(other.node_count), root(TreeCopy(other.root)),
         first_node(leftMost(other.root)), last_node(rightMost(other.root)){};
 
-  Tree &operator=(const Tree &other) { return Tree(other); };
-  Tree &operator=(Tree &&other) { return Tree(other); };
+  Tree &operator=(const Tree &other) {
+    if (this != &other) { // Check for self-assignment
+      clear();
+      comp = other.comp;
+      node_count = other.node_count;
+      root = TreeCopy(other.root);
+      first_node = leftMost(root);
+      last_node = rightMost(root);
+    }
+    return *this;
+  };
+
+  Tree &operator=(Tree &&other) {
+    if (this != &other) { // Check for self-assignment
+      clear();
+      comp = other.comp;
+      node_count = other.node_count;
+      root = other.root;
+      first_node = other.first_node;
+      last_node = other.last_node;
+
+      other.root = nullptr;
+      other.first_node = nullptr;
+      other.last_node = nullptr;
+      other.node_count = 0;
+    }
+    return *this;
+  };
+
   ~Tree() { clear(); }
 
   bool &operator==(const Tree &other) {
