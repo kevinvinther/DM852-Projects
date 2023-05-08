@@ -128,10 +128,9 @@ private:
 
   Node *root;
   int node_count;
+  Comp comp;
   Node *first_node;
   Node *last_node;
-
-  Comp comp;
 
   Node *TreeCopy(Node *root) {
     // If the root exists
