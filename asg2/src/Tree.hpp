@@ -263,56 +263,171 @@ public:
   }
 
   class iterator {
-  public:
-    iterator() = default;
-    typedef std::pair<const Key, Value> value_type;
-
   private:
+    using reference = value_type &;
     friend class Tree;
-    iterator(Node *p) : p(p) {}
+    // Out of bounds
+    int OOBMargin;
+    Node *p = nullptr;
 
   public:
-    Value &operator*() const {
+    iterator() : p(nullptr), OOBMargin(1) {}
+    iterator(Node *p) : p(p), OOBMargin(0) {}
+
+    reference &operator*() const {
       assert(p);
-      return p->values->second;
+      if (OOBMargin != 0) {
+        throw std::out_of_range(
+            "Element is not accesible: Out of bounds iterator");
+      }
+      return *p->values;
+    }
+
+    value_type *operator->() const {
+      assert(p);
+      if (OOBMargin != 0) {
+        throw std::out_of_range(
+            "Element is not accesible: Out of bounds iteartor");
+      }
+      return p->values;
     }
 
     iterator &operator++() {
       assert(p);
-      p = p->next();
+      if (p->next() == nullptr) {
+        OOBMargin++;
+      } else if (OOBMargin > 0) {
+        OOBMargin++;
+      } else {
+        p = p->next();
+      }
       return *this;
+    }
+
+    // to satisfy bidirectional iterator
+    iterator &operator++(int) {
+      assert(p);
+      if (p->next() == nullptr) {
+        OOBMargin++;
+      } else if (OOBMargin > 0) {
+        OOBMargin++;
+      } else {
+        p = p->next();
+      }
+      return *this;
+    }
+
+    iterator &operator--() {
+      assert(p);
+      if (p->prev() == nullptr) {
+        OOBMargin--;
+      } else if (OOBMargin > 0) {
+        OOBMargin--;
+      } else {
+        p = p->prev();
+      }
+      return *this;
+    }
+
+    // to satisfy bidirectional iterator
+    iterator &operator--(int) {
+      assert(p);
+      if (p->prev() == nullptr) {
+        OOBMargin--;
+      } else if (OOBMargin > 0) {
+        OOBMargin--;
+      } else {
+        p = p->prev();
+      }
     }
 
     friend bool operator==(iterator a, iterator b) { return a.p == b.p; }
 
     friend bool operator!=(iterator a, iterator b) { return !(a == b); }
-
-  private:
-    Node *p = nullptr;
   };
 
   class const_iterator {
   private:
-    const_iterator() = default;
+    using reference = value_type &;
+    friend class Tree;
+    // Out of bounds
+    int OOBMargin;
+    const Node *p = nullptr;
 
   public:
-    Value &operator*() const {
+    const_iterator() : p(nullptr), OOBMargin(1) {}
+    const_iterator(Node *p) : p(p), OOBMargin(0) {}
+
+    reference &operator*() const {
       assert(p);
-      return p->values->second;
+      if (OOBMargin != 0) {
+        throw std::out_of_range(
+            "Element is not accesible: Out of bounds iterator");
+      }
+      return *p->values;
+    }
+
+    value_type *operator->() const {
+      assert(p);
+      if (OOBMargin != 0) {
+        throw std::out_of_range(
+            "Element is not accesible: Out of bounds iteartor");
+      }
+      return p->values;
     }
 
     iterator &operator++() {
       assert(p);
-      p = p->next;
+      if (p->next() == nullptr) {
+        OOBMargin++;
+      } else if (OOBMargin > 0) {
+        OOBMargin++;
+      } else {
+        p = p->next();
+      }
       return *this;
+    }
+
+    // to satisfy bidirectional iterator
+    iterator &operator++(int) {
+      assert(p);
+      if (p->next() == nullptr) {
+        OOBMargin++;
+      } else if (OOBMargin > 0) {
+        OOBMargin++;
+      } else {
+        p = p->next();
+      }
+      return *this;
+    }
+
+    iterator &operator--() {
+      assert(p);
+      if (p->prev() == nullptr) {
+        OOBMargin--;
+      } else if (OOBMargin > 0) {
+        OOBMargin--;
+      } else {
+        p = p->prev();
+      }
+      return *this;
+    }
+
+    // to satisfy bidirectional iterator
+    iterator &operator--(int) {
+      assert(p);
+      if (p->prev() == nullptr) {
+        OOBMargin--;
+      } else if (OOBMargin > 0) {
+        OOBMargin--;
+      } else {
+        p = p->prev();
+      }
     }
 
     friend bool operator==(iterator a, iterator b) { return a.p == b.p; }
 
     friend bool operator!=(iterator a, iterator b) { return !(a == b); }
-
-  private:
-    const Node *p = nullptr;
   };
 
   int size() const { return node_count; };        // must run constant time
@@ -321,14 +436,38 @@ public:
   std::pair<iterator, bool> insert(const Key &key, const Value &value);
   std::pair<iterator, bool> insert(Key &&key, Value &&value);
 
-  iterator find(const Key &key);
-  const_iterator find(const Key &key) const;
+  iterator find(const Key &key) {
+    Node *node = root;
+    while (node != nullptr) {
+      if (!comp(node->values->first, key) && !comp(key, node->values->first)) {
+        return iterator(node);
+      } else if (comp(node->values->first, key)) {
+        node = node->right;
+      } else {
+        node = node->left;
+      }
+    }
+    return end();
+  };
+  const_iterator find(const Key &key) const {
+    Node *node = root;
+    while (node != nullptr) {
+      if (!comp(node->values->first, key) && !comp(key, node->values->first)) {
+        return const_iterator(node);
+      } else if (comp(node->values->first, key)) {
+        node = node->right;
+      } else {
+        node = node->left;
+      }
+    }
+    return end();
+  };
 
-  iterator begin();
-  const_iterator begin() const;
+  iterator begin() { return iterator(first_node); };
+  const_iterator begin() const { return const_iterator(first_node); };
 
-  iterator end();
-  const_iterator end() const;
+  iterator end() { return ++iterator(last_node); };
+  const_iterator end() const { return ++const_iterator(last_node); };
 
   value_type &front() {
     assert(first_node);
