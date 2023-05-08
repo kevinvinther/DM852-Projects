@@ -460,6 +460,7 @@ public:
         } else {
           current->left = newNode;
           newNode->parent = current;
+          node_count++;
           return {iterator(newNode), true};
         }
       } else {
@@ -468,6 +469,7 @@ public:
         } else {
           current->right = newNode;
           newNode->parent = current;
+          node_count++;
           return {iterator(newNode), true};
         }
       }
@@ -497,6 +499,7 @@ public:
         } else {
           current->left = newNode;
           newNode->parent = current;
+          node_count++;
           return {iterator(newNode), true};
         }
       } else {
@@ -505,6 +508,7 @@ public:
         } else {
           current->right = newNode;
           newNode->parent = current;
+          node_count++;
           return {iterator(newNode), true};
         }
       }
