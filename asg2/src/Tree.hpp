@@ -579,19 +579,19 @@ public:
 
   value_type &front() {
     assert(first_node);
-    return *first_node->values->second;
+    return *first_node->values;
   }
   const value_type &front() const {
     assert(first_node);
-    return *first_node->values->second;
+    return *first_node->values;
   }
   value_type &back() {
     assert(last_node);
-    return *last_node->values->second;
+    return *last_node->values;
   }
   const value_type &back() const {
     assert(last_node);
-    return *last_node->values->second;
+    return *last_node->values;
   }
 };
 } // namespace DM852
