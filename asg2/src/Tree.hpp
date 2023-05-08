@@ -470,8 +470,8 @@ public:
   }
 
   std::pair<iterator, bool> insert(const Key &key, const Value &value) {
-    Node *values = findNode(key);
-    Node *current = new Node(values->first, values->second, comp);
+    Node *current = findNode(key);
+
     if (current != nullptr) {
       current->values->second = value;
       return {iterator(current), false};
