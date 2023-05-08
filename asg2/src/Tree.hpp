@@ -170,15 +170,15 @@ private:
 
 public:
   Tree()
-      : root(nullptr), comp(Comp()), node_count(0), first_node(nullptr),
+      : root(nullptr), node_count(0), comp(Comp()), first_node(nullptr),
         last_node(nullptr) {}
 
   Tree(Comp comp)
-      : root(nullptr), comp(comp), node_count(0), first_node(nullptr),
+      : root(nullptr), node_count(0), comp(comp), first_node(nullptr),
         last_node(nullptr) {}
 
   Tree(const Tree &other)
-      : comp(Comp()), node_count(other.node_count), root(TreeCopy(other.root)),
+      : node_count(other.node_count), comp(Comp()), root(TreeCopy(other.root)),
         first_node(leftMost(other.root)), last_node(rightMost(other.root)){};
 
   Tree(Tree &&other)
@@ -256,8 +256,8 @@ public:
   class iterator : public std::iterator<std::bidirectional_iterator_tag, Tree> {
   private:
     // Out of bounds
-    int OOBMargin;
     Node *p;
+    int OOBMargin;
 
   public:
     using value_type = std::pair<const Key, Value>;
@@ -334,8 +334,8 @@ public:
       : public std::iterator<std::bidirectional_iterator_tag, Tree> {
   private:
     // Out of bounds
-    int OOBMargin;
     const Node *p;
+    int OOBMargin;
 
   public:
     using value_type = std::pair<const Key, Value>;
