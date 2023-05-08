@@ -232,14 +232,13 @@ public:
     return !iteratorTraversal(root, other.root);
   }
 
-  bool iteratorTraversal(Node *root, Node *otherRoot) {
-    if (root->node_count != otherRoot->node_count) {
+  bool iteratorTraversal(Node *root, Node *other) {
+    if (root->node_count != other->node_count) {
       return false;
     }
-    for (iterator it = root->begin(), otherIt = otherRoot->begin();
-         it != root->end() && otherIt != otherRoot->end(); ++it, ++otherIt) {
-      if (it->values->first != otherIt->values->first ||
-          it->values->second != otherIt->values->second) {
+    for (const_iterator it = begin(), otherIt = other->begin();
+         it != end() && otherIt != other->end(); ++it, ++otherIt) {
+      if (it->first != otherIt->first || it->second != otherIt->second) {
         return false;
       }
     }
