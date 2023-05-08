@@ -449,6 +449,8 @@ public:
     if (root == nullptr) {
       root = new Node(key, value, comp);
       node_count++;
+      first_node = root;
+      last_node = root;
       return {iterator(root), true};
     }
 
@@ -463,6 +465,8 @@ public:
           current->left = newNode;
           newNode->parent = current;
           node_count++;
+          if (comp(key, first_node->values->first))
+            first_node = newNode;
           return {iterator(newNode), true};
         }
       } else {
@@ -472,6 +476,8 @@ public:
           current->right = newNode;
           newNode->parent = current;
           node_count++;
+          if (comp(last_node->values->first, key))
+            last_node = newNode;
           return {iterator(newNode), true};
         }
       }
@@ -488,6 +494,8 @@ public:
     if (root == nullptr) {
       root = new Node(key, value, comp);
       node_count++;
+      first_node = root;
+      last_node = root;
       return {iterator(root), true};
     }
 
@@ -502,6 +510,8 @@ public:
           current->left = newNode;
           newNode->parent = current;
           node_count++;
+          if (comp(key, first_node->values->first))
+            first_node = newNode;
           return {iterator(newNode), true};
         }
       } else {
@@ -511,6 +521,8 @@ public:
           current->right = newNode;
           newNode->parent = current;
           node_count++;
+          if (comp(last_node->values->first, key))
+            last_node = newNode;
           return {iterator(newNode), true};
         }
       }
