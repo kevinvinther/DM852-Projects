@@ -429,7 +429,7 @@ public:
     }
 
     // to satisfy bidirectional iterator
-    const_iterator &operator++(int) {
+    const_iterator operator++(int) {
       assert(p);
       if (p->next() == nullptr) {
         OOBMargin++;
@@ -454,7 +454,7 @@ public:
     }
 
     // to satisfy bidirectional iterator
-    const_iterator &operator--(int) {
+    const_iterator operator--(int) {
       assert(p);
       if (p->prev() == nullptr) {
         OOBMargin--;
@@ -465,13 +465,11 @@ public:
       }
     }
 
-    const friend bool operator==(const const_iterator a,
-                                 const const_iterator b) {
+    friend bool operator==(const const_iterator a, const const_iterator b) {
       return a.p == b.p;
     }
 
-    const friend bool operator!=(const const_iterator a,
-                                 const const_iterator b) {
+    friend bool operator!=(const const_iterator a, const const_iterator b) {
       return !(a == b);
     }
   };
