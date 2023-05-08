@@ -45,9 +45,9 @@ private:
               values->second == other.values->second);
     }
 
-    bool operator!=(Node &other) { return !(*this == other); }
+    bool operator!=(Node &other) { return !(operator==(other)); }
 
-    bool operator!=(const Node &other) const { return !(*this == other); }
+    bool operator!=(const Node &other) const { return !(operator==(other)); }
 
     Node *next() {
       if (right != nullptr) {
@@ -220,12 +220,14 @@ public:
   bool operator!=(const Tree &other) const { return !iteratorTraversal(other); }
 
   bool iteratorTraversal(const Tree &other) const {
-    if (this->node_count != other.node_count) {
+    if (node_count != other.node_count) {
       return false;
     }
-    for (const_iterator it = this->begin(), otherIt = other.begin();
-         it != this->end() && otherIt != other.end(); ++it, ++otherIt) {
-      if (it->first != otherIt->first || it->second != otherIt->second) {
+    for (const_iterator it = begin(), otherIt = other.begin();
+         it != end() && otherIt != other.end(); ++it, ++otherIt) {
+      if (!(!comp(it->first, otherIt->first) &&
+            !comp(otherIt->first, it->first)) ||
+          it->second != otherIt->second) {
         return false;
       }
     }
