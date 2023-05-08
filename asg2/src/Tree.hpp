@@ -429,9 +429,13 @@ public:
       }
     }
 
-    friend bool operator==(iterator a, iterator b) { return a.p == b.p; }
+    friend bool operator==(const_iterator a, const_iterator b) {
+      return a.p == b.p;
+    }
 
-    friend bool operator!=(iterator a, iterator b) { return !(a == b); }
+    friend bool operator!=(const_iterator a, const_iterator b) {
+      return !(a == b);
+    }
   };
 
   int size() const { return node_count; };        // must run constant time
