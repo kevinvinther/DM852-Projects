@@ -361,6 +361,8 @@ public:
   public:
     const_iterator() : p(nullptr), OOBMargin(1) {}
     const_iterator(Node *p) : p(p), OOBMargin(0) {}
+    const_iterator(const iterator &other)
+        : p(other.p), OOBMargin(other.OOBMargin) {}
 
     reference &operator*() const {
       assert(p);
