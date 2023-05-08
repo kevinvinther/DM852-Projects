@@ -31,18 +31,7 @@ private:
         : parent(nullptr), left(nullptr), right(nullptr),
           values(new value_type(key, value)), comp(cmp) {}
 
-    ~Node() {
-      delete values;
-      if (left) {
-        delete left;
-      }
-      if (right) {
-        delete right;
-      }
-      right = nullptr;
-      left = nullptr;
-      parent = nullptr;
-    }
+    ~Node() { delete values; }
 
     bool operator==(Node &other) {
       return (!(comp(values->first, other.values->first) &&
