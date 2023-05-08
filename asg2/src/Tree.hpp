@@ -154,17 +154,23 @@ private:
   }
 
   Node *leftMost(Node *node) {
-    if (node->left) {
-      return leftMost(node->left);
+    if (node) {
+      if (node->left) {
+        return leftMost(node->left);
+      }
+      return node;
     }
-    return node;
+    return nullptr;
   }
 
   Node *rightMost(Node *node) {
-    if (node->right) {
-      return rightMost(node->right);
+    if (node) {
+      if (node->right) {
+        return rightMost(node->right);
+      }
+      return node;
     }
-    return node;
+    return nullptr;
   }
 
 public:
