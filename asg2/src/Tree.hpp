@@ -302,14 +302,14 @@ public:
 
   class iterator : public std::iterator<std::bidirectional_iterator_tag, Tree> {
   private:
-  using value_type = std::pair<const Key, Value>;
-    using reference = value_type &;
-    friend class Tree;
     // Out of bounds
     int OOBMargin;
     Node *p = nullptr;
 
   public:
+    using value_type = std::pair<const Key, Value>;
+    using reference = value_type &;
+    friend class Tree;
     iterator() : p(nullptr), OOBMargin(1) {}
     iterator(Node *p) : p(p), OOBMargin(0) {}
 
@@ -387,14 +387,13 @@ public:
 
   class const_iterator : public std::iterator<std::bidirectional_iterator_tag, Tree> {
   private:
+    int OOBMargin;
+    const Node *p = nullptr;
+  public:
     using value_type = const std::pair<const Key, Value>;
     using reference = const value_type &;
     friend class Tree;
     // Out of bounds
-    int OOBMargin;
-    const Node *p = nullptr;
-
-  public:
     const_iterator() : p(nullptr), OOBMargin(1) {}
     const_iterator(Node *p) : p(p), OOBMargin(0) {}
     const_iterator(const iterator &other)
