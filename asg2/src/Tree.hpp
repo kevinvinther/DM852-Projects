@@ -250,12 +250,12 @@ public:
   Tree &operator=(Tree &&other) { return Tree(other); };
   ~Tree() { clear(); }
 
-  void clear(Tree tree) {
-    clearTraversal(tree.root);
-    tree.root = nullptr;
-    tree.first_node = nullptr;
-    tree.last_node = nullptr;
-    tree.node_count = 0;
+  void clear() {
+    clearTraversal(root);
+    root = nullptr;
+    first_node = nullptr;
+    last_node = nullptr;
+    node_count = 0;
   }
 
   void clearTraversal(Node *node) {
