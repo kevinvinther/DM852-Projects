@@ -262,7 +262,8 @@ public:
     iterator(Node *p) : p(p), OOBMargin(0) {}
 
     reference &operator*() const {
-      assert(p);
+      if (!p)
+        return *this;
       if (OOBMargin != 0) {
         throw std::out_of_range(
             "Element is not accesible: Out of bounds iterator");
@@ -271,7 +272,8 @@ public:
     }
 
     value_type *operator->() const {
-      assert(p);
+      if (!p)
+        return *this;
       if (OOBMargin != 0) {
         throw std::out_of_range(
             "Element is not accesible: Out of bounds iteartor");
@@ -280,7 +282,6 @@ public:
     }
 
     iterator &operator++() {
-      assert(p);
       if (OOBMargin != 0) {
         OOBMargin++;
       } else if (p->next()) {
@@ -299,7 +300,8 @@ public:
     }
 
     iterator &operator--() {
-      assert(p);
+      if (!p)
+        return *this;
       if (OOBMargin != 0) {
         OOBMargin--;
         return *this;
@@ -342,7 +344,8 @@ public:
         : p(other.p), OOBMargin(other.OOBMargin) {}
 
     reference &operator*() const {
-      assert(p);
+      if (!p)
+        return *this;
       if (OOBMargin != 0) {
         throw std::out_of_range(
             "Element is not accesible: Out of bounds iterator");
@@ -351,7 +354,8 @@ public:
     }
 
     value_type *operator->() const {
-      assert(p);
+      if (!p)
+        return *this;
       if (OOBMargin != 0) {
         throw std::out_of_range(
             "Element is not accesible: Out of bounds iteartor");
@@ -360,7 +364,8 @@ public:
     }
 
     const_iterator &operator++() {
-      assert(p);
+      if (!p)
+        return *this;
       if (OOBMargin != 0) {
         OOBMargin++;
       } else if (p->next()) {
@@ -379,7 +384,8 @@ public:
     }
 
     const_iterator &operator--() {
-      assert(p);
+      if (!p)
+        return *this;
       if (OOBMargin != 0) {
         OOBMargin--;
       } else if (p->prev()) {
