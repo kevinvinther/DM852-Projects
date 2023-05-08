@@ -136,7 +136,7 @@ private:
     // If the root exists
     if (root) {
       // Create a new node identical to root
-      Node *newNode = new Tree::Node(root->values->first, root->values->second);
+      Node *newNode = new Node(root->values->first, root->values->second, comp);
       // Copy the left node
       newNode->left = TreeCopy(root->left);
       if (newNode->left) {
