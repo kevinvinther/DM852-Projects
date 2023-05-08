@@ -456,7 +456,8 @@ public:
   bool empty() const { return node_count == 0; }; // must run constant time
 
   std::pair<iterator, bool> insert(const Key &key, const Value &value) {
-    Node *current = find(key);
+    auto *values = find(key);
+    Node *current = new Node(values->first, values->second, comp);
     if (current != nullptr) {
       current->values->second = value;
       return {iterator(current), false};
@@ -492,7 +493,9 @@ public:
     }
   };
   std::pair<iterator, bool> insert(Key &&key, Value &&value) {
-    Node *current = find(key);
+    auto *values = find(key);
+    Node *current = new Node(values->first, values->second, comp);
+
     if (current != nullptr) {
       current->values->second = value;
       return {iterator(current), false};
