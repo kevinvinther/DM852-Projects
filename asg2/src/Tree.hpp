@@ -19,9 +19,9 @@
 namespace DM852 {
 template <typename Key, typename Value, typename Comp = std::less<Key>>
 class Tree {
-
-private:
+public: 
   using value_type = std::pair<const Key, Value>;
+private:
 
   /*
   ** Node class for the binary search tree.
@@ -29,6 +29,7 @@ private:
   */
   class Node {
   public:
+    using value_type = std::pair<const Key, Value>;
     friend class iterator;
     friend class const_iterator;
 
@@ -268,6 +269,7 @@ public:
 
   class iterator {
   private:
+  using value_type = std::pair<const Key, Value>;
     using reference = value_type &;
     friend class Tree;
     // Out of bounds
@@ -352,6 +354,7 @@ public:
 
   class const_iterator {
   private:
+  using value_type = std::pair<const Key, Value>;
     using reference = value_type &;
     friend class Tree;
     // Out of bounds
