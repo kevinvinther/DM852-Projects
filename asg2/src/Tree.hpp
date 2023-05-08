@@ -282,6 +282,8 @@ public:
     }
 
     iterator &operator++() {
+      if (!p)
+        return *this;
       if (OOBMargin != 0) {
         OOBMargin++;
       } else if (p->next()) {
