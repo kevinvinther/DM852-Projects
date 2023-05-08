@@ -216,28 +216,25 @@ public:
 
   ~Tree() { clear(); }
 
-  bool &operator==(const Tree &other) {
-    return iteratorTraversal(root, other.root);
-  }
+  bool &operator==(const Tree &other) { return iteratorTraversal(other.root); }
 
   bool &operator==(const Tree &other) const {
-    return iteratorTraversal(root, other.root);
+    return iteratorTraversal(other.root);
   }
 
-  bool &operator!=(const Tree &other) {
-    return !iteratorTraversal(root, other.root);
-  }
+  bool &operator!=(const Tree &other) { return !iteratorTraversal(other.root); }
 
   bool &operator!=(const Tree &other) const {
-    return !iteratorTraversal(root, other.root);
+    return !iteratorTraversal(other.root);
   }
 
-  bool iteratorTraversal(Tree *root, Tree *other) const {
-    if (root->node_count != other->node_count) {
+  bool iteratorTraversal(Tree *other) const {
+    if (this->node_count != other->node_count) {
       return false;
     }
-    for (const_iterator it = this->begin(), otherIt = other.begin();
-         it != this->end() && otherIt != other.end(); ++it, ++otherIt) {
+    for (const_iterator it = const_iterator(root)->begin(),
+                        otherIt = const_iterator(other->root)->begin();
+         it != this->end() && otherIt != other->end(); ++it, ++otherIt) {
       if (it->first != otherIt->first || it->second != otherIt->second) {
         return false;
       }
