@@ -366,7 +366,7 @@ public:
       return temp;
     }
 
-    friend bool operator==(iterator a, iterator b) { return a.p == b.p; }
+    friend bool operator==(iterator a, iterator b) { return *a.p == *b.p; }
 
     friend bool operator!=(iterator a, iterator b) { return !(a == b); }
   };
@@ -444,7 +444,7 @@ public:
     }
 
     friend bool operator==(const const_iterator a, const const_iterator b) {
-      return a.p == b.p;
+      return *a.p == *b.p;
     }
 
     friend bool operator!=(const const_iterator a, const const_iterator b) {
