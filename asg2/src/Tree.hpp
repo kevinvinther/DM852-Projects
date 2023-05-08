@@ -195,7 +195,7 @@ private:
 
   Comp comp;
 
-  Tree *TreeCopy(Node *root) {
+  Node *TreeCopy(Node *root) {
     // If the root exists
     if (root) {
       // Create a new node identical to root
