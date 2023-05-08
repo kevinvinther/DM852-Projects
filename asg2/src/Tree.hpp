@@ -463,12 +463,12 @@ public:
     }
 
     if (root == nullptr) {
-      root = new Node(key, value);
+      root = new Node(key, value, comp);
       node_count++;
       return {iterator(root), true};
     }
 
-    Node *newNode = new Node(key, value);
+    Node *newNode = new Node(key, value, comp);
     current = root;
 
     while (true) {
@@ -499,12 +499,12 @@ public:
     }
 
     if (root == nullptr) {
-      root = new Node(key, value);
+      root = new Node(key, value, comp);
       node_count++;
       return {iterator(root), true};
     }
 
-    Node *newNode = new Node(key, value);
+    Node *newNode = new Node(key, value, comp);
     current = root;
 
     while (true) {
