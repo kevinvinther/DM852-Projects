@@ -455,8 +455,22 @@ public:
   int size() const { return node_count; };        // must run constant time
   bool empty() const { return node_count == 0; }; // must run constant time
 
+  Node *findNode(const Key &key) {
+    Node *node = root;
+    while (node != nullptr) {
+      if (!comp(node->values->first, key) && !comp(key, node->values->first)) {
+        return node;
+      } else if (comp(node->values->first, key)) {
+        node = node->right;
+      } else {
+        node = node->left;
+      }
+    }
+    return nullptr;
+  }
+
   std::pair<iterator, bool> insert(const Key &key, const Value &value) {
-    auto *values = find(key);
+    Node *values = findNode(key);
     Node *current = new Node(values->first, values->second, comp);
     if (current != nullptr) {
       current->values->second = value;
@@ -493,8 +507,7 @@ public:
     }
   };
   std::pair<iterator, bool> insert(Key &&key, Value &&value) {
-    auto *values = find(key);
-    Node *current = new Node(values->first, values->second, comp);
+    Node *current = findNode(key);
 
     if (current != nullptr) {
       current->values->second = value;
