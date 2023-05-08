@@ -391,7 +391,7 @@ public:
     const Node *p = nullptr;
   public:
     using value_type = const std::pair<const Key, Value>;
-    using reference = const value_type &;
+    using reference = value_type &;
     friend class Tree;
     // Out of bounds
     const_iterator() : p(nullptr), OOBMargin(1) {}
