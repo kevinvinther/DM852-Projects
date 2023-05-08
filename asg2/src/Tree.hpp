@@ -360,7 +360,7 @@ public:
     }
 
     // to satisfy bidirectional iterator
-    iterator &operator--(int) {
+    iterator operator--(int) {
       iterator temp = *this;
       --(*this);
       return temp;
