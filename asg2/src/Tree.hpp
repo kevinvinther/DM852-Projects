@@ -436,8 +436,78 @@ public:
   int size() const { return node_count; };        // must run constant time
   bool empty() const { return node_count == 0; }; // must run constant time
 
-  std::pair<iterator, bool> insert(const Key &key, const Value &value);
-  std::pair<iterator, bool> insert(Key &&key, Value &&value);
+  std::pair<iterator, bool> insert(const Key &key, const Value &value) {
+    Node *current = find(key);
+    if (current != nullptr) {
+      current->values->second = value;
+      return {iterator(current), false};
+    }
+
+    if (root == nullptr) {
+      root = new Node(key, value);
+      node_count++;
+      return {iterator(root), true};
+    }
+
+    Node *newNode = new Node(key, value);
+    current = root;
+
+    while (true) {
+      if (key < current->values->first) {
+        if (current->left) {
+          current = current->left;
+        } else {
+          current->left = newNode;
+          newNode->parent = current;
+          return {iterator(newNode), true};
+        }
+      } else {
+        if (current->right) {
+          current = current->right;
+        } else {
+          current->right = newNode;
+          newNode->parent = current;
+          return {iterator(newNode), true};
+        }
+      }
+    }
+  };
+  std::pair<iterator, bool> insert(Key &&key, Value &&value) {
+    Node *current = find(key);
+    if (current != nullptr) {
+      current->values->second = value;
+      return {iterator(current), false};
+    }
+
+    if (root == nullptr) {
+      root = new Node(key, value);
+      node_count++;
+      return {iterator(root), true};
+    }
+
+    Node *newNode = new Node(key, value);
+    current = root;
+
+    while (true) {
+      if (key < current->values->first) {
+        if (current->left) {
+          current = current->left;
+        } else {
+          current->left = newNode;
+          newNode->parent = current;
+          return {iterator(newNode), true};
+        }
+      } else {
+        if (current->right) {
+          current = current->right;
+        } else {
+          current->right = newNode;
+          newNode->parent = current;
+          return {iterator(newNode), true};
+        }
+      }
+    }
+  };
 
   iterator find(const Key &key) {
     Node *node = root;
