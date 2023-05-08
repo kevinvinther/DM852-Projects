@@ -19,10 +19,10 @@
 namespace DM852 {
 template <typename Key, typename Value, typename Comp = std::less<Key>>
 class Tree {
-public: 
+public:
   using value_type = std::pair<const Key, Value>;
-private:
 
+private:
   /*
   ** Node class for the binary search tree.
   ** Contains a key, value, and pointers to the parent, left and right nodes.
@@ -251,33 +251,35 @@ public:
   Tree &operator=(Tree &&other) { return Tree(other); };
   ~Tree() { clear(); }
 
-    bool &operator==(const Tree &other) {
-      return iteratorTraversal(root, other.root);
-    }
+  bool &operator==(const Tree &other) {
+    return iteratorTraversal(root, other.root);
+  }
 
-    bool &operator==(const Tree &other) const {
-      return iteratorTraversal(root, other.root);
-    }
+  bool &operator==(const Tree &other) const {
+    return iteratorTraversal(root, other.root);
+  }
 
-    bool &operator!=(const Tree &other) {
-      return !iteratorTraversal(root, other.root);
-    }
+  bool &operator!=(const Tree &other) {
+    return !iteratorTraversal(root, other.root);
+  }
 
-    bool &operator!=(const Tree &other) const {
-      return !iteratorTraversal(root, other.root);
-    }
+  bool &operator!=(const Tree &other) const {
+    return !iteratorTraversal(root, other.root);
+  }
 
-bool iteratorTraversal(Node *root, Node* otherRoot) {
+  bool iteratorTraversal(Node *root, Node *otherRoot) {
     if (root->node_count != otherRoot->node_count) {
-        return false;
+      return false;
     }
-     for (iterator it = root->begin(), otherIt = otherRoot->begin(); it != root->end() && otherIt != otherRoot->end(); ++it, ++otherIt) {
-        if (it->values->first != otherIt->values->first || it->values->second != otherIt->values->second) {
-            return false;
-        }
+    for (iterator it = root->begin(), otherIt = otherRoot->begin();
+         it != root->end() && otherIt != otherRoot->end(); ++it, ++otherIt) {
+      if (it->values->first != otherIt->values->first ||
+          it->values->second != otherIt->values->second) {
+        return false;
+      }
     }
     return true;
-}
+  }
 
   void clear() {
     clearTraversal(root);
@@ -299,7 +301,7 @@ bool iteratorTraversal(Node *root, Node* otherRoot) {
   private:
     // Out of bounds
     int OOBMargin;
-    Node *p = nullptr;
+    Node *p;
 
   public:
     using value_type = std::pair<const Key, Value>;
@@ -380,10 +382,12 @@ bool iteratorTraversal(Node *root, Node* otherRoot) {
     friend bool operator!=(iterator a, iterator b) { return !(a == b); }
   };
 
-  class const_iterator : public std::iterator<std::bidirectional_iterator_tag, Tree> {
+  class const_iterator
+      : public std::iterator<std::bidirectional_iterator_tag, Tree> {
   private:
     int OOBMargin;
-    const Node *p = nullptr;
+    const Node *p;
+
   public:
     using value_type = const std::pair<const Key, Value>;
     using reference = value_type &;
@@ -461,11 +465,11 @@ bool iteratorTraversal(Node *root, Node* otherRoot) {
       }
     }
 
-    friend bool operator==(const_iterator a, const_iterator b) {
+    friend bool operator==(const const_iterator a, const const_iterator b) {
       return a.p == b.p;
     }
 
-    friend bool operator!=(const_iterator a, const_iterator b) {
+    friend bool operator!=(const const_iterator a, const const_iterator b) {
       return !(a == b);
     }
   };
