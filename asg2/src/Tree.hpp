@@ -355,7 +355,7 @@ public:
   class const_iterator {
   private:
   using value_type = std::pair<const Key, Value>;
-    using reference = value_type &;
+    using reference = const value_type &;
     friend class Tree;
     // Out of bounds
     int OOBMargin;
