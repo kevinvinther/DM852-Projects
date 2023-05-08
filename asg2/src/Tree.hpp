@@ -1,3 +1,6 @@
+#ifndef TREE_H
+#define TREE_H
+
 #include <cassert>
 #include <iostream>
 
@@ -487,3 +490,5 @@ public:
   }
 };
 } // namespace DM852
+
+#endif // TREE_H
