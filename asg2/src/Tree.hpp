@@ -418,7 +418,7 @@ public:
       return p->values;
     }
 
-    iterator &operator++() {
+    const_iterator &operator++() {
       assert(p);
       if (p->next() == nullptr) {
         OOBMargin++;
@@ -431,7 +431,7 @@ public:
     }
 
     // to satisfy bidirectional iterator
-    iterator &operator++(int) {
+    const_iterator &operator++(int) {
       assert(p);
       if (p->next() == nullptr) {
         OOBMargin++;
@@ -443,7 +443,7 @@ public:
       return *this;
     }
 
-    iterator &operator--() {
+    const_iterator &operator--() {
       assert(p);
       if (p->prev() == nullptr) {
         OOBMargin--;
@@ -456,7 +456,7 @@ public:
     }
 
     // to satisfy bidirectional iterator
-    iterator &operator--(int) {
+    const_iterator &operator--(int) {
       assert(p);
       if (p->prev() == nullptr) {
         OOBMargin--;
