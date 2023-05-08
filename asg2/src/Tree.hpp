@@ -354,7 +354,7 @@ public:
 
   class const_iterator {
   private:
-  using value_type = std::pair<const Key, Value>;
+    using value_type = const std::pair<const Key, Value>;
     using reference = const value_type &;
     friend class Tree;
     // Out of bounds
