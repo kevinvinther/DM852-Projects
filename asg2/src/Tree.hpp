@@ -286,12 +286,12 @@ public:
 
     iterator &operator++() {
       assert(p);
-      if (p->next() == nullptr) {
+      if (OOBMargin != 0) {
         OOBMargin++;
-      } else if (OOBMargin > 0) {
-        OOBMargin++;
-      } else {
+      } else if (p->next()) {
         p = p->next();
+      } else {
+        OOBMargin++;
       }
       return *this;
     }
@@ -305,12 +305,15 @@ public:
 
     iterator &operator--() {
       assert(p);
-      if (p->prev() == nullptr) {
+      if (OOBMargin != 0) {
         OOBMargin--;
-      } else if (OOBMargin > 0) {
-        OOBMargin--;
-      } else {
+        return *this;
+      }
+      if (p->prev()) {
         p = p->prev();
+
+      } else {
+        OOBMargin--;
       }
       return *this;
     }
@@ -363,12 +366,12 @@ public:
 
     const_iterator &operator++() {
       assert(p);
-      if (p->next() == nullptr) {
+      if (OOBMargin != 0) {
         OOBMargin++;
-      } else if (OOBMargin > 0) {
-        OOBMargin++;
-      } else {
+      } else if (p->next()) {
         p = p->next();
+      } else {
+        OOBMargin++;
       }
       return *this;
     }
@@ -382,12 +385,12 @@ public:
 
     const_iterator &operator--() {
       assert(p);
-      if (p->prev() == nullptr) {
+      if (OOBMargin != 0) {
         OOBMargin--;
-      } else if (OOBMargin > 0) {
-        OOBMargin--;
-      } else {
+      } else if (p->prev()) {
         p = p->prev();
+      } else {
+        OOBMargin--;
       }
       return *this;
     }
