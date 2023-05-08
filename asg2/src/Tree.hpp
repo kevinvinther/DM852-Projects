@@ -229,7 +229,7 @@ public:
       return false;
     }
     for (const_iterator it = this->begin(), otherIt = other.begin();
-         it != this->cend() && otherIt != other.cend(); ++it, ++otherIt) {
+         it != this->end() && otherIt != other.end(); ++it, ++otherIt) {
       if (it->first != otherIt->first || it->second != otherIt->second) {
         return false;
       }
