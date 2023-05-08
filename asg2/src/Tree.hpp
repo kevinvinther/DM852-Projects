@@ -407,7 +407,7 @@ public:
       return *p->values;
     }
 
-    value_type *operator->() const {
+    value_type *&operator->() const {
       assert(p);
       if (OOBMargin != 0) {
         throw std::out_of_range(
