@@ -122,8 +122,8 @@ private:
     ** @return The next node in the tree. If none return nullptr.
     */
     Node *next() {
-      if (Tree::Node::right != nullptr) {
-        Node *next = Tree::Node::right;
+      if (right != nullptr) {
+        Node *next = right;
         // In a binary search tree the right-side is larger, and we want to
         // find the smallest number that is still larger. Therefore we first
         // go to the right, and keep going left until we get the smallest
@@ -133,7 +133,7 @@ private:
         }
         return next;
       } else { // The right node does not exist
-        Tree::Node *next = this;
+        Node *next = this;
         while (next->parent) {
           if (next != next->parent->right) {
             return next->parent;
@@ -157,8 +157,8 @@ private:
     ** @return The previous node in the tree. If none return nullptr.
     */
     Node *prev() {
-      if (Tree::Node::left != nullptr) {
-        Node *next = Tree::Node::left;
+      if (left != nullptr) {
+        Node *next = left;
         // In a binary search tree the right-side is larger, and we want to
         // find the smallest number that is still larger. Therefore we first
         // go to the right, and keep going left until we get the smallest
@@ -168,7 +168,7 @@ private:
         }
         return next;
       } else { // The right node does not exist
-        Tree::Node *next = this;
+        Node *next = this;
         while (next->parent) {
           if (next != next->parent->left) {
             return next->parent;
