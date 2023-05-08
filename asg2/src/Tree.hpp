@@ -28,8 +28,8 @@ private:
     Comp comp;
 
     Node(const Key key, const Value value, Comp cmp)
-        : comp(cmp), values(new value_type(key, value)), left(nullptr),
-          right(nullptr), parent(nullptr) {}
+        : parent(nullptr), left(nullptr), right(nullptr),
+          values(new value_type(key, value)), comp(cmp) {}
 
     ~Node() {
       delete values;
