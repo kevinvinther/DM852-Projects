@@ -19,9 +19,10 @@
 namespace DM852 {
 template <typename Key, typename Value, typename Comp = std::less<Key>>
 class Tree {
-  using value_type = std::pair<const Key, Value>;
 
 private:
+  using value_type = std::pair<const Key, Value>;
+
   /*
   ** Node class for the binary search tree.
   ** Contains a key, value, and pointers to the parent, left and right nodes.
@@ -104,7 +105,7 @@ private:
     **
     ** @return True if the nodes are not equal, false otherwise.
     */
-    bool operator!=(Node &other) { return !*this == other; }
+    bool operator!=(Node &other) { return !(*this == other); }
 
     /*
     ** Inequality operator for the node.
@@ -113,7 +114,7 @@ private:
     **
     ** @return True if the nodes are not equal, false otherwise.
     */
-    bool operator!=(const Node &other) const { return !*this == other; }
+    bool operator!=(const Node &other) const { return !(*this == other); }
 
     /*
     ** Goes right once, and then left as much as possible
