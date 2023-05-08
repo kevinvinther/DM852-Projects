@@ -389,7 +389,7 @@ public:
     const Node *p;
 
   public:
-    using value_type = const std::pair<const Key, Value>;
+    using value_type = std::pair<const Key, Value>;
     using reference = value_type &;
     friend class Tree;
     // Out of bounds
@@ -407,7 +407,7 @@ public:
       return *p->values;
     }
 
-    value_type *&operator->() const {
+    value_type *operator->() const {
       assert(p);
       if (OOBMargin != 0) {
         throw std::out_of_range(
