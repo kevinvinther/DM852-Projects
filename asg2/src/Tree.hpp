@@ -300,7 +300,7 @@ public:
     }
   }
 
-  class iterator {
+  class iterator : public std::iterator<std::bidirectional_iterator_tag, Tree> {
   private:
   using value_type = std::pair<const Key, Value>;
     using reference = value_type &;
@@ -385,7 +385,7 @@ public:
     friend bool operator!=(iterator a, iterator b) { return !(a == b); }
   };
 
-  class const_iterator {
+  class const_iterator : public std::iterator<std::bidirectional_iterator_tag, Tree> {
   private:
     using value_type = const std::pair<const Key, Value>;
     using reference = const value_type &;
