@@ -341,16 +341,10 @@ public:
     }
 
     // to satisfy bidirectional iterator
-    iterator &operator++(int) {
-      assert(p);
-      if (p->next() == nullptr) {
-        OOBMargin++;
-      } else if (OOBMargin > 0) {
-        OOBMargin++;
-      } else {
-        p = p->next();
-      }
-      return *this;
+    iterator operator++(int) {
+      iterator temp = *this;
+      ++(*this);
+      return temp;
     }
 
     iterator &operator--() {
@@ -367,14 +361,9 @@ public:
 
     // to satisfy bidirectional iterator
     iterator &operator--(int) {
-      assert(p);
-      if (p->prev() == nullptr) {
-        OOBMargin--;
-      } else if (OOBMargin > 0) {
-        OOBMargin--;
-      } else {
-        p = p->prev();
-      }
+      iterator temp = *this;
+      --(*this);
+      return temp;
     }
 
     friend bool operator==(iterator a, iterator b) { return a.p == b.p; }
@@ -430,15 +419,9 @@ public:
 
     // to satisfy bidirectional iterator
     const_iterator operator++(int) {
-      assert(p);
-      if (p->next() == nullptr) {
-        OOBMargin++;
-      } else if (OOBMargin > 0) {
-        OOBMargin++;
-      } else {
-        p = p->next();
-      }
-      return *this;
+      iterator temp = *this;
+      ++(*this);
+      return temp;
     }
 
     const_iterator &operator--() {
@@ -455,14 +438,9 @@ public:
 
     // to satisfy bidirectional iterator
     const_iterator operator--(int) {
-      assert(p);
-      if (p->prev() == nullptr) {
-        OOBMargin--;
-      } else if (OOBMargin > 0) {
-        OOBMargin--;
-      } else {
-        p = p->prev();
-      }
+      iterator temp = *this;
+      --(*this);
+      return temp;
     }
 
     friend bool operator==(const const_iterator a, const const_iterator b) {
