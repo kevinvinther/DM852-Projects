@@ -267,20 +267,17 @@ public:
       return !iteratorTraversal(root, other.root);
     }
 
-    
-    bool iteratorTraversal(Node *root, Node* otherRoot) {
-      if (root.node_count != otherRoot.node_count) {
+bool iteratorTraversal(Node *root, Node* otherRoot) {
+    if (root->node_count != otherRoot->node_count) {
         return false;
-      }
-      for (iterator it(root) = begin() && iterator it(otherRoot) = begin(); it != end() && it != otherRoot.end(); ++it && ++otherRoot) {
-        if (it->values->first != otherRoot->values->first || it->values->second != otherRoot->values->second) {
-          return false;
-        }
-        it++;
-        otherRoot++;
-      }
-      return true
     }
+    for (iterator it(root) = begin(), otherIt(otherRoot) = other.begin(); it != end() && otherIt != other.end(); ++it, ++otherIt) {
+        if (it->values->first != otherIt->values->first || it->values->second != otherIt->values->second) {
+            return false;
+        }
+    }
+    return true;
+}
 
   void clear() {
     clearTraversal(root);
