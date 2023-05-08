@@ -232,7 +232,7 @@ public:
     return !iteratorTraversal(root, other.root);
   }
 
-  bool iteratorTraversal(Node *root, Node *other) {
+  bool iteratorTraversal(Node *root, Node *other) const {
     if (root->node_count != other->node_count) {
       return false;
     }
