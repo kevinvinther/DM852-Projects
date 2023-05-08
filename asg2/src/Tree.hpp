@@ -216,15 +216,15 @@ public:
 
   ~Tree() { clear(); }
 
-  bool &operator==(const Tree &other) { return iteratorTraversal(other.root); }
+  bool operator==(const Tree &other) { return iteratorTraversal(other.root); }
 
-  bool &operator==(const Tree &other) const {
+  bool operator==(const Tree &other) const {
     return iteratorTraversal(other.root);
   }
 
-  bool &operator!=(const Tree &other) { return !iteratorTraversal(other.root); }
+  bool operator!=(const Tree &other) { return !iteratorTraversal(other.root); }
 
-  bool &operator!=(const Tree &other) const {
+  bool operator!=(const Tree &other) const {
     return !iteratorTraversal(other.root);
   }
 
