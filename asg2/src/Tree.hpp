@@ -496,7 +496,7 @@ public:
     current = root;
 
     while (true) {
-      if (key < current->values->first) {
+      if (comp(key, current->values->first)) {
         if (current->left) {
           current = current->left;
         } else {
@@ -532,7 +532,7 @@ public:
     current = root;
 
     while (true) {
-      if (key < current->values->first) {
+      if (comp(key, current->values->first)) {
         if (current->left) {
           current = current->left;
         } else {
