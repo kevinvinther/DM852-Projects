@@ -228,13 +228,12 @@ public:
     return !iteratorTraversal(other.root);
   }
 
-  bool iteratorTraversal(Tree *other) const {
-    if (this->node_count != other->node_count) {
+  bool iteratorTraversal(const Tree &other) const {
+    if (this->node_count != other.node_count) {
       return false;
     }
-    for (const_iterator it = const_iterator(root)->begin(),
-                        otherIt = const_iterator(other->root)->begin();
-         it != this->end() && otherIt != other->end(); ++it, ++otherIt) {
+    for (const_iterator it = this->cbegin(), otherIt = other.cbegin();
+         it != this->cend() && otherIt != other.cend(); ++it, ++otherIt) {
       if (it->first != otherIt->first || it->second != otherIt->second) {
         return false;
       }
