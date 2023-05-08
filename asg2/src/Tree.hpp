@@ -251,6 +251,39 @@ public:
   Tree &operator=(Tree &&other) { return Tree(other); };
   ~Tree() { clear(); }
 
+    Tree &operator==(const Tree &other) {
+      return compareTraversal(root, other.root);
+    }
+
+    Tree &operator==(const Tree &other) const {
+      return compareTraversal(root, other.root);
+    }
+
+    Tree &operator!=(const Tree &other) {
+      return !compareTraversal(root, other.root);
+    }
+
+    Tree &operator!=(const Tree &other) const {
+      return !compareTraversal(root, other.root);
+    }
+
+    
+    bool compareTraversal(root, otherRoot) {
+        // If the roots neither of the roots exist, we say that they are equal
+        if (!root && !otherRoot) {
+                return true;
+        }
+        // If one of the roots exist, but not the other, we say that they are not equal
+        if (!root || !otherRoot) {
+                return false;
+        }
+        // If the keys and values are not equal, we say that they are not equal
+        if (root->values->first != otherRoot->values->first || root->values->second != otherRoot->values->second) {
+                return false;
+        } 
+        return compareTraversal(root->left, otherRoot->left) && compareTraversal(root->right, otherRoot->right);
+    }
+
   void clear() {
     clearTraversal(root);
     root = nullptr;
