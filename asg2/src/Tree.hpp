@@ -177,12 +177,13 @@ public:
         last_node(nullptr) {}
 
   Tree(const Tree &other)
-      : node_count(other.node_count), comp(Comp()), root(TreeCopy(other.root)),
+      : root(TreeCopy(other.root)), node_count(other.node_count), comp(Comp()),
         first_node(leftMost(other.root)), last_node(rightMost(other.root)){};
 
   Tree(Tree &&other)
-      : comp(Comp()), node_count(other.node_count), root(TreeCopy(other.root)),
-        first_node(leftMost(other.root)), last_node(rightMost(other.root)){};
+      : root(TreeCopy(other.root)), node_count(other.node_count),
+        comp(other.comp), first_node(leftMost(other.root)),
+        last_node(rightMost(other.root)){};
 
   Tree &operator=(const Tree &other) {
     if (this != &other) { // Check for self-assignment
