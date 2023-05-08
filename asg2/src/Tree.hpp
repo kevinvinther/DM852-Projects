@@ -263,7 +263,6 @@ public:
 
     reference &operator*() const {
       assert(p);
-      return *this;
       if (OOBMargin != 0) {
         throw std::out_of_range(
             "Element is not accesible: Out of bounds iterator");
