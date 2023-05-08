@@ -324,7 +324,15 @@ public:
       return temp;
     }
 
-    friend bool operator==(iterator a, iterator b) { return *a.p == *b.p; }
+    friend bool operator==(iterator a, iterator b) {
+      if (a.p && b.p && a.OOBMargin == 0 && b.OOBMargin == 0) {
+        return *a.p == *b.p;
+      }
+      bool aOOB = a.OOBMargin != 0 || !a.p;
+      bool bOOB = b.OOBMargin != 0 || !b.p;
+
+      return aOOB && bOOB;
+    }
 
     friend bool operator!=(iterator a, iterator b) { return !(a == b); }
   };
@@ -406,7 +414,14 @@ public:
     }
 
     friend bool operator==(const const_iterator a, const const_iterator b) {
-      return *a.p == *b.p;
+
+      if (a.p && b.p && a.OOBMargin == 0 && b.OOBMargin == 0) {
+        return *a.p == *b.p;
+      }
+      bool aOOB = a.OOBMargin != 0 || !a.p;
+      bool bOOB = b.OOBMargin != 0 || !b.p;
+
+      return aOOB && bOOB;
     }
 
     friend bool operator!=(const const_iterator a, const const_iterator b) {
