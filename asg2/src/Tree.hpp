@@ -385,14 +385,14 @@ public:
   class const_iterator
       : public std::iterator<std::bidirectional_iterator_tag, Tree> {
   private:
+    // Out of bounds
     int OOBMargin;
     const Node *p;
 
   public:
     using value_type = std::pair<const Key, Value>;
-    using reference = value_type &;
+    using reference = const value_type &;
     friend class Tree;
-    // Out of bounds
     const_iterator() : p(nullptr), OOBMargin(1) {}
     const_iterator(Node *p) : p(p), OOBMargin(0) {}
     const_iterator(const iterator &other)
@@ -465,11 +465,13 @@ public:
       }
     }
 
-    friend bool operator==(const const_iterator a, const const_iterator b) {
+    const friend bool operator==(const const_iterator a,
+                                 const const_iterator b) {
       return a.p == b.p;
     }
 
-    friend bool operator!=(const const_iterator a, const const_iterator b) {
+    const friend bool operator!=(const const_iterator a,
+                                 const const_iterator b) {
       return !(a == b);
     }
   };
