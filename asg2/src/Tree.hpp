@@ -252,36 +252,34 @@ public:
   ~Tree() { clear(); }
 
     bool &operator==(const Tree &other) {
-      return compareTraversal(root, other.root);
+      return iteratorTraversal(root, other.root);
     }
 
     bool &operator==(const Tree &other) const {
-      return compareTraversal(root, other.root);
+      return iteratorTraversal(root, other.root);
     }
 
     bool &operator!=(const Tree &other) {
-      return !compareTraversal(root, other.root);
+      return !iteratorTraversal(root, other.root);
     }
 
     bool &operator!=(const Tree &other) const {
-      return !compareTraversal(root, other.root);
+      return !iteratorTraversal(root, other.root);
     }
 
     
-    bool compareTraversal(Node *root, Node* otherRoot) {
-        // If the roots neither of the roots exist, we say that they are equal
-        if (!root && !otherRoot) {
-                return true;
+    bool iteratorTraversal(Node *root, Node* otherRoot) {
+      if (root.node_count != otherRoot.node_count) {
+        return false;
+      }
+      for (iterator it(root) = begin() && iterator it(otherRoot) = begin(); it != end() && it != otherRoot.end(); ++it && ++otherRoot) {
+        if (it->values->first != otherRoot->values->first || it->values->second != otherRoot->values->second) {
+          return false;
         }
-        // If one of the roots exist, but not the other, we say that they are not equal
-        if (!root || !otherRoot) {
-                return false;
-        }
-        // If the keys and values are not equal, we say that they are not equal
-        if ((comp(root->values->first, otherRoot->values->first) && comp(otherRoot->values->first, root->values->first)) || (root->values->second != otherRoot->values->second)) {
-                return false;
-        } 
-        return compareTraversal(root->left, otherRoot->left) && compareTraversal(root->right, otherRoot->right);
+        it++;
+        otherRoot++;
+      }
+      return true
     }
 
   void clear() {
