@@ -268,7 +268,7 @@ public:
     }
 
     
-    bool compareTraversal(root, otherRoot) {
+    bool compareTraversal(Node *root, Node* otherRoot) {
         // If the roots neither of the roots exist, we say that they are equal
         if (!root && !otherRoot) {
                 return true;
