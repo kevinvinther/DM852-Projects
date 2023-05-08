@@ -251,19 +251,19 @@ public:
   Tree &operator=(Tree &&other) { return Tree(other); };
   ~Tree() { clear(); }
 
-    Tree &operator==(const Tree &other) {
+    bool &operator==(const Tree &other) {
       return compareTraversal(root, other.root);
     }
 
-    Tree &operator==(const Tree &other) const {
+    bool &operator==(const Tree &other) const {
       return compareTraversal(root, other.root);
     }
 
-    Tree &operator!=(const Tree &other) {
+    bool &operator!=(const Tree &other) {
       return !compareTraversal(root, other.root);
     }
 
-    Tree &operator!=(const Tree &other) const {
+    bool &operator!=(const Tree &other) const {
       return !compareTraversal(root, other.root);
     }
 
