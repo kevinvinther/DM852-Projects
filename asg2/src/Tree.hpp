@@ -232,12 +232,12 @@ public:
     return !iteratorTraversal(root, other.root);
   }
 
-  bool iteratorTraversal(Node *root, Node *other) const {
+  bool iteratorTraversal(Tree *root, Tree *other) const {
     if (root->node_count != other->node_count) {
       return false;
     }
-    for (const_iterator it = begin(), otherIt = other->begin();
-         it != end() && otherIt != other->end(); ++it, ++otherIt) {
+    for (const_iterator it = this->begin(), otherIt = other.begin();
+         it != this->end() && otherIt != other.end(); ++it, ++otherIt) {
       if (it->first != otherIt->first || it->second != otherIt->second) {
         return false;
       }
