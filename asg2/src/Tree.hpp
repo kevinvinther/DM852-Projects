@@ -31,6 +31,8 @@ private:
         : parent(nullptr), left(nullptr), right(nullptr),
           values(new value_type(key, value)), comp(cmp) {}
 
+    Node(const Node &other) : values(other.values), comp(other.comp) {}
+
     ~Node() { delete values; }
 
     bool operator==(Node &other) {
@@ -173,12 +175,12 @@ public:
 
   Tree(const Tree &other)
       : root(TreeCopy(other.root)), node_count(other.node_count), comp(Comp()),
-        first_node(leftMost(other.root)), last_node(rightMost(other.root)){};
+        first_node(leftMost(root)), last_node(rightMost(root)){};
 
   Tree(Tree &&other)
       : root(TreeCopy(other.root)), node_count(other.node_count),
-        comp(other.comp), first_node(leftMost(other.root)),
-        last_node(rightMost(other.root)){};
+        comp(other.comp), first_node(leftMost(root)),
+        last_node(rightMost(root)){};
 
   Tree &operator=(const Tree &other) {
     if (this != &other) { // Check for self-assignment
