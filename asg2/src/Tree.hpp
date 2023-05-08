@@ -278,7 +278,7 @@ public:
                 return false;
         }
         // If the keys and values are not equal, we say that they are not equal
-        if (root->values->first != otherRoot->values->first || root->values->second != otherRoot->values->second) {
+        if ((comp(root->values->first, otherRoot->values->first) && comp(otherRoot->values->first, root->values->first)) || (root->values->second != otherRoot->values->second)) {
                 return false;
         } 
         return compareTraversal(root->left, otherRoot->left) && compareTraversal(root->right, otherRoot->right);
