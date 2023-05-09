@@ -28,8 +28,8 @@ private:
     Comp comp;
 
     Node(const Key key, const Value value, Comp cmp)
-        : parent(nullptr), left(nullptr), right(nullptr),
-          values(std::make_pair(key, value)), comp(cmp) {}
+        : parent(nullptr), left(nullptr), right(nullptr), values(key, value),
+          comp(cmp) {}
 
     Node(const Node &other) : values(other.values), comp(other.comp) {}
 
