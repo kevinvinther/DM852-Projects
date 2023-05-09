@@ -489,7 +489,7 @@ public:
     Node *current = findNode(key);
 
     if (current != nullptr) {
-      current->values->second = value;
+      current->values->second = std::move(value);
       return {iterator(current), false};
     }
 
