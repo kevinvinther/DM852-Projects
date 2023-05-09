@@ -29,7 +29,7 @@ private:
 
     Node(const Key key, const Value value, Comp cmp)
         : parent(nullptr), left(nullptr), right(nullptr),
-          values(value_type(key, value)), comp(cmp) {}
+          values(value_type(std::move(key), std::move(value))), comp(cmp) {}
 
     Node(const Node &other) : values(other.values), comp(other.comp) {}
 
