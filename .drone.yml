@@ -375,3 +375,24 @@ steps:
   - python3 /dm852/test_A2_tree.py runClear
   depends_on:
   - check
+
+- name: Check insert, no default ctor
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py runInsertNoDefaultCtor
+  depends_on:
+  - check
+
+- name: Check insert, greater
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py runInsertGreater
+  depends_on:
+  - check
+
+- name: Check insert, not copyable key and value
+  image: localhost:5000/dm852
+  commands:
+  - python3 /dm852/test_A2_tree.py runInsertNotCopyable
+  depends_on:
+  - check
