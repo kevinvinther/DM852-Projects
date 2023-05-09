@@ -494,7 +494,7 @@ public:
     }
 
     if (root == nullptr) {
-      root = new Node(key, value, comp);
+      root = new Node(std::move(key), std::move(value), comp);
       node_count++;
       first_node = root;
       last_node = root;
