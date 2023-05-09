@@ -501,7 +501,7 @@ public:
       return {iterator(root), true};
     }
 
-    Node *newNode = new Node(key, value, comp);
+    Node *newNode = new Node(std::move(key), std::move(value), comp);
     current = root;
 
     while (true) {
