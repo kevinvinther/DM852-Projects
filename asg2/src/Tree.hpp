@@ -525,7 +525,7 @@ public:
     reference &operator*() const {
       if (!p || OOBMargin != 0)
         throw std::out_of_range(
-            "Element is not accesible: Out of bounds iterator");
+            "&operator*: Element is not accesible: Out of bounds iterator");
       return *p->values;
     }
 
@@ -537,7 +537,7 @@ public:
     value_type *operator->() const {
       if (!p || OOBMargin != 0)
         throw std::out_of_range(
-            "Element is not accesible: Out of bounds iterator");
+            "*opterator->: Element is not accesible: Out of bounds iterator");
       return p->values;
     }
 
@@ -687,8 +687,8 @@ public:
     /// @return A reference to the value_type
     reference &operator*() const {
       if (!p || OOBMargin != 0) {
-        throw std::out_of_range(
-            "Element is not accesible: Out of bounds iterator");
+        throw std::out_of_range("const &operator*: Element is not accesible: "
+                                "Out of bounds iterator");
       }
       return *p->values;
     }
@@ -700,8 +700,8 @@ public:
     /// @return A pointer to the value_type
     value_type *operator->() const {
       if (!p || OOBMargin != 0) {
-        throw std::out_of_range(
-            "Element is not accesible: Out of bounds iteartor");
+        throw std::out_of_range("const *operator->: Element is not accesible: "
+                                "Out of bounds iteartor");
       }
       return p->values;
     }
@@ -733,7 +733,7 @@ public:
     ///
     /// @return The iterator before being incremented
     const_iterator operator++(int) {
-      iterator temp = *this;
+      const_iterator temp = *this;
       ++(*this);
       return temp;
     }
@@ -765,7 +765,7 @@ public:
     ///
     /// @return The iterator before being decremented
     const_iterator operator--(int) {
-      iterator temp = *this;
+      const_iterator temp = *this;
       --(*this);
       return temp;
     }
