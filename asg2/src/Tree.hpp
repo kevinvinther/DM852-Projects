@@ -410,6 +410,9 @@ public:
     int OOBMargin;
 
   public:
+    using value_type =
+        std::pair<const Key, Value>; ///< The value type, a pair consisting of
+                                     ///< the key and the value of a node
     using reference = value_type &;
     friend class Tree;
     iterator() : p(nullptr), OOBMargin(1) {}
@@ -493,6 +496,9 @@ public:
     int OOBMargin;
 
   public:
+    using value_type =
+        std::pair<const Key, Value>; ///< The value type, a pair consisting of
+                                     ///< the key and the value of a node
     using reference = const value_type &;
     friend class Tree;
     const_iterator() : p(nullptr), OOBMargin(1) {}
