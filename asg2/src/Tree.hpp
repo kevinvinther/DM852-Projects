@@ -3,6 +3,7 @@
 
 #include <cassert>
 #include <iostream>
+#include <iterator>
 
 // The documentation is written in Doxygen format
 // (Though the format may be wrong, inspiration from
@@ -280,6 +281,9 @@ private:
   }
 
 public:
+  ///< The tests should have access to the private members of the tree
+  friend class Test;
+
   /// @brief Default constructor for tree
   ///
   /// Initializes all the values to their default values.
@@ -321,7 +325,7 @@ public:
   /// @return A copy of the tree
   Tree(Tree &&other)
       : root(other.root), node_count(other.node_count), comp(other.comp),
-        first_node(root.first_node), last_node(other.last_node) {
+        first_node(other.first_node), last_node(other.last_node) {
     other.root = nullptr;
     other.first_node = nullptr;
     other.last_node = nullptr;
@@ -483,18 +487,21 @@ public:
   }
 
   /*!< Iterator class to go through tree */
-  class iterator : public std::iterator<std::bidirectional_iterator_tag, Tree> {
+  class iterator {
   private:
     Node *p;       ///< The node the iterator points to
     int OOBMargin; ///< The margin of how much the iterator is out of bounds
 
   public:
+    using iterator_category = std::bidirectional_iterator_tag;
     using value_type =
         std::pair<const Key, Value>; ///< The value type, a pair consisting of
                                      ///< the key and the value of a node
-    using reference = value_type &;  ///< The reference type, a reference to a
-                                     ///< value_type
-    friend class Tree;               ///< Tree can access private members
+    using difference_type = value_type;
+    using reference = value_type &; ///< The reference type, a reference to a
+                                    ///< value_type
+    using pointer = value_type *;
+    friend class Tree; ///< Tree can access private members
 
     /// @brief Default constructor for iterator
     ///
@@ -633,19 +640,21 @@ public:
   };
 
   /*!< Const iterator to go through trees */
-  class const_iterator
-      : public std::iterator<std::bidirectional_iterator_tag, Tree> {
+  class const_iterator {
   private:
     const Node *p; ///< The node the iterator points to
     int OOBMargin; ///< The margin of how much out of bounds the iterator is
 
   public:
+    using iterator_category = std::bidirectional_iterator_tag;
     using value_type =
         std::pair<const Key, Value>; ///< The value type, a pair consisting of
                                      ///< the key and the value of a node
+    using difference = value_type;
     using reference = const value_type &; ///< The reference type, a reference
                                           ///< to a value_type
-    friend class Tree;                    ///< Tree can access private members
+    using pointer = const value_type *;
+    friend class Tree; ///< Tree can access private members
 
     /// @brief Constructor for const iterator
     ///
