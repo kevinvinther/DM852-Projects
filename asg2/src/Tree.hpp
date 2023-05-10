@@ -301,10 +301,11 @@ public:
   ///
   /// Running time is O(n) where n is the number of nodes in the tree.
   /// Explanation:
+  /// O(n) * 3 = O(n)
+  ///
   /// @see TreeCopy()
   /// @see leftMost()
   /// @see rightMost()
-  /// O(n) * 3 = O(n)
   ///
   /// @param other The tree to copy
   ///
@@ -331,10 +332,11 @@ public:
   ///
   /// Running time is O(n) where n is the number of nodes in the tree.
   /// Explanation:
+  /// O(n) * 3 = O(n)
+  ///
   /// @see TreeCopy()
   /// @see leftMost()
   /// @see rightMost()
-  /// O(n) * 3 = O(n)
   ///
   /// @param other The tree to copy
   ///
