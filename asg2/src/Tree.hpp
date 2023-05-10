@@ -27,7 +27,7 @@ private:
     value_type *values;
     Comp comp;
 
-    Node(const Key key, const Value value, Comp cmp)
+    Node(const Key &key, const Value &value, Comp cmp)
         : parent(nullptr), left(nullptr), right(nullptr),
           values(new value_type(key, value)), comp(cmp) {}
 
