@@ -315,12 +315,6 @@ public:
 
   /// @brief Move constructor for tree
   ///
-  /// Running time is O(n) where n is the number of nodes in the tree.
-  /// Explanation:
-  /// @see TreeCopy()
-  /// @see leftMost()
-  /// @see rightMost()
-  ///
   /// @param other The tree to move
   ///
   /// @return A copy of the tree
@@ -333,6 +327,18 @@ public:
     other.node_count = 0;
   };
 
+  /// @brief Copy assignment operator for tree
+  ///
+  /// Running time is O(n) where n is the number of nodes in the tree.
+  /// Explanation:
+  /// @see TreeCopy()
+  /// @see leftMost()
+  /// @see rightMost()
+  /// O(n) * 3 = O(n)
+  ///
+  /// @param other The tree to copy
+  ///
+  /// @return A copy of the tree
   Tree &operator=(const Tree &other) {
     if (this != &other) { // Check for self-assignment
       clear();
@@ -345,6 +351,11 @@ public:
     return *this;
   };
 
+  /// @brief Move assignment operator for tree
+  ///
+  /// @param other The tree to move
+  ///
+  /// @return A copy of the tree
   Tree &operator=(Tree &&other) {
     if (this != &other) { // Check for self-assignment
       clear();
@@ -362,16 +373,70 @@ public:
     return *this;
   };
 
+  /// @brief Destructor for tree
+  ///
+  /// Running time is O(n) where n is the number of nodes in the tree.
+  /// Explanation:
+  /// @see clearTraversal()
   ~Tree() { clear(); }
 
+  /// @brief Equality operator for tree
+  ///
+  /// This operator uses iterators to traverse the trees and compare the
+  /// values.
+  ///
+  /// Running time is O(n) where n is the number of nodes in the tree.
+  /// Explanation:
+  /// @see iteratorTraversal()
+  ///
+  /// @param other The tree to compare to
+  ///
+  /// @return True if the trees are equal, false otherwise
   bool operator==(const Tree &other) { return iteratorTraversal(other); }
 
+  /// @brief Const equality operator for tree
+  ///
+  /// @see operator==(const Tree &other)
+  ///
+  /// @param other The tree to compare to
+  ///
+  /// @return True if the trees are equal, false otherwise
   bool operator==(const Tree &other) const { return iteratorTraversal(other); }
 
+  /// @brief Inequality operator for tree
+  ///
+  /// This operator uses iterators to traverse the trees and compare the
+  /// values.
+  ///
+  /// Running time is O(n) where n is the number of nodes in the tree.
+  /// Explanation:
+  /// @see iteratorTraversal()
+  ///
+  /// @param other The tree to compare to
+  ///
+  /// @return True if the trees are not equal, false otherwise
   bool operator!=(const Tree &other) { return !iteratorTraversal(other); }
 
+  /// @brief Const inequality operator for tree
+  ///
+  /// @see operator!=(const Tree &other)
+  ///
+  /// @param other The tree to compare to
   bool operator!=(const Tree &other) const { return !iteratorTraversal(other); }
 
+  /// @brief Equality operator for tree
+  ///
+  /// This operator uses iterators to traverse the trees and compare the
+  /// values.
+  ///
+  /// Running time is O(n) where n is the number of nodes in the tree.
+  /// Explanation:
+  /// Two iterators are used to traverse the trees, and the comparison
+  /// function is used to compare the values, which are all nodes.
+  ///
+  /// @param other The tree to compare to
+  ///
+  /// @return True if the trees are equal, false otherwise
   bool iteratorTraversal(const Tree &other) const {
     if (node_count != other.node_count) {
       return false;
@@ -387,6 +452,11 @@ public:
     return true;
   }
 
+  /// @brief Clears tree to empty state
+  ///
+  /// Running time is O(n) where n is the number of nodes in the tree.
+  /// Explanation:
+  /// @see clearTraversal()
   void clear() {
     clearTraversal(root);
     root = nullptr;
@@ -395,6 +465,13 @@ public:
     node_count = 0;
   }
 
+  /// @brief Deletes all nodes in tree recursively
+  ///
+  /// Running time is O(n) where n is the number of nodes in the tree.
+  /// Explanation:
+  /// Each node is recursively deleted, thus each node is visited once.
+  ///
+  /// @param node The node to start from
   void clearTraversal(Node *node) {
     if (node) {
       clearTraversal(node->left);
@@ -403,21 +480,39 @@ public:
     }
   }
 
+  /*!< Iterator class to go through tree */
   class iterator : public std::iterator<std::bidirectional_iterator_tag, Tree> {
   private:
-    // Out of bounds
-    Node *p;
-    int OOBMargin;
+    Node *p;       ///< The node the iterator points to
+    int OOBMargin; ///< The margin of how much the iterator is out of bounds
 
   public:
     using value_type =
         std::pair<const Key, Value>; ///< The value type, a pair consisting of
                                      ///< the key and the value of a node
-    using reference = value_type &;
-    friend class Tree;
+    using reference = value_type &;  ///< The reference type, a reference to a
+                                     ///< value_type
+    friend class Tree;               ///< Tree can access private members
+
+    /// @brief Default constructor for iterator
+    ///
+    /// @return An iterator pointing to nullptr
     iterator() : p(nullptr), OOBMargin(1) {}
+
+    /// @brief Constructor for iterator
+    ///
+    /// @param p The node to point to
+    ///
+    /// @return An iterator pointing to p
     iterator(Node *p) : p(p), OOBMargin(0) {}
 
+    /// @brief Dereference operator for iterator
+    ///
+    /// @throw std::out_of_range if the iterator is out of bounds
+    ///
+    /// @see operator->()
+    ///
+    /// @return A reference to the value_type
     reference &operator*() const {
       if (!p || OOBMargin != 0)
         throw std::out_of_range(
@@ -425,6 +520,11 @@ public:
       return *p->values;
     }
 
+    /// @brief Arrow operator for iterator
+    ///
+    /// @throw std::out_of_range if the iterator is out of bounds
+    ///
+    /// @return A pointer to the value_type
     value_type *operator->() const {
       if (!p || OOBMargin != 0)
         throw std::out_of_range(
@@ -432,6 +532,14 @@ public:
       return p->values;
     }
 
+    /// @brief Increment operator for iterator
+    ///
+    /// This function uses the OOBMargin variable, to see if the iterator gets
+    /// "out of bounds" or "past the end" after being incremented. If so, OOB is
+    /// incremented. If not, the iterator is incremented if the next node is not
+    /// null, otherwise OOBMargin is incremented.
+    ///
+    /// @return The iterator after being incremented
     iterator &operator++() {
       if (!p)
         return *this;
@@ -445,13 +553,25 @@ public:
       return *this;
     }
 
-    // to satisfy bidirectional iterator
+    /// @brief Post-increment operator for iterator (++i)
+    ///
+    /// @see operator++()
+    ///
+    /// @return The iterator before being incremented
     iterator operator++(int) {
       iterator temp = *this;
       ++(*this);
       return temp;
     }
 
+    /// @brief Decrement operator for iterator
+    ///
+    /// This function uses the OOBMargin variable, to see if the iterator gets
+    /// "out of bounds" or "past the end" after being decremented. If so, OOB is
+    /// decremented. If not, the iterator is decremented if the previous node is
+    /// not null, otherwise OOBMargin is decremented.
+    ///
+    /// @return The iterator after being decremented
     iterator &operator--() {
       if (!p)
         return *this;
@@ -468,13 +588,30 @@ public:
       return *this;
     }
 
-    // to satisfy bidirectional iterator
+    /// @brief Post-decrement operator for iterator (--i)
+    ///
+    /// @see operator--()
+    ///
+    /// @return The iterator before being decremented
     iterator operator--(int) {
       iterator temp = *this;
       --(*this);
       return temp;
     }
 
+    /// @brief Equality operator for iterator
+    ///
+    /// This function uses the OOBMargin variable, to see if the iterators are
+    /// equal. If both iterators are not out of bounds, the equality is
+    /// determined by comparing the values of the nodes they point to.
+    ///
+    /// Otherwise, if one of the iterators is out of bounds, the equality is
+    /// determined by checking if both iterators are out of bounds.
+    ///
+    /// @param a The first iterator to compare
+    /// @param b The second iterator to compare
+    ///
+    /// @return True if the iterators are equal, false otherwise
     friend bool operator==(iterator a, iterator b) {
       if (a.p && b.p && a.OOBMargin == 0 && b.OOBMargin == 0) {
         return *a.p == *b.p;
@@ -485,27 +622,58 @@ public:
       return aOOB && bOOB;
     }
 
+    /// @brief Inequality operator for iterator
+    ///
+    /// @see operator==(iterator a, iterator b)
+    ///
+    /// @return True if not equal, false otherwise
     friend bool operator!=(iterator a, iterator b) { return !(a == b); }
   };
 
+  /*!< Const iterator to go through trees */
   class const_iterator
       : public std::iterator<std::bidirectional_iterator_tag, Tree> {
   private:
-    // Out of bounds
-    const Node *p;
-    int OOBMargin;
+    const Node *p; ///< The node the iterator points to
+    int OOBMargin; ///< The margin of how much out of bounds the iterator is
 
   public:
     using value_type =
         std::pair<const Key, Value>; ///< The value type, a pair consisting of
                                      ///< the key and the value of a node
-    using reference = const value_type &;
-    friend class Tree;
+    using reference = const value_type &; ///< The reference type, a reference
+                                          ///< to a value_type
+    friend class Tree;                    ///< Tree can access private members
+
+    /// @brief Constructor for const iterator
+    ///
+    /// @return A const iterator pointing to nullptr
     const_iterator() : p(nullptr), OOBMargin(1) {}
+
+    /// @brief Constructor for const iterator
+    ///
+    /// @param p The node to point to
+    ///
+    /// @return A const iterator pointing to p
     const_iterator(Node *p) : p(p), OOBMargin(0) {}
+
+    /// @brief Constructor for const iterator
+    ///
+    /// Takes a non-const iterator and makes it const
+    ///
+    /// @param other The iterator to copy
+    ///
+    /// @return A const iterator pointing to the same node as other
     const_iterator(const iterator &other)
         : p(other.p), OOBMargin(other.OOBMargin) {}
 
+    /// @brief Dereference operator for const iterator
+    ///
+    /// @throw std::out_of_range if the iterator is out of bounds
+    ///
+    /// @see operator->()
+    ///
+    /// @return A reference to the value_type
     reference &operator*() const {
       if (!p || OOBMargin != 0) {
         throw std::out_of_range(
@@ -514,6 +682,11 @@ public:
       return *p->values;
     }
 
+    /// @brief Arrow operator for const iterator
+    ///
+    /// @throw std::out_of_range if the iterator is out of bounds
+    ///
+    /// @return A pointer to the value_type
     value_type *operator->() const {
       if (!p || OOBMargin != 0) {
         throw std::out_of_range(
@@ -522,6 +695,14 @@ public:
       return p->values;
     }
 
+    /// @brief Increment operator for const iterator
+    ///
+    /// This function uses the OOBMargin variable, to see if the iterator gets
+    /// "out of bounds" or "past the end" after being incremented. If so, OOB is
+    /// incremented. If not, the iterator is incremented if the next node is not
+    /// null, otherwise OOBMargin is incremented.
+    ///
+    /// @return The iterator after being incremented
     const_iterator &operator++() {
       if (!p)
         return *this;
@@ -535,13 +716,25 @@ public:
       return *this;
     }
 
-    // to satisfy bidirectional iterator
+    /// @brief Post-increment operator for iterator (++i)
+    ///
+    /// @see operator++()
+    ///
+    /// @return The iterator before being incremented
     const_iterator operator++(int) {
       iterator temp = *this;
       ++(*this);
       return temp;
     }
 
+    /// @brief Decrement operator for iterator
+    ///
+    /// This function uses the OOBMargin variable, to see if the iterator gets
+    /// "out of bounds" or "past the end" after being decremented. If so, OOB is
+    /// decremented. If not, the iterator is decremented if the previous node is
+    /// not null, otherwise OOBMargin is decremented.
+    ///
+    /// @return The iterator after being decremented
     const_iterator &operator--() {
       if (!p)
         return *this;
@@ -555,13 +748,30 @@ public:
       return *this;
     }
 
-    // to satisfy bidirectional iterator
+    /// @brief Post-decrement operator for iterator (--i)
+    ///
+    /// @see operator--()
+    ///
+    /// @return The iterator before being decremented
     const_iterator operator--(int) {
       iterator temp = *this;
       --(*this);
       return temp;
     }
 
+    /// @brief Equality operator for iterator
+    ///
+    /// This function uses the OOBMargin variable, to see if the iterators are
+    /// equal. If both iterators are not out of bounds, the equality is
+    /// determined by comparing the values of the nodes they point to.
+    ///
+    /// Otherwise, if one of the iterators is out of bounds, the equality is
+    /// determined by checking if both iterators are out of bounds.
+    ///
+    /// @param a The first iterator to compare
+    /// @param b The second iterator to compare
+    ///
+    /// @return True if the iterators are equal, false otherwise
     friend bool operator==(const const_iterator a, const const_iterator b) {
 
       if (a.p && b.p && a.OOBMargin == 0 && b.OOBMargin == 0) {
@@ -573,14 +783,39 @@ public:
       return aOOB && bOOB;
     }
 
+    /// @brief Inequality operator for iterator
+    ///
+    /// @see operator==(iterator a, iterator b)
+    ///
+    /// @return True if not equal, false otherwise
     friend bool operator!=(const const_iterator a, const const_iterator b) {
       return !(a == b);
     }
   };
 
-  int size() const { return node_count; };        // must run constant time
-  bool empty() const { return node_count == 0; }; // must run constant time
+  /// @brief Returns the size of the tree
+  ///
+  /// Uses the variable node_count which is incremented when a new node is
+  /// inserted.
+  ///
+  /// @return The size of the tree
+  int size() const { return node_count; };
 
+  /// @brief Whether or not the tree is empty
+  ///
+  /// @returns True if tree is empty, false otherwise
+  bool empty() const { return node_count == 0; };
+
+  /// @brief Finds node from key
+  ///
+  /// This functions goes through each node to find the one with the specified
+  /// key. If none is found, it returns nullptr
+  ///
+  /// Running time is O(n) where n is the height of the tree.
+  /// Explanation:
+  /// In the worst case scenario, we need to go through each node.
+  ///
+  /// @return Node from key or nullptr if none is found
   Node *findNode(const Key &key) {
     Node *node = root;
     while (node != nullptr) {
@@ -595,6 +830,23 @@ public:
     return nullptr;
   }
 
+  /// @brief Inserts node into tree
+  ///
+  /// This function first checks if the key already exists in the tree. If it
+  /// does, the value is updated. Otherwise, the function checks if the tree is
+  /// empty. If it is, the root is set to the new node. Otherwise, the function
+  /// goes through the tree until it finds the correct place to insert the new
+  /// node.
+  ///
+  /// Running time is O(n) where n is the height of the tree.
+  /// Explanation:
+  /// In the worst case scenario, we need to go through each node.
+  ///
+  /// @param key The key to insert
+  /// @param value The value to insert
+  ///
+  /// @return A pair with an iterator to the inserted node and a bool that is
+  /// true if the node was inserted, false otherwise
   std::pair<iterator, bool> insert(const Key &key, const Value &value) {
     Node *current = findNode(key);
 
@@ -640,6 +892,15 @@ public:
       }
     }
   };
+  /// @brief Inserts node into tree using move semantics
+  ///
+  /// @see insert(const Key &key, const Value &value)
+  ///
+  /// @param key The key to insert
+  /// @param value The value to insert
+  ///
+  /// @return A pair with an iterator to the inserted node and a bool that is
+  /// true if the node was inserted, false otherwise.
   std::pair<iterator, bool> insert(Key &&key, Value &&value) {
     Node *current = findNode(key);
 
@@ -686,6 +947,19 @@ public:
     }
   };
 
+  /// @brief Finds node from key and returns an iterator to it
+  ///
+  /// This is like findNode, but it returns an iterator instead of a node.
+  /// If the node is not found, it returns an iterator to end().
+  /// @see findNode(const Key &key)
+  ///
+  /// Running time is O(n) where n is the height of the tree.
+  /// Explanation:
+  /// In the worst case scenario, we need to go through each node.
+  ///
+  /// @param key The key to find
+  ///
+  /// @return Iterator to node from key or end() if none is found
   iterator find(const Key &key) {
     Node *node = root;
     while (node != nullptr) {
@@ -699,6 +973,14 @@ public:
     }
     return end();
   };
+
+  /// @brief Finds node from key and returns a const_iterator to it.
+  ///
+  /// @see find(const Key &key)
+  ///
+  /// @param key The key to find
+  ///
+  /// @return Const_iterator to node from key or end() if none is found
   const_iterator find(const Key &key) const {
     Node *node = root;
     while (node != nullptr) {
@@ -713,24 +995,53 @@ public:
     return end();
   };
 
+  /// @brief An iterator to the first node in the tree
+  ///
+  /// @return An iterator to the first node
   iterator begin() { return iterator(first_node); };
+
+  /// @brief A const_iterator to the first node in the tree
+  ///
+  /// @return A const_iterator to the first node
   const_iterator begin() const { return const_iterator(first_node); };
 
+  /// @brief An iterator to the node after the last node in the tree
+  ///
+  /// @return An iterator to the node after the last node
   iterator end() { return ++iterator(last_node); };
+
+  /// @brief A const_iterator to the node after the last node in the tree
+  ///
+  /// @return A const_iterator to the node after the last node
   const_iterator end() const { return ++const_iterator(last_node); };
 
+  /// @brief Returns the key-value pair of the first node
+  ///
+  /// @return The key-value pair of the first node
   value_type &front() {
     assert(first_node);
     return *first_node->values;
   }
+
+  /// @brief Returns the key-value pair of the first node
+  ///
+  /// @return The key-value pair of the first node
   const value_type &front() const {
     assert(first_node);
     return *first_node->values;
   }
+
+  /// @brief Returns the key-value pair of the last node
+  ///
+  /// @return The key-value pair of the last node
   value_type &back() {
     assert(last_node);
     return *last_node->values;
   }
+
+  /// @brief Returns the key-value pair of the last node
+  ///
+  /// @return The key-value pair of the last node
   const value_type &back() const {
     assert(last_node);
     return *last_node->values;
