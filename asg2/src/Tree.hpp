@@ -497,11 +497,11 @@ public:
     using value_type =
         std::pair<const Key, Value>; ///< The value type, a pair consisting of
                                      ///< the key and the value of a node
-    using difference_type = value_type;
-    using reference = value_type &; ///< The reference type, a reference to a
-                                    ///< value_type
-    using pointer = value_type *;
-    friend class Tree; ///< Tree can access private members
+    using difference_type = int;     ///< The difference type
+    using reference = value_type &;  ///< The reference type, a reference to a
+                                     ///< value_type
+    using pointer = value_type *; ///< The pointer type, a pointer to value_type
+    friend class Tree;            ///< Tree can access private members
 
     /// @brief Default constructor for iterator
     ///
@@ -650,11 +650,11 @@ public:
     using value_type =
         std::pair<const Key, Value>; ///< The value type, a pair consisting of
                                      ///< the key and the value of a node
-    using difference = value_type;
     using reference = const value_type &; ///< The reference type, a reference
                                           ///< to a value_type
-    using pointer = const value_type *;
-    friend class Tree; ///< Tree can access private members
+    using pointer = const value_type *;   ///< Pointer to value_type
+    using difference_type = int;          ///< The difference type
+    friend class Tree;                    ///< Tree can access private members
 
     /// @brief Constructor for const iterator
     ///
