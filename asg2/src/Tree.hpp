@@ -9,6 +9,7 @@
 // https://en.wikipedia.org/wiki/Doxygen?useskin=vector)
 
 namespace DM852 {
+
 template <typename Key, typename Value, typename Comp = std::less<Key>>
 class Tree {
 public:
@@ -17,7 +18,6 @@ public:
 private:
   class Node {
   public:
-    using value_type = std::pair<const Key, Value>;
     friend class iterator;
     friend class const_iterator;
 
@@ -263,7 +263,6 @@ public:
     int OOBMargin;
 
   public:
-    using value_type = std::pair<const Key, Value>;
     using reference = value_type &;
     friend class Tree;
     iterator() : p(nullptr), OOBMargin(1) {}
@@ -347,7 +346,6 @@ public:
     int OOBMargin;
 
   public:
-    using value_type = std::pair<const Key, Value>;
     using reference = const value_type &;
     friend class Tree;
     const_iterator() : p(nullptr), OOBMargin(1) {}
