@@ -33,6 +33,10 @@ private:
 
     Node(const Node &other) : values(other.values), comp(other.comp) {}
 
+    Node(Key &&key, Value &&value, Comp cmp)
+        : parent(nullptr), left(nullptr), right(nullptr),
+          values(new value_type(std::move(key), std::move(value))), comp(cmp) {}
+
     ~Node() { delete values; }
 
     bool operator==(Node &other) {
