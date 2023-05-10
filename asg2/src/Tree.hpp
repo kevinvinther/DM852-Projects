@@ -7,54 +7,129 @@
 // The documentation is written in Doxygen format
 // (Though the format may be wrong, inspiration from
 // https://en.wikipedia.org/wiki/Doxygen?useskin=vector)
+// To see documentation in html format, install doxygen
+// run `$ doxygen -g dconfig` to create config file
+// run `doxygen dconfig` to create html files
 
 namespace DM852 {
 
+/// @brief A binary search tree
+///
+/// @tparam Key The key type
+/// @tparam Value The value type
+/// @tparam Comp The comparison function
+///
+/// This tree is not a red-black tree, i.e., it is *not* self-balancing.
 template <typename Key, typename Value, typename Comp = std::less<Key>>
 class Tree {
 public:
-  using value_type = std::pair<const Key, Value>;
+  using value_type =
+      std::pair<const Key, Value>; ///< The value type, a pair consisting of the
+                                   ///< key and the value of a node
 
 private:
+  /// @brief A node in the tree
   class Node {
   public:
-    friend class iterator;
-    friend class const_iterator;
+    friend class iterator; ///< The iterator class can access private members of
+                           ///< Node
+    friend class const_iterator; ///< The const_iterator class can access
+                                 ///< private members of Node
 
-    Node *parent;
-    Node *left;
-    Node *right;
-    value_type *values;
-    Comp comp;
+    Node *parent; ///< The parent node
+    Node *left;   ///< The left child node (smaller key), or nullptr if none
+    Node *right;  ///< The right child node (larger key), or nullptr if none
+    value_type *values; ///< The key-value pair of the node
+    Comp comp;          ///< The comparison function
 
+    /// @brief Constructor for a node
+    ///
+    /// This constructor simply sets all the appropriate values through a member
+    /// initalization list.
+    ///
+    /// The values are initializes to be the key-value pair, using the
+    /// value_type type.
+    ///
+    /// @param key The key of the node
+    /// @param value The value of the node
+    /// @param cmp The comparison function
     Node(const Key &key, const Value &value, Comp cmp)
         : parent(nullptr), left(nullptr), right(nullptr),
           values(new value_type(key, value)), comp(cmp) {}
 
+    /// @brief Copy constructor for a node
+    ///
+    /// This constructor copies one node to another.
+    ///
+    /// @param other The node to copy
     Node(const Node &other) : values(other.values), comp(other.comp) {}
 
+    /// @brief Move constructor for a node
+    ///
+    /// This constructor moves one node to another, using std::move.
+    ///
+    /// @param key The key of the node
+    /// @param value The value of the node
+    /// @param cmp The comparison function
     Node(Key &&key, Value &&value, Comp cmp)
         : parent(nullptr), left(nullptr), right(nullptr),
           values(new value_type(std::move(key), std::move(value))), comp(cmp) {}
 
+    /// @brief Destructor for a node
+    ///
+    /// This destructor deletes the values pointer, which is a pointer to a
+    /// value_type of the key-value pair.
     ~Node() { delete values; }
 
+    /// @brief Equality operator for a node.
+    ///
+    /// This operator uses the comparison function to compare the keys of two
+    /// nodes, and if they are equal, it compares the elements.
+    ///
+    /// @param other The node to compare to
     bool operator==(Node &other) {
       return (!(comp(values->first, other.values->first) &&
                 !comp(other.values->first, values->first)) &&
               values->second == other.values->second);
     }
 
+    /// @brief Const equality operator for a node.
+    ///
+    /// Const version of the equality operator.
+    /// @see operator==(Node &other)
+    ///
+    /// @param other The node to compare to
     bool operator==(const Node &other) const {
       return (!(comp(values->first, other.values->first) &&
                 !comp(other.values->first, values->first)) &&
               values->second == other.values->second);
     }
 
+    /// @brief Inequality operator for a node.
+    ///
+    /// This operator uses the equality operator to compare two nodes.
+    /// @see operator==(Node &other)
+    ///
+    /// @param other The node to compare to
     bool operator!=(Node &other) { return !(operator==(other)); }
 
+    /// @brief Inequality operator for a node.
+    ///
+    /// This operator uses the equality operator to compare two nodes.
+    /// @see operator==(Node &other)
+    ///
+    /// @param other The node to compare to
     bool operator!=(const Node &other) const { return !(operator==(other)); }
 
+    /// @brief Goes right once, and then left as much as possible
+    ///
+    /// This function finds the next node in the tree.
+    ///
+    /// Running time is: O(n) where n is the height of the tree.
+    /// In the worst case scenario, the function could traverse as many nodes as
+    /// there are levens in the tree, which is the height of the tree.
+    ///
+    /// @return The next node in the tree. If none return nullptr.
     Node *next() {
       if (right != nullptr) {
         Node *next = right;
@@ -78,18 +153,21 @@ private:
       }
     }
 
-    /*
-    ** Goes right once, and then left as much as possible
-    **
-    ** @return The next node in the tree. If none return nullptr.
-    */
+    /// @brief Const version of next()
+    ///
+    /// @see next()
+    ///
+    /// @return The next node in the tree.
     const Node *next() const { return const_cast<Node *>(this)->next(); }
 
-    /*
-    ** Goes left once, and then right as much as possible
-    **
-    ** @return The previous node in the tree. If none return nullptr.
-    */
+    /// @brief Goes left once, and then right as much as possible
+    ///
+    /// This function finds the previous node in the tree.
+    /// The running time is: O(n) where n is the height of the tree.
+    /// In the worst case scenario, the function could traverse as many nodes as
+    /// there are levens in the tree, which is the height of the tree.
+    ///
+    /// @return The previous node in the tree.
     Node *prev() {
       if (left != nullptr) {
         Node *next = left;
@@ -113,20 +191,29 @@ private:
       }
     }
 
-    /*
-    ** Goes left once, and then right as much as possible
-    **
-    ** @return The previous node in the tree. If none return nullptr.
-    */
+    /// @brief Const version of prev()
+    ///
+    /// @see prev()
+    ///
+    /// @return The previous node in the tree.
     const Node *prev() const { return const_cast<Node *>(this)->prev(); }
   };
 
-  Node *root;
-  int node_count;
-  Comp comp;
-  Node *first_node;
-  Node *last_node;
+  Node *root;       ///< The root of the tree
+  int node_count;   ///< The number of nodes in the tree
+  Comp comp;        ///< The comparison function
+  Node *first_node; ///< The first node in the tree (smallest)
+  Node *last_node;  ///< The last node in the tree (largest)
 
+  /// @brief Copies nodes of tree from root down
+  ///
+  /// Running time is O(n) where n is the number of nodes in the tree.
+  /// Explanation:
+  /// We copy each node in the tree, guaranteed, and we can't copy more
+  /// nodes than there are in the tree. We only do this once, securing
+  /// the O(n) running time.
+  ///
+  /// @param root The root of the tree to copy
   Node *TreeCopy(Node *root) {
     // If the root exists
     if (root) {
@@ -148,6 +235,18 @@ private:
     return nullptr;
   }
 
+  /// @brief Finds the left-most node in the tree
+  ///
+  /// Running time is O(n) where n is the height of the tree.
+  /// Explanation:
+  /// The function goes left as much as possible, and then returns the node.
+  /// In the worst case scenario, the function could traverse as many nodes as
+  /// there are levens in the tree, which is the height of the tree.
+  /// This would happen if the tree only has left-side nodes.
+  ///
+  /// @param node The node to start from
+  ///
+  /// @return The left-most node in the tree
   Node *leftMost(Node *node) {
     if (node) {
       if (node->left) {
@@ -158,6 +257,18 @@ private:
     return nullptr;
   }
 
+  /// @brief Finds the right-most node in the tree
+  ///
+  /// Running time is O(n) where n is the height of the tree.
+  /// Explanation:
+  /// The function goes right as much as possible, and then returns the node.
+  /// In the worst case scenario, the function could traverse as many nodes as
+  /// there are levens in the tree, which is the height of the tree.
+  /// This would happen if the tree only has right-side nodes.
+  ///
+  /// @param node The node to start from
+  ///
+  /// @return The right-most node in the tree
   Node *rightMost(Node *node) {
     if (node) {
       if (node->right) {
@@ -169,22 +280,58 @@ private:
   }
 
 public:
+  /// @brief Default constructor for tree
+  ///
+  /// Initializes all the values to their default values.
   Tree()
       : root(nullptr), node_count(0), comp(Comp()), first_node(nullptr),
         last_node(nullptr) {}
 
+  /// @brief Constructor for tree with a comparison function
+  ///
+  /// Initializes all the values to their default values, and sets the
+  /// comparison function to the one given.
+  ///
+  /// @param comp The comparison function to use
   Tree(Comp comp)
       : root(nullptr), node_count(0), comp(comp), first_node(nullptr),
         last_node(nullptr) {}
 
+  /// @brief Copy constructor for tree
+  ///
+  /// Running time is O(n) where n is the number of nodes in the tree.
+  /// Explanation:
+  /// @see TreeCopy()
+  /// @see leftMost()
+  /// @see rightMost()
+  /// O(n) * 3 = O(n)
+  ///
+  /// @param other The tree to copy
+  ///
+  /// @return A copy of the tree
   Tree(const Tree &other)
       : root(TreeCopy(other.root)), node_count(other.node_count), comp(Comp()),
         first_node(leftMost(root)), last_node(rightMost(root)){};
 
+  /// @brief Move constructor for tree
+  ///
+  /// Running time is O(n) where n is the number of nodes in the tree.
+  /// Explanation:
+  /// @see TreeCopy()
+  /// @see leftMost()
+  /// @see rightMost()
+  ///
+  /// @param other The tree to move
+  ///
+  /// @return A copy of the tree
   Tree(Tree &&other)
-      : root(TreeCopy(other.root)), node_count(other.node_count),
-        comp(other.comp), first_node(leftMost(root)),
-        last_node(rightMost(root)){};
+      : root(other.root), node_count(other.node_count), comp(other.comp),
+        first_node(root.first_node), last_node(other.last_node) {
+    other.root = nullptr;
+    other.first_node = nullptr;
+    other.last_node = nullptr;
+    other.node_count = 0;
+  };
 
   Tree &operator=(const Tree &other) {
     if (this != &other) { // Check for self-assignment
