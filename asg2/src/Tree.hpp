@@ -126,9 +126,9 @@ private:
     ///
     /// This function finds the next node in the tree.
     ///
-    /// Running time is: O(n) where n is the height of the tree.
+    /// Running time is: O(n) where n is the number of nodes in the tree.
     /// In the worst case scenario, the function could traverse as many nodes as
-    /// there are levens in the tree, which is the height of the tree.
+    /// there are levens in the tree, which is the number of nodes in the tree.
     ///
     /// @return The next node in the tree. If none return nullptr.
     Node *next() {
@@ -164,9 +164,9 @@ private:
     /// @brief Goes left once, and then right as much as possible
     ///
     /// This function finds the previous node in the tree.
-    /// The running time is: O(n) where n is the height of the tree.
+    /// The running time is: O(n) where n is the number of nodes in the tree.
     /// In the worst case scenario, the function could traverse as many nodes as
-    /// there are levens in the tree, which is the height of the tree.
+    /// there are levens in the tree, which is the number of nodes in the tree.
     ///
     /// @return The previous node in the tree.
     Node *prev() {
@@ -238,11 +238,11 @@ private:
 
   /// @brief Finds the left-most node in the tree
   ///
-  /// Running time is O(n) where n is the height of the tree.
+  /// Running time is O(n) where n is the number of nodes in the tree.
   /// Explanation:
   /// The function goes left as much as possible, and then returns the node.
   /// In the worst case scenario, the function could traverse as many nodes as
-  /// there are levens in the tree, which is the height of the tree.
+  /// there are levens in the tree, which is the number of nodes in the tree.
   /// This would happen if the tree only has left-side nodes.
   ///
   /// @param node The node to start from
@@ -260,11 +260,11 @@ private:
 
   /// @brief Finds the right-most node in the tree
   ///
-  /// Running time is O(n) where n is the height of the tree.
+  /// Running time is O(n) where n is the number of nodes in the tree.
   /// Explanation:
   /// The function goes right as much as possible, and then returns the node.
   /// In the worst case scenario, the function could traverse as many nodes as
-  /// there are levens in the tree, which is the height of the tree.
+  /// there are levens in the tree, which is the number of nodes in the tree.
   /// This would happen if the tree only has right-side nodes.
   ///
   /// @param node The node to start from
@@ -822,7 +822,7 @@ public:
   /// This functions goes through each node to find the one with the specified
   /// key. If none is found, it returns nullptr
   ///
-  /// Running time is O(n) where n is the height of the tree.
+  /// Running time is O(n) where n is the number of nodes in the tree.
   /// Explanation:
   /// In the worst case scenario, we need to go through each node.
   ///
@@ -849,7 +849,7 @@ public:
   /// goes through the tree until it finds the correct place to insert the new
   /// node.
   ///
-  /// Running time is O(n) where n is the height of the tree.
+  /// Running time is O(n) where n is the number of nodes in the tree.
   /// Explanation:
   /// In the worst case scenario, we need to go through each node.
   ///
@@ -964,7 +964,7 @@ public:
   /// If the node is not found, it returns an iterator to end().
   /// @see findNode(const Key &key)
   ///
-  /// Running time is O(n) where n is the height of the tree.
+  /// Running time is O(n) where n is the number of nodes in the tree.
   /// Explanation:
   /// In the worst case scenario, we need to go through each node.
   ///
