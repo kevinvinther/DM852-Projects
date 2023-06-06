@@ -1,0 +1,266 @@
+\hypertarget{classDM852_1_1Tree_1_1iterator}{}\doxysection{DM852\+::Tree\texorpdfstring{$<$}{<} Key, Value, Comp \texorpdfstring{$>$}{>}\+::iterator Class Reference}
+\label{classDM852_1_1Tree_1_1iterator}\index{DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}}
+
+
+{\ttfamily \#include $<$Tree.\+hpp$>$}
+
+Inheritance diagram for DM852\+::Tree\texorpdfstring{$<$}{<} Key, Value, Comp \texorpdfstring{$>$}{>}\+::iterator\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classDM852_1_1Tree_1_1iterator}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classDM852_1_1Tree_1_1iterator_ad6da3139e3a3fb08dd83b1ab87fbb6f6}{value\+\_\+type}} = std\+::pair$<$ const Key, Value $>$
+\item 
+using \mbox{\hyperlink{classDM852_1_1Tree_1_1iterator_a7cd7509f324a6c4bed87a5c7e5351563}{reference}} = \mbox{\hyperlink{classDM852_1_1Tree_1_1iterator_ad6da3139e3a3fb08dd83b1ab87fbb6f6}{value\+\_\+type}} \&
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator_ae02d5db1a8ab54f881c6d6e7a1e0f3b5}{iterator}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor for iterator. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator_a2177bf091b00936ef78f467ba92b9b82}{iterator}} (Node $\ast$p)
+\begin{DoxyCompactList}\small\item\em Constructor for iterator. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator_a7cd7509f324a6c4bed87a5c7e5351563}{reference}} \& \mbox{\hyperlink{classDM852_1_1Tree_1_1iterator_a221440c64d019c405e266a225e229d04}{operator$\ast$}} () const
+\begin{DoxyCompactList}\small\item\em Dereference operator for iterator. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator_ad6da3139e3a3fb08dd83b1ab87fbb6f6}{value\+\_\+type}} $\ast$ \mbox{\hyperlink{classDM852_1_1Tree_1_1iterator_af49df58190d78ae9f28434b3bfd5430e}{operator-\/$>$}} () const
+\begin{DoxyCompactList}\small\item\em Arrow operator for iterator. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}} \& \mbox{\hyperlink{classDM852_1_1Tree_1_1iterator_a46cb56825993f96c51380bd725af5e3a}{operator++}} ()
+\begin{DoxyCompactList}\small\item\em Increment operator for iterator. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}} \mbox{\hyperlink{classDM852_1_1Tree_1_1iterator_a8185e10cb02e318ac6f9d45f04ab01e4}{operator++}} (int)
+\begin{DoxyCompactList}\small\item\em Post-\/increment operator for iterator (++i) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}} \& \mbox{\hyperlink{classDM852_1_1Tree_1_1iterator_aa8e87ddbe07b98ff8de43fb7a4f6697d}{operator-\/-\/}} ()
+\begin{DoxyCompactList}\small\item\em Decrement operator for iterator. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}} \mbox{\hyperlink{classDM852_1_1Tree_1_1iterator_ad9dc89d64be8b53349db96678566171f}{operator-\/-\/}} (int)
+\begin{DoxyCompactList}\small\item\em Post-\/decrement operator for iterator (--i) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDM852_1_1Tree_1_1iterator_a4b682814d14447120dd184fd300deade}\label{classDM852_1_1Tree_1_1iterator_a4b682814d14447120dd184fd300deade}} 
+class {\bfseries Tree}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classDM852_1_1Tree}{Tree}} can access private members. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classDM852_1_1Tree_1_1iterator_a9571765a26b5811158d96844ba794b8d}{operator==}} (\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}} a, \mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}} b)
+\begin{DoxyCompactList}\small\item\em Equality operator for iterator. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classDM852_1_1Tree_1_1iterator_a12c4b83c21cdcd0e597aa4a952a8a11f}{operator!=}} (\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}} a, \mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}} b)
+\begin{DoxyCompactList}\small\item\em Inequality operator for iterator. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Key, typename Value, typename Comp = std\+::less$<$\+Key$>$$>$\newline
+class DM852\+::\+Tree$<$ Key, Value, Comp $>$\+::iterator}
+Const iterator to go through trees 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classDM852_1_1Tree_1_1iterator_a7cd7509f324a6c4bed87a5c7e5351563}\label{classDM852_1_1Tree_1_1iterator_a7cd7509f324a6c4bed87a5c7e5351563}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}!reference@{reference}}
+\index{reference@{reference}!DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}}
+\doxysubsubsection{\texorpdfstring{reference}{reference}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+using \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::iterator\+::reference =  \mbox{\hyperlink{classDM852_1_1Tree_1_1iterator_ad6da3139e3a3fb08dd83b1ab87fbb6f6}{value\+\_\+type}} \&}
+
+The reference type, a reference to a value\+\_\+type \mbox{\Hypertarget{classDM852_1_1Tree_1_1iterator_ad6da3139e3a3fb08dd83b1ab87fbb6f6}\label{classDM852_1_1Tree_1_1iterator_ad6da3139e3a3fb08dd83b1ab87fbb6f6}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}!value\_type@{value\_type}}
+\index{value\_type@{value\_type}!DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}}
+\doxysubsubsection{\texorpdfstring{value\_type}{value\_type}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+using \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::iterator\+::value\+\_\+type =  std\+::pair$<$const Key, Value$>$}
+
+The value type, a pair consisting of the key and the value of a node 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classDM852_1_1Tree_1_1iterator_ae02d5db1a8ab54f881c6d6e7a1e0f3b5}\label{classDM852_1_1Tree_1_1iterator_ae02d5db1a8ab54f881c6d6e7a1e0f3b5}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}!iterator@{iterator}}
+\index{iterator@{iterator}!DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}}
+\doxysubsubsection{\texorpdfstring{iterator()}{iterator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::iterator\+::iterator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Default constructor for iterator. 
+
+\begin{DoxyReturn}{Returns}
+An iterator pointing to nullptr 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_1_1iterator_a2177bf091b00936ef78f467ba92b9b82}\label{classDM852_1_1Tree_1_1iterator_a2177bf091b00936ef78f467ba92b9b82}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}!iterator@{iterator}}
+\index{iterator@{iterator}!DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}}
+\doxysubsubsection{\texorpdfstring{iterator()}{iterator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::iterator\+::iterator (\begin{DoxyParamCaption}\item[{Node $\ast$}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor for iterator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & The node to point to\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An iterator pointing to p 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classDM852_1_1Tree_1_1iterator_a221440c64d019c405e266a225e229d04}\label{classDM852_1_1Tree_1_1iterator_a221440c64d019c405e266a225e229d04}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}}
+\doxysubsubsection{\texorpdfstring{operator$\ast$()}{operator*()}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator_a7cd7509f324a6c4bed87a5c7e5351563}{reference}} \& \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::iterator\+::operator$\ast$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Dereference operator for iterator. 
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::out\+\_\+of\+\_\+range} & if the iterator is out of bounds\\
+\hline
+\end{DoxyExceptions}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator_af49df58190d78ae9f28434b3bfd5430e}{operator-\/$>$()}}
+\end{DoxySeeAlso}
+\begin{DoxyReturn}{Returns}
+A reference to the value\+\_\+type 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_1_1iterator_a46cb56825993f96c51380bd725af5e3a}\label{classDM852_1_1Tree_1_1iterator_a46cb56825993f96c51380bd725af5e3a}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}!operator++@{operator++}}
+\index{operator++@{operator++}!DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}}
+\doxysubsubsection{\texorpdfstring{operator++()}{operator++()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}} \& \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::iterator\+::operator++ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Increment operator for iterator. 
+
+This function uses the OOBMargin variable, to see if the iterator gets \char`\"{}out of bounds\char`\"{} or \char`\"{}past the end\char`\"{} after being incremented. If so, OOB is incremented. If not, the iterator is incremented if the next node is not null, otherwise OOBMargin is incremented.
+
+\begin{DoxyReturn}{Returns}
+The iterator after being incremented 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_1_1iterator_a8185e10cb02e318ac6f9d45f04ab01e4}\label{classDM852_1_1Tree_1_1iterator_a8185e10cb02e318ac6f9d45f04ab01e4}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}!operator++@{operator++}}
+\index{operator++@{operator++}!DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}}
+\doxysubsubsection{\texorpdfstring{operator++()}{operator++()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}} \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::iterator\+::operator++ (\begin{DoxyParamCaption}\item[{int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Post-\/increment operator for iterator (++i) 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator_a46cb56825993f96c51380bd725af5e3a}{operator++()}}
+\end{DoxySeeAlso}
+\begin{DoxyReturn}{Returns}
+The iterator before being incremented 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_1_1iterator_aa8e87ddbe07b98ff8de43fb7a4f6697d}\label{classDM852_1_1Tree_1_1iterator_aa8e87ddbe07b98ff8de43fb7a4f6697d}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}!operator-\/-\/@{operator-\/-\/}}
+\index{operator-\/-\/@{operator-\/-\/}!DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}}
+\doxysubsubsection{\texorpdfstring{operator-\/-\/()}{operator--()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}} \& \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::iterator\+::operator-\/-\/ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Decrement operator for iterator. 
+
+This function uses the OOBMargin variable, to see if the iterator gets \char`\"{}out of bounds\char`\"{} or \char`\"{}past the end\char`\"{} after being decremented. If so, OOB is decremented. If not, the iterator is decremented if the previous node is not null, otherwise OOBMargin is decremented.
+
+\begin{DoxyReturn}{Returns}
+The iterator after being decremented 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_1_1iterator_ad9dc89d64be8b53349db96678566171f}\label{classDM852_1_1Tree_1_1iterator_ad9dc89d64be8b53349db96678566171f}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}!operator-\/-\/@{operator-\/-\/}}
+\index{operator-\/-\/@{operator-\/-\/}!DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}}
+\doxysubsubsection{\texorpdfstring{operator-\/-\/()}{operator--()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}} \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::iterator\+::operator-\/-\/ (\begin{DoxyParamCaption}\item[{int}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Post-\/decrement operator for iterator (--i) 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator_aa8e87ddbe07b98ff8de43fb7a4f6697d}{operator-\/-\/()}}
+\end{DoxySeeAlso}
+\begin{DoxyReturn}{Returns}
+The iterator before being decremented 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_1_1iterator_af49df58190d78ae9f28434b3bfd5430e}\label{classDM852_1_1Tree_1_1iterator_af49df58190d78ae9f28434b3bfd5430e}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}!operator-\/$>$@{operator-\/$>$}}
+\index{operator-\/$>$@{operator-\/$>$}!DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}}
+\doxysubsubsection{\texorpdfstring{operator-\/$>$()}{operator->()}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator_ad6da3139e3a3fb08dd83b1ab87fbb6f6}{value\+\_\+type}} $\ast$ \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::iterator\+::operator-\/$>$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Arrow operator for iterator. 
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::out\+\_\+of\+\_\+range} & if the iterator is out of bounds\\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+A pointer to the value\+\_\+type 
+\end{DoxyReturn}
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classDM852_1_1Tree_1_1iterator_a12c4b83c21cdcd0e597aa4a952a8a11f}\label{classDM852_1_1Tree_1_1iterator_a12c4b83c21cdcd0e597aa4a952a8a11f}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}}
+\doxysubsubsection{\texorpdfstring{operator"!=}{operator!=}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+bool operator!= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}}}]{a,  }\item[{\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}}}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Inequality operator for iterator. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator_a9571765a26b5811158d96844ba794b8d}{operator==(iterator a, iterator b)}}
+\end{DoxySeeAlso}
+\begin{DoxyReturn}{Returns}
+True if not equal, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_1_1iterator_a9571765a26b5811158d96844ba794b8d}\label{classDM852_1_1Tree_1_1iterator_a9571765a26b5811158d96844ba794b8d}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}!operator==@{operator==}}
+\index{operator==@{operator==}!DM852::Tree$<$ Key, Value, Comp $>$::iterator@{DM852::Tree$<$ Key, Value, Comp $>$::iterator}}
+\doxysubsubsection{\texorpdfstring{operator==}{operator==}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+bool operator== (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}}}]{a,  }\item[{\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}}}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Equality operator for iterator. 
+
+This function uses the OOBMargin variable, to see if the iterators are equal. If both iterators are not out of bounds, the equality is determined by comparing the values of the nodes they point to.
+
+Otherwise, if one of the iterators is out of bounds, the equality is determined by checking if both iterators are out of bounds.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & The first iterator to compare \\
+\hline
+{\em b} & The second iterator to compare\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the iterators are equal, false otherwise 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Tree.\+hpp\end{DoxyCompactItemize}

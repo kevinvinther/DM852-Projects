@@ -1,0 +1,653 @@
+\hypertarget{classDM852_1_1Tree}{}\doxysection{DM852\+::Tree\texorpdfstring{$<$}{<} Key, Value, Comp \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classDM852_1_1Tree}\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+
+
+A binary search tree.  
+
+
+
+
+{\ttfamily \#include $<$Tree.\+hpp$>$}
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classDM852_1_1Tree_1_1const__iterator}{const\+\_\+iterator}}
+\item 
+class \mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{classDM852_1_1Tree_a2cdabfd50d18bedb81601092e0f96ff3}{value\+\_\+type}} = std\+::pair$<$ const Key, Value $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classDM852_1_1Tree_ac934fb3a074d9f89734a97e437c864f5}{Tree}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor for tree. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDM852_1_1Tree_af201642218382945e9e05dae06ccf5eb}{Tree}} (Comp comp)
+\begin{DoxyCompactList}\small\item\em Constructor for tree with a comparison function. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDM852_1_1Tree_af5052385cd0e4438e8790218d957e8fc}{Tree}} (const \mbox{\hyperlink{classDM852_1_1Tree}{Tree}} \&other)
+\begin{DoxyCompactList}\small\item\em Copy constructor for tree. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDM852_1_1Tree_a977e208a0928ae9384f8e1b4b8c6c1f6}{Tree}} (\mbox{\hyperlink{classDM852_1_1Tree}{Tree}} \&\&other)
+\begin{DoxyCompactList}\small\item\em Move constructor for tree. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDM852_1_1Tree}{Tree}} \& \mbox{\hyperlink{classDM852_1_1Tree_a51a3358d3236ed0de8a6c7d06b45f44d}{operator=}} (const \mbox{\hyperlink{classDM852_1_1Tree}{Tree}} \&other)
+\begin{DoxyCompactList}\small\item\em Copy assignment operator for tree. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDM852_1_1Tree}{Tree}} \& \mbox{\hyperlink{classDM852_1_1Tree_acbf2c770102639da93495434b9e09f86}{operator=}} (\mbox{\hyperlink{classDM852_1_1Tree}{Tree}} \&\&other)
+\begin{DoxyCompactList}\small\item\em Move assignment operator for tree. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDM852_1_1Tree_abd58d8a437aa0a5d9935bf410cc30b2a}{$\sim$\+Tree}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for tree. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classDM852_1_1Tree_a493339e5d0f271518b3db3e257c71cff}{operator==}} (const \mbox{\hyperlink{classDM852_1_1Tree}{Tree}} \&other)
+\begin{DoxyCompactList}\small\item\em Equality operator for tree. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classDM852_1_1Tree_a8039736d915341aae5604d8be6e170a5}{operator==}} (const \mbox{\hyperlink{classDM852_1_1Tree}{Tree}} \&other) const
+\begin{DoxyCompactList}\small\item\em Const equality operator for tree. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classDM852_1_1Tree_a48138501534ed99f9841a1a1ce417140}{operator!=}} (const \mbox{\hyperlink{classDM852_1_1Tree}{Tree}} \&other)
+\begin{DoxyCompactList}\small\item\em Inequality operator for tree. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classDM852_1_1Tree_a4a691e59dbd7ba851da76c29393b1905}{operator!=}} (const \mbox{\hyperlink{classDM852_1_1Tree}{Tree}} \&other) const
+\begin{DoxyCompactList}\small\item\em Const inequality operator for tree. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classDM852_1_1Tree_aa97797b70c35cf0120a59640d39ac84e}{iterator\+Traversal}} (const \mbox{\hyperlink{classDM852_1_1Tree}{Tree}} \&other) const
+\begin{DoxyCompactList}\small\item\em Equality operator for tree. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDM852_1_1Tree_aa5d40f18d5b1e41c189415022eb3dc6e}{clear}} ()
+\begin{DoxyCompactList}\small\item\em Clears tree to empty state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDM852_1_1Tree_af92c830c94abb527ad8905488bd7e087}{clear\+Traversal}} (Node $\ast$node)
+\begin{DoxyCompactList}\small\item\em Deletes all nodes in tree recursively. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classDM852_1_1Tree_a789be3885bde03a00a7254e808e54cbf}{size}} () const
+\begin{DoxyCompactList}\small\item\em Returns the size of the tree. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classDM852_1_1Tree_a503d781b0509aa27dee80ff16228c073}{empty}} () const
+\begin{DoxyCompactList}\small\item\em Whether or not the tree is empty. \end{DoxyCompactList}\item 
+Node $\ast$ \mbox{\hyperlink{classDM852_1_1Tree_a4508918bb03bd7ca2a6b7d50ed8ee603}{find\+Node}} (const Key \&key)
+\begin{DoxyCompactList}\small\item\em Finds node from key. \end{DoxyCompactList}\item 
+std\+::pair$<$ \mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}}, bool $>$ \mbox{\hyperlink{classDM852_1_1Tree_a8f954a0edfb18670555e188c83605393}{insert}} (const Key \&key, const Value \&value)
+\begin{DoxyCompactList}\small\item\em Inserts node into tree. \end{DoxyCompactList}\item 
+std\+::pair$<$ \mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}}, bool $>$ \mbox{\hyperlink{classDM852_1_1Tree_a75e32bbf2d5e32613d0322898561cdac}{insert}} (Key \&\&key, Value \&\&value)
+\begin{DoxyCompactList}\small\item\em Inserts node into tree using move semantics. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}} \mbox{\hyperlink{classDM852_1_1Tree_a383685f0ef7d362693c4286d10581d0c}{find}} (const Key \&key)
+\begin{DoxyCompactList}\small\item\em Finds node from key and returns an iterator to it. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDM852_1_1Tree_1_1const__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classDM852_1_1Tree_a244c259c1dc96e88bf9434c865226dd1}{find}} (const Key \&key) const
+\begin{DoxyCompactList}\small\item\em Finds node from key and returns a \mbox{\hyperlink{classDM852_1_1Tree_1_1const__iterator}{const\+\_\+iterator}} to it. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}} \mbox{\hyperlink{classDM852_1_1Tree_af555e96592be4c5fbac4f2049221a9f2}{begin}} ()
+\begin{DoxyCompactList}\small\item\em An iterator to the first node in the tree. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDM852_1_1Tree_1_1const__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classDM852_1_1Tree_ad98a4e70dfba04329932b519e49a637a}{begin}} () const
+\begin{DoxyCompactList}\small\item\em A \mbox{\hyperlink{classDM852_1_1Tree_1_1const__iterator}{const\+\_\+iterator}} to the first node in the tree. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}} \mbox{\hyperlink{classDM852_1_1Tree_afc8fa471527960e1c1989ccb933d397b}{end}} ()
+\begin{DoxyCompactList}\small\item\em An iterator to the node after the last node in the tree. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDM852_1_1Tree_1_1const__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classDM852_1_1Tree_a5f93254b826a644642c5a9e66e1de320}{end}} () const
+\begin{DoxyCompactList}\small\item\em A \mbox{\hyperlink{classDM852_1_1Tree_1_1const__iterator}{const\+\_\+iterator}} to the node after the last node in the tree. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDM852_1_1Tree_a2cdabfd50d18bedb81601092e0f96ff3}{value\+\_\+type}} \& \mbox{\hyperlink{classDM852_1_1Tree_a759aaf94b760b7a8aaa5fcd345535843}{front}} ()
+\begin{DoxyCompactList}\small\item\em Returns the key-\/value pair of the first node. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classDM852_1_1Tree_a2cdabfd50d18bedb81601092e0f96ff3}{value\+\_\+type}} \& \mbox{\hyperlink{classDM852_1_1Tree_a7bde2a5d277a75074f4bf7d6000f16d1}{front}} () const
+\begin{DoxyCompactList}\small\item\em Returns the key-\/value pair of the first node. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classDM852_1_1Tree_a2cdabfd50d18bedb81601092e0f96ff3}{value\+\_\+type}} \& \mbox{\hyperlink{classDM852_1_1Tree_a0e8dc4c1e98cda3a8c2c79a5c9c395e3}{back}} ()
+\begin{DoxyCompactList}\small\item\em Returns the key-\/value pair of the last node. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classDM852_1_1Tree_a2cdabfd50d18bedb81601092e0f96ff3}{value\+\_\+type}} \& \mbox{\hyperlink{classDM852_1_1Tree_aec1509d3564e7423cdb5d2d2f299f272}{back}} () const
+\begin{DoxyCompactList}\small\item\em Returns the key-\/value pair of the last node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Key, typename Value, typename Comp = std\+::less$<$\+Key$>$$>$\newline
+class DM852\+::\+Tree$<$ Key, Value, Comp $>$}
+A binary search tree. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Key} & The key type \\
+\hline
+{\em Value} & The value type \\
+\hline
+{\em Comp} & The comparison function\\
+\hline
+\end{DoxyTemplParams}
+This tree is not a red-\/black tree, i.\+e., it is {\itshape not} self-\/balancing. 
+
+\doxysubsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classDM852_1_1Tree_a2cdabfd50d18bedb81601092e0f96ff3}\label{classDM852_1_1Tree_a2cdabfd50d18bedb81601092e0f96ff3}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!value\_type@{value\_type}}
+\index{value\_type@{value\_type}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{value\_type}{value\_type}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+using \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::value\+\_\+type =  std\+::pair$<$const Key, Value$>$}
+
+The value type, a pair consisting of the key and the value of a node 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classDM852_1_1Tree_ac934fb3a074d9f89734a97e437c864f5}\label{classDM852_1_1Tree_ac934fb3a074d9f89734a97e437c864f5}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!Tree@{Tree}}
+\index{Tree@{Tree}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{Tree()}{Tree()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::\+Tree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Default constructor for tree. 
+
+Initializes all the values to their default values. \mbox{\Hypertarget{classDM852_1_1Tree_af201642218382945e9e05dae06ccf5eb}\label{classDM852_1_1Tree_af201642218382945e9e05dae06ccf5eb}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!Tree@{Tree}}
+\index{Tree@{Tree}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{Tree()}{Tree()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::\+Tree (\begin{DoxyParamCaption}\item[{Comp}]{comp }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor for tree with a comparison function. 
+
+Initializes all the values to their default values, and sets the comparison function to the one given.
+
+
+\begin{DoxyParams}{Parameters}
+{\em comp} & The comparison function to use \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDM852_1_1Tree_af5052385cd0e4438e8790218d957e8fc}\label{classDM852_1_1Tree_af5052385cd0e4438e8790218d957e8fc}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!Tree@{Tree}}
+\index{Tree@{Tree}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{Tree()}{Tree()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::\+Tree (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classDM852_1_1Tree}{Tree}}$<$ Key, Value, Comp $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Copy constructor for tree. 
+
+Running time is O(n) where n is the number of nodes in the tree. Explanation\+: \begin{DoxySeeAlso}{See also}
+Tree\+Copy() 
+
+left\+Most() 
+
+right\+Most() O(n) $\ast$ 3 = O(n)
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The tree to copy\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A copy of the tree 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_a977e208a0928ae9384f8e1b4b8c6c1f6}\label{classDM852_1_1Tree_a977e208a0928ae9384f8e1b4b8c6c1f6}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!Tree@{Tree}}
+\index{Tree@{Tree}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{Tree()}{Tree()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::\+Tree (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDM852_1_1Tree}{Tree}}$<$ Key, Value, Comp $>$ \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Move constructor for tree. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The tree to move\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A copy of the tree 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_abd58d8a437aa0a5d9935bf410cc30b2a}\label{classDM852_1_1Tree_abd58d8a437aa0a5d9935bf410cc30b2a}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!````~Tree@{$\sim$Tree}}
+\index{````~Tree@{$\sim$Tree}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{$\sim$Tree()}{~Tree()}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::$\sim$\mbox{\hyperlink{classDM852_1_1Tree}{Tree}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Destructor for tree. 
+
+Running time is O(n) where n is the number of nodes in the tree. Explanation\+: \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classDM852_1_1Tree_af92c830c94abb527ad8905488bd7e087}{clear\+Traversal()}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classDM852_1_1Tree_a0e8dc4c1e98cda3a8c2c79a5c9c395e3}\label{classDM852_1_1Tree_a0e8dc4c1e98cda3a8c2c79a5c9c395e3}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!back@{back}}
+\index{back@{back}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{back()}{back()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree_a2cdabfd50d18bedb81601092e0f96ff3}{value\+\_\+type}} \& \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::back (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the key-\/value pair of the last node. 
+
+\begin{DoxyReturn}{Returns}
+The key-\/value pair of the last node 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_aec1509d3564e7423cdb5d2d2f299f272}\label{classDM852_1_1Tree_aec1509d3564e7423cdb5d2d2f299f272}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!back@{back}}
+\index{back@{back}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{back()}{back()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+const \mbox{\hyperlink{classDM852_1_1Tree_a2cdabfd50d18bedb81601092e0f96ff3}{value\+\_\+type}} \& \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::back (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the key-\/value pair of the last node. 
+
+\begin{DoxyReturn}{Returns}
+The key-\/value pair of the last node 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_af555e96592be4c5fbac4f2049221a9f2}\label{classDM852_1_1Tree_af555e96592be4c5fbac4f2049221a9f2}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!begin@{begin}}
+\index{begin@{begin}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}} \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+An iterator to the first node in the tree. 
+
+\begin{DoxyReturn}{Returns}
+An iterator to the first node 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_ad98a4e70dfba04329932b519e49a637a}\label{classDM852_1_1Tree_ad98a4e70dfba04329932b519e49a637a}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!begin@{begin}}
+\index{begin@{begin}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree_1_1const__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+A \mbox{\hyperlink{classDM852_1_1Tree_1_1const__iterator}{const\+\_\+iterator}} to the first node in the tree. 
+
+\begin{DoxyReturn}{Returns}
+A \mbox{\hyperlink{classDM852_1_1Tree_1_1const__iterator}{const\+\_\+iterator}} to the first node 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_aa5d40f18d5b1e41c189415022eb3dc6e}\label{classDM852_1_1Tree_aa5d40f18d5b1e41c189415022eb3dc6e}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!clear@{clear}}
+\index{clear@{clear}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+void \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Clears tree to empty state. 
+
+Running time is O(n) where n is the number of nodes in the tree. Explanation\+: \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classDM852_1_1Tree_af92c830c94abb527ad8905488bd7e087}{clear\+Traversal()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classDM852_1_1Tree_af92c830c94abb527ad8905488bd7e087}\label{classDM852_1_1Tree_af92c830c94abb527ad8905488bd7e087}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!clearTraversal@{clearTraversal}}
+\index{clearTraversal@{clearTraversal}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{clearTraversal()}{clearTraversal()}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+void \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::clear\+Traversal (\begin{DoxyParamCaption}\item[{Node $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Deletes all nodes in tree recursively. 
+
+Running time is O(n) where n is the number of nodes in the tree. Explanation\+: Each node is recursively deleted, thus each node is visited once.
+
+
+\begin{DoxyParams}{Parameters}
+{\em node} & The node to start from Iterator class to go through tree \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDM852_1_1Tree_a503d781b0509aa27dee80ff16228c073}\label{classDM852_1_1Tree_a503d781b0509aa27dee80ff16228c073}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!empty@{empty}}
+\index{empty@{empty}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+bool \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Whether or not the tree is empty. 
+
+\begin{DoxyReturn}{Returns}
+True if tree is empty, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_afc8fa471527960e1c1989ccb933d397b}\label{classDM852_1_1Tree_afc8fa471527960e1c1989ccb933d397b}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!end@{end}}
+\index{end@{end}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{end()}{end()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}} \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+An iterator to the node after the last node in the tree. 
+
+\begin{DoxyReturn}{Returns}
+An iterator to the node after the last node 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_a5f93254b826a644642c5a9e66e1de320}\label{classDM852_1_1Tree_a5f93254b826a644642c5a9e66e1de320}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!end@{end}}
+\index{end@{end}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{end()}{end()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree_1_1const__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+A \mbox{\hyperlink{classDM852_1_1Tree_1_1const__iterator}{const\+\_\+iterator}} to the node after the last node in the tree. 
+
+\begin{DoxyReturn}{Returns}
+A \mbox{\hyperlink{classDM852_1_1Tree_1_1const__iterator}{const\+\_\+iterator}} to the node after the last node 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_a383685f0ef7d362693c4286d10581d0c}\label{classDM852_1_1Tree_a383685f0ef7d362693c4286d10581d0c}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!find@{find}}
+\index{find@{find}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{find()}{find()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}} \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::find (\begin{DoxyParamCaption}\item[{const Key \&}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Finds node from key and returns an iterator to it. 
+
+This is like find\+Node, but it returns an iterator instead of a node. If the node is not found, it returns an iterator to \mbox{\hyperlink{classDM852_1_1Tree_afc8fa471527960e1c1989ccb933d397b}{end()}}. \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classDM852_1_1Tree_a4508918bb03bd7ca2a6b7d50ed8ee603}{find\+Node(const Key \&key)}}
+\end{DoxySeeAlso}
+Running time is O(n) where n is the height of the tree. Explanation\+: In the worst case scenario, we need to go through each node.
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key to find\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Iterator to node from key or \mbox{\hyperlink{classDM852_1_1Tree_afc8fa471527960e1c1989ccb933d397b}{end()}} if none is found 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_a244c259c1dc96e88bf9434c865226dd1}\label{classDM852_1_1Tree_a244c259c1dc96e88bf9434c865226dd1}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!find@{find}}
+\index{find@{find}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{find()}{find()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree_1_1const__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::find (\begin{DoxyParamCaption}\item[{const Key \&}]{key }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Finds node from key and returns a \mbox{\hyperlink{classDM852_1_1Tree_1_1const__iterator}{const\+\_\+iterator}} to it. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classDM852_1_1Tree_a383685f0ef7d362693c4286d10581d0c}{find(const Key \&key)}}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key to find\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Const\+\_\+iterator to node from key or \mbox{\hyperlink{classDM852_1_1Tree_afc8fa471527960e1c1989ccb933d397b}{end()}} if none is found 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_a4508918bb03bd7ca2a6b7d50ed8ee603}\label{classDM852_1_1Tree_a4508918bb03bd7ca2a6b7d50ed8ee603}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!findNode@{findNode}}
+\index{findNode@{findNode}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{findNode()}{findNode()}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+Node $\ast$ \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::find\+Node (\begin{DoxyParamCaption}\item[{const Key \&}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Finds node from key. 
+
+This functions goes through each node to find the one with the specified key. If none is found, it returns nullptr
+
+Running time is O(n) where n is the height of the tree. Explanation\+: In the worst case scenario, we need to go through each node.
+
+\begin{DoxyReturn}{Returns}
+Node from key or nullptr if none is found 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_a759aaf94b760b7a8aaa5fcd345535843}\label{classDM852_1_1Tree_a759aaf94b760b7a8aaa5fcd345535843}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!front@{front}}
+\index{front@{front}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{front()}{front()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree_a2cdabfd50d18bedb81601092e0f96ff3}{value\+\_\+type}} \& \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::front (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the key-\/value pair of the first node. 
+
+\begin{DoxyReturn}{Returns}
+The key-\/value pair of the first node 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_a7bde2a5d277a75074f4bf7d6000f16d1}\label{classDM852_1_1Tree_a7bde2a5d277a75074f4bf7d6000f16d1}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!front@{front}}
+\index{front@{front}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{front()}{front()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+const \mbox{\hyperlink{classDM852_1_1Tree_a2cdabfd50d18bedb81601092e0f96ff3}{value\+\_\+type}} \& \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::front (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the key-\/value pair of the first node. 
+
+\begin{DoxyReturn}{Returns}
+The key-\/value pair of the first node 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_a8f954a0edfb18670555e188c83605393}\label{classDM852_1_1Tree_a8f954a0edfb18670555e188c83605393}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!insert@{insert}}
+\index{insert@{insert}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{insert()}{insert()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+std\+::pair$<$ \mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}}, bool $>$ \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::insert (\begin{DoxyParamCaption}\item[{const Key \&}]{key,  }\item[{const Value \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Inserts node into tree. 
+
+This function first checks if the key already exists in the tree. If it does, the value is updated. Otherwise, the function checks if the tree is empty. If it is, the root is set to the new node. Otherwise, the function goes through the tree until it finds the correct place to insert the new node.
+
+Running time is O(n) where n is the height of the tree. Explanation\+: In the worst case scenario, we need to go through each node.
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key to insert \\
+\hline
+{\em value} & The value to insert\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pair with an iterator to the inserted node and a bool that is true if the node was inserted, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_a75e32bbf2d5e32613d0322898561cdac}\label{classDM852_1_1Tree_a75e32bbf2d5e32613d0322898561cdac}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!insert@{insert}}
+\index{insert@{insert}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{insert()}{insert()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+std\+::pair$<$ \mbox{\hyperlink{classDM852_1_1Tree_1_1iterator}{iterator}}, bool $>$ \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::insert (\begin{DoxyParamCaption}\item[{Key \&\&}]{key,  }\item[{Value \&\&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Inserts node into tree using move semantics. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classDM852_1_1Tree_a8f954a0edfb18670555e188c83605393}{insert(const Key \&key, const Value \&value)}}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key to insert \\
+\hline
+{\em value} & The value to insert\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pair with an iterator to the inserted node and a bool that is true if the node was inserted, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_aa97797b70c35cf0120a59640d39ac84e}\label{classDM852_1_1Tree_aa97797b70c35cf0120a59640d39ac84e}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!iteratorTraversal@{iteratorTraversal}}
+\index{iteratorTraversal@{iteratorTraversal}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{iteratorTraversal()}{iteratorTraversal()}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+bool \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::iterator\+Traversal (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classDM852_1_1Tree}{Tree}}$<$ Key, Value, Comp $>$ \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Equality operator for tree. 
+
+This operator uses iterators to traverse the trees and compare the values.
+
+Running time is O(n) where n is the number of nodes in the tree. Explanation\+: Two iterators are used to traverse the trees, and the comparison function is used to compare the values, which are all nodes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The tree to compare to\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the trees are equal, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_a48138501534ed99f9841a1a1ce417140}\label{classDM852_1_1Tree_a48138501534ed99f9841a1a1ce417140}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+bool \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classDM852_1_1Tree}{Tree}}$<$ Key, Value, Comp $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Inequality operator for tree. 
+
+This operator uses iterators to traverse the trees and compare the values.
+
+Running time is O(n) where n is the number of nodes in the tree. Explanation\+: \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classDM852_1_1Tree_aa97797b70c35cf0120a59640d39ac84e}{iterator\+Traversal()}}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The tree to compare to\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the trees are not equal, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_a4a691e59dbd7ba851da76c29393b1905}\label{classDM852_1_1Tree_a4a691e59dbd7ba851da76c29393b1905}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+bool \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classDM852_1_1Tree}{Tree}}$<$ Key, Value, Comp $>$ \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Const inequality operator for tree. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classDM852_1_1Tree_a48138501534ed99f9841a1a1ce417140}{operator!=(const Tree \&other)}}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The tree to compare to \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDM852_1_1Tree_a51a3358d3236ed0de8a6c7d06b45f44d}\label{classDM852_1_1Tree_a51a3358d3236ed0de8a6c7d06b45f44d}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree}{Tree}} \& \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classDM852_1_1Tree}{Tree}}$<$ Key, Value, Comp $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Copy assignment operator for tree. 
+
+Running time is O(n) where n is the number of nodes in the tree. Explanation\+: \begin{DoxySeeAlso}{See also}
+Tree\+Copy() 
+
+left\+Most() 
+
+right\+Most() O(n) $\ast$ 3 = O(n)
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The tree to copy\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A copy of the tree 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_acbf2c770102639da93495434b9e09f86}\label{classDM852_1_1Tree_acbf2c770102639da93495434b9e09f86}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+\mbox{\hyperlink{classDM852_1_1Tree}{Tree}} \& \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDM852_1_1Tree}{Tree}}$<$ Key, Value, Comp $>$ \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Move assignment operator for tree. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The tree to move\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A copy of the tree 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_a493339e5d0f271518b3db3e257c71cff}\label{classDM852_1_1Tree_a493339e5d0f271518b3db3e257c71cff}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+bool \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classDM852_1_1Tree}{Tree}}$<$ Key, Value, Comp $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Equality operator for tree. 
+
+This operator uses iterators to traverse the trees and compare the values.
+
+Running time is O(n) where n is the number of nodes in the tree. Explanation\+: \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classDM852_1_1Tree_aa97797b70c35cf0120a59640d39ac84e}{iterator\+Traversal()}}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The tree to compare to\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the trees are equal, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_a8039736d915341aae5604d8be6e170a5}\label{classDM852_1_1Tree_a8039736d915341aae5604d8be6e170a5}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+bool \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classDM852_1_1Tree}{Tree}}$<$ Key, Value, Comp $>$ \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Const equality operator for tree. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classDM852_1_1Tree_a493339e5d0f271518b3db3e257c71cff}{operator==(const Tree \&other)}}
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The tree to compare to\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the trees are equal, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDM852_1_1Tree_a789be3885bde03a00a7254e808e54cbf}\label{classDM852_1_1Tree_a789be3885bde03a00a7254e808e54cbf}} 
+\index{DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}!size@{size}}
+\index{size@{size}!DM852::Tree$<$ Key, Value, Comp $>$@{DM852::Tree$<$ Key, Value, Comp $>$}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$typename Key , typename Value , typename Comp  = std\+::less$<$\+Key$>$$>$ \\
+int \mbox{\hyperlink{classDM852_1_1Tree}{DM852\+::\+Tree}}$<$ Key, Value, Comp $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the size of the tree. 
+
+Uses the variable node\+\_\+count which is incremented when a new node is inserted.
+
+\begin{DoxyReturn}{Returns}
+The size of the tree 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Tree.\+hpp\end{DoxyCompactItemize}
