@@ -381,16 +381,23 @@ namespace graph
       // Return an edge descriptor representing the newly added edge.
 
       // Both u and v are valid vertex descriptors for g
-      assert(u <= g.vList.size() && v <= g.vList.size());
+      if (u <= g.vList.size() && v <= g.vList.size()) {
+        std::abort();
+      }
 
       // u and v are different
-      assert(u != v);
+      if(u == v) {
+        std::abort();
+      }
 
       // No edge (u, v) exist already in g
       for (auto it = g.eList.begin(); it != g.eList.end;
            ++it)
       { // use iterator to iterate through each edge
-        assert(it->src != u && it->tar != v);
+        if (it->src == u && it->tar == v)
+        {
+          std::abort();
+        }
       }
 
       // Put edge into list of edges of graph g
