@@ -23,6 +23,7 @@ namespace graph
   public: // PropertyGraph
     using VertexProp = VertexPropT;
     using EdgeProp = EdgePropT;
+
   private:
     struct OutEdge
     {
@@ -137,7 +138,6 @@ namespace graph
         return a.storedEdgeIdx == b.storedEdgeIdx;
       }
     };
-
 
   public: // VertexListGraph
     struct VertexRange
@@ -523,28 +523,26 @@ namespace graph
     }
 
   public: // PropertyGraph
-  VertexProp &operator[](VertexDescriptor v)
-  {
-    return vList[v].vp;
-  };
+    VertexProp &operator[](VertexDescriptor v)
+    {
+      return vList[v].vp;
+    }
 
-  VertexProp operator[](VertexDescriptor v) const
-  {
-    return vList[v].vp;
-  };
+    VertexProp operator[](VertexDescriptor v) const
+    {
+      return vList[v].vp;
+    }
 
-EdgeProp &operator[](EdgeDescriptor e)
-{
-  return eList[e].ep;
-};
+    EdgeProp &operator[](EdgeDescriptor e)
+    {
+      return eList[e].ep;
+    }
 
-EdgeProp operator[](EdgeDescriptor e) const
-{
-  return eList[e].ep;
-};
+    EdgeProp operator[](EdgeDescriptor e) const
+    {
+      return eList[e].ep;
+    }
 
-
-
-} // namespace graph
+  } // namespace graph
 
 #endif // GRAPH_ADJACENCY_LIST_HPP
