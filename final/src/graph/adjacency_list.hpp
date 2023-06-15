@@ -20,6 +20,10 @@ namespace graph
             typename VertexPropT = NoProp, typename EdgePropT = NoProp>
   struct AdjacencyList
   {
+  public: // PropertyGraph
+    using VertexProp = VertexPropT;
+    using EdgeProp = EdgePropT;
+
   private:
     struct OutEdge
     {
@@ -135,9 +139,6 @@ namespace graph
       }
     };
 
-  public: // PropertyGraph
-    using VertexProp = VertexPropT;
-    using EdgeProp = EdgePropT;
 
   public: // VertexListGraph
     struct VertexRange
