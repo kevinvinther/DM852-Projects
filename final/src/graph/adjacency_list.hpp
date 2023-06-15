@@ -376,7 +376,7 @@ namespace graph
                 // in case removing a node is supported.
     }
     friend EdgeDescriptor addEdge(VertexDescriptor u, VertexDescriptor v,
-                                  AdjacencyGraph g)
+                                  AdjacencyList g)
     {
       // Return an edge descriptor representing the newly added edge.
 
