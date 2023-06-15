@@ -66,7 +66,7 @@ namespace graph
 
     using StoredVertex = 
         std::conditional_t
-        <std::is_same_v<DirectedCategory, tags::Undirected> || std::is_same_v<DirectedCategory, tags::Directed>, 
+        <std::is_same_v<DirectedCategoryT, tags::Undirected> || std::is_same_v<DirectedCategoryT, tags::Directed>, 
         StoredVertexDirected, 
         StoredVertexBidirectional>;
 
