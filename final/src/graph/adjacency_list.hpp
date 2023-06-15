@@ -522,14 +522,14 @@ namespace graph
       return edge;
     }
     
-    friend VertexDescriptor addVertex(VertexProp &&vp, AdjacencyList g)
+    friend VertexDescriptor addVertex(VertexProp std::move(vp), AdjacencyList g)
     {
       // Add a vertex and return a descriptor representing the newly added vertex
       g.vList.emplace_back(std::move(vp));
       return g.vList.size() - 1;
     }
 
-    friend EdgeDescriptor addEdge(VertexDescriptor u, VertexDescriptor v, EdgeProp &&ep, AdjacencyList g) {
+    friend EdgeDescriptor addEdge(VertexDescriptor u, VertexDescriptor v, EdgeProp std::move(ep), AdjacencyList g) {
       // Both u and v are valid vertex descriptors for g
       assert(u <= g.vList.size() && v <= g.vList.size());
 
