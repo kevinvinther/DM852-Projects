@@ -367,43 +367,6 @@ namespace graph
       }
     }
 
-  public:
-    friend VertexDescriptor addVertex(AdjacencyList g)
-    {
-      // Add a vertex and return a descriptor representing the newly added vertex
-      g.vList.emplace_back();
-      return g.vList.size() -
-             1; // We set a unique id to be equal to the size of the list of
-                // vectors - 1, as it is 0-indexed. Note that this will not work
-                // in case removing a node is supported.
-    }
-    friend EdgeDescriptor addEdge(VertexDescriptor u, VertexDescriptor v,
-                                  AdjacencyList g)
-    {
-      // Return an edge descriptor representing the newly added edge.
-
-      // Both u and v are valid vertex descriptors for g
-      assert(u <= g.vList.size() && v <= g.vList.size());
-
-      // u and v are different
-      assert(u != v);
-
-      // No edge (u, v) exist already in g
-      for (auto it = g.eList.begin(); it != g.eList.end;
-           ++it)
-      { // use iterator to iterate through each edge
-        assert(it->src != u && it->tar != v);
-      }
-
-      // Put edge into list of edges of graph g
-      g.eList.emplace_back(u, v);
-
-      // return the graph along with the new id
-      return EdgeDescriptor(
-          u, v,
-          g.eList.size() - 1); // We set a unique id to be equal to the size of
-                               // the list of vectors -1, as it is 0-indexed
-    }
 
   public: // BidirectionalGraph
     friend InEdgeRange inEdges(const VertexDescriptor v,
@@ -442,6 +405,42 @@ namespace graph
     }
 
   public: // MutableGraph
+    friend VertexDescriptor addVertex(AdjacencyList g)
+    {
+      // Add a vertex and return a descriptor representing the newly added vertex
+      g.vList.emplace_back();
+      return g.vList.size() -
+             1; // We set a unique id to be equal to the size of the list of
+                // vectors - 1, as it is 0-indexed. Note that this will not work
+                // in case removing a node is supported.
+    }
+    friend EdgeDescriptor addEdge(VertexDescriptor u, VertexDescriptor v,
+                                  AdjacencyList g)
+    {
+      // Return an edge descriptor representing the newly added edge.
+
+      // Both u and v are valid vertex descriptors for g
+      assert(u <= g.vList.size() && v <= g.vList.size());
+
+      // u and v are different
+      assert(u != v);
+
+      // No edge (u, v) exist already in g
+      for (auto it = g.eList.begin(); it != g.eList.end;
+           ++it)
+      { // use iterator to iterate through each edge
+        assert(it->src != u && it->tar != v);
+      }
+
+      // Put edge into list of edges of graph g
+      g.eList.emplace_back(u, v);
+
+      // return the graph along with the new id
+      return EdgeDescriptor(
+          u, v,
+          g.eList.size() - 1); // We set a unique id to be equal to the size of
+                               // the list of vectors -1, as it is 0-indexed
+    }
   public: // MutablePropertyGraph
           // TODO
   public: // PropertyGraph
