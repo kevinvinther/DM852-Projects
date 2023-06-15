@@ -41,7 +41,7 @@ namespace graph
     public:
       std::size_t src;           // source vertex
       std::size_t storedEdgeIdx; // index of the edge in the edge list
-    }
+    };
 
     using OutEdgeList = std::vector<OutEdge>;
     using InEdgeList = std::vector<InEdge>;
@@ -62,18 +62,20 @@ namespace graph
     public:
       StoredVertexBidirectional() : eOut(new OutEdgeList), eIn(new InEdgeList) {}
       StoredVertexBidirectional(OutEdgeList eOut, InEdgeList eIn) : eOut(eOut), eIn(eIn) {}
-    }
+    };
 
-    using StoredVertex = if constexpr (std::is_same(DirecterdCategory, tags::Undirected) || std::is_same(DirectedCategory, tags::Directed)) // constexpr, because is_same is compile time
-        ? StoredVertexDirected
-        : StoredVertexBidirectional;
+    using StoredVertex = 
+        std::conditional_t
+        <std::is_same_v<DirectedCategory, tags::Undirected> || std::is_same_v<DirectedCategory, tags::Directed>, 
+        StoredVertexDirected, 
+        StoredVertexBidirectional>;
 
     struct StoredEdge
     {
       std::size_t src, tar;
 
       StoredEdge() = default;
-      StoredEdge(src, tar) : src(src), tar(tar) {}
+      StoredEdge(std::size_t src, std::size_t tar) : src(src), tar(tar) {}
     };
 
     using VList = std::vector<StoredVertex>;
@@ -279,7 +281,9 @@ namespace graph
       const AdjacencyList *g;
       VertexDescriptor v;
 
-    } public : AdjacencyList() = default;
+    };
+    public: 
+    AdjacencyList() = default;
     AdjacencyList(std::size_t n) : vList(n) {}
 
   private:
