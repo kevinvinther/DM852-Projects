@@ -376,28 +376,21 @@ namespace graph
                 // in case removing a node is supported.
     }
     friend EdgeDescriptor addEdge(VertexDescriptor u, VertexDescriptor v,
-                                  VertexDescriptor g)
+                                  AdjacencyGraph g)
     {
       // Return an edge descriptor representing the newly added edge.
 
       // Both u and v are valid vertex descriptors for g
-      if (u <= g.vList.size() && v <= g.vList.size()) {
-        std::abort();
-      }
+      assert(u <= g.vList.size() && v <= g.vList.size());
 
       // u and v are different
-      if(u == v) {
-        std::abort();
-      }
+      assert(u != v);
 
       // No edge (u, v) exist already in g
       for (auto it = g.eList.begin(); it != g.eList.end;
            ++it)
       { // use iterator to iterate through each edge
-        if (it->src == u && it->tar == v)
-        {
-          std::abort();
-        }
+        assert(it->src != u && it->tar != v);
       }
 
       // Put edge into list of edges of graph g
