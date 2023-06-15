@@ -521,45 +521,6 @@ namespace graph
 
       return edge;
     }
-    
-    friend VertexDescriptor addVertex(VertexProp std::move(vp), AdjacencyList g)
-    {
-      // Add a vertex and return a descriptor representing the newly added vertex
-      g.vList.emplace_back(std::move(vp));
-      return g.vList.size() - 1;
-    }
-
-    friend EdgeDescriptor addEdge(VertexDescriptor u, VertexDescriptor v, EdgeProp std::move(ep), AdjacencyList g) {
-      // Both u and v are valid vertex descriptors for g
-      assert(u <= g.vList.size() && v <= g.vList.size());
-
-      // u and v are different
-      assert(u != v);
-
-      // No edge (u, v) exist already in g
-      for (auto it = g.eList.begin(); it != g.eList.end;
-           ++it)
-      { // use iterator to iterate through each edge
-        assert(it->src != u && it->tar != v);
-      }
-
-      // Put edge into list of out-edges of u
-      g.eList.emplace_back(u, v, std::move(ep));
-
-      EdgeDescriptor edge = EdgeDescriptor(u, v, g.eList.Size() - 1);
-      g.vList[u].eOut.emplace_back(edge);
-
-      if constexpr (std::is_same_v<DirectedCategory, tags::Bidirectional>)
-      {
-        g.vList[v].eIn.emplace_back(edge);
-      }
-      if constexpr (std::is_same_v<DirectedCategory, tags::Undirected>)
-      {
-        g.vList[v].eOut.emplace_back(edge);
-      }
-
-      return edge;
-    }
 
   public: // PropertyGraph
     VertexProp &operator[](VertexDescriptor v)
