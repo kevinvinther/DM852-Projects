@@ -23,7 +23,6 @@ namespace graph
   public: // PropertyGraph
     using VertexProp = VertexPropT;
     using EdgeProp = EdgePropT;
-
   private:
     struct OutEdge
     {
@@ -88,7 +87,7 @@ namespace graph
           vp = new VertexPropT();
         }
       }
-      StoredVertexBidirectional(OutEdgeList eOut, InEdgeList eIn, VertexProp &vp) : eOut(eOut), eIn(eIn), prop(&vp) {}
+      StoredVertexBidirectional(OutEdgeList eOut, InEdgeList eIn, VertexProp &vp) : eOut(eOut), eIn(eIn), vp(&vp) {}
     };
 
     using StoredVertex =
@@ -112,7 +111,7 @@ namespace graph
           ep = new EdgePropT();
         }
       }
-      StoredEdge(std::size_t src, std::size_t tar, EdgeProp ep) : src(src), tar(tar), edge(&ep) {}
+      StoredEdge(std::size_t src, std::size_t tar, EdgeProp ep) : src(src), tar(tar), ep(&ep) {}
     };
 
     using VList = std::vector<StoredVertex>;
