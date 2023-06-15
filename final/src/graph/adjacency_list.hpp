@@ -399,7 +399,7 @@ namespace graph
       // return the graph along with the new id
       return EdgeDescriptor(
           u, v,
-          g.(eList.size()) - 1); // We set a unique id to be equal to the size of
+          g.eList.size() - 1); // We set a unique id to be equal to the size of
                                  // the list of vectors -1, as it is 0-indexed
     }
 
