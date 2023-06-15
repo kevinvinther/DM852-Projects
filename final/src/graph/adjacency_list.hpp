@@ -529,7 +529,7 @@ namespace graph
       return g.vList.size() - 1;
     }
 
-    friend EdgeDescriptor addEdge(EdgeProp &&ep, AdjacencyList g) {
+    friend EdgeDescriptor addEdge(VertexDescriptor u, VertexDescriptor v, EdgeProp &&ep, AdjacencyList g) {
       // Both u and v are valid vertex descriptors for g
       assert(u <= g.vList.size() && v <= g.vList.size());
 
