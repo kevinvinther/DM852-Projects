@@ -88,7 +88,7 @@ namespace graph
           vp = new VertexPropT();
         }
       }
-      StoredVertexBidirectional(OutEdgeList eOut, InEdgeList eIn, VertexProp &vp;) : eOut(eOut), eIn(eIn), prop(&vp) {}
+      StoredVertexBidirectional(OutEdgeList eOut, InEdgeList eIn, VertexProp &vp) : eOut(eOut), eIn(eIn), prop(&vp) {}
     };
 
     using StoredVertex =
