@@ -440,10 +440,10 @@ namespace graph
   public: // MutableGraph
     friend VertexDescriptor addVertex(AdjacencyList g)
     {
+      std::size_t id = g.vList.size()-1;
       // Add a vertex and return a descriptor representing the newly added vertex
-      g.vList.emplace_back();
-      return g.vList.size() -
-             1; // We set a unique id to be equal to the size of the list of
+      g.vList.emplace_back(id);
+      return id;// We set a unique id to be equal to the size of the list of
                 // vectors - 1, as it is 0-indexed. Note that this will not work
                 // in case removing a node is supported.
     }
@@ -506,6 +506,45 @@ namespace graph
 
       // Put edge into list of out-edges of u
       g.eList.emplace_back(u, v, ep);
+
+      EdgeDescriptor edge = EdgeDescriptor(u, v, g.eList.Size() - 1);
+      g.vList[u].eOut.emplace_back(edge);
+
+      if constexpr (std::is_same_v<DirectedCategory, tags::Bidirectional>)
+      {
+        g.vList[v].eIn.emplace_back(edge);
+      }
+      if constexpr (std::is_same_v<DirectedCategory, tags::Undirected>)
+      {
+        g.vList[v].eOut.emplace_back(edge);
+      }
+
+      return edge;
+    }
+    
+    friend VertexDescriptor addVertex(VertexProp &&vp, AdjacencyList g)
+    {
+      // Add a vertex and return a descriptor representing the newly added vertex
+      g.vList.emplace_back(std::move(vp));
+      return g.vList.size() - 1;
+    }
+
+    friend EdgeDescriptor addEdge(EdgeProp &&ep, AdjacencyList g) {
+      // Both u and v are valid vertex descriptors for g
+      assert(u <= g.vList.size() && v <= g.vList.size());
+
+      // u and v are different
+      assert(u != v);
+
+      // No edge (u, v) exist already in g
+      for (auto it = g.eList.begin(); it != g.eList.end;
+           ++it)
+      { // use iterator to iterate through each edge
+        assert(it->src != u && it->tar != v);
+      }
+
+      // Put edge into list of out-edges of u
+      g.eList.emplace_back(u, v, std::move(ep));
 
       EdgeDescriptor edge = EdgeDescriptor(u, v, g.eList.Size() - 1);
       g.vList[u].eOut.emplace_back(edge);
