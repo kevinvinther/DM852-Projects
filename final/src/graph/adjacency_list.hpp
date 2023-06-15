@@ -49,20 +49,42 @@ namespace graph
     struct StoredVertexDirected
     {
       OutEdgeList eOut;
+      VertexProp *vp;
 
     public:
-      StoredVertexDirected() : eOut(new OutEdgeList) {}
-      StoredVertexDirected(OutEdgeList eOut) : eOut(eOut) {}
+      StoredVertexDirected() : eOut(new OutEdgeList)
+      {
+        if constexpr (std::is_same_v<NoProp, VertexProp>)
+        {
+          vp = nullptr;
+        }
+        else
+        {
+          vp = new VertexPropT();
+        }
+      }
+      StoredVertexDirected(OutEdgeList eOut, VertexProp &prop) : eOut(eOut), vp(&vp) {}
     };
 
     struct StoredVertexBidirectional
     {
       OutEdgeList eOut;
       InEdgeList eIn;
+      VertexProp *vp;
 
     public:
-      StoredVertexBidirectional() : eOut(new OutEdgeList), eIn(new InEdgeList) {}
-      StoredVertexBidirectional(OutEdgeList eOut, InEdgeList eIn) : eOut(eOut), eIn(eIn) {}
+      StoredVertexBidirectional() : eOut(new OutEdgeList), eIn(new InEdgeList)
+      {
+        if constexpr (std::is_same_v<NoProp, VertexProp>)
+        {
+          vp = nullptr;
+        }
+        else
+        {
+          vp = new VertexPropT();
+        }
+      }
+      StoredVertexBidirectional(OutEdgeList eOut, InEdgeList eIn, VertexProp &vp;) : eOut(eOut), eIn(eIn), prop(&vp) {}
     };
 
     using StoredVertex =
@@ -73,9 +95,20 @@ namespace graph
     struct StoredEdge
     {
       std::size_t src, tar;
+      EdgeProp *ep;
 
-      StoredEdge() = default;
-      StoredEdge(std::size_t src, std::size_t tar) : src(src), tar(tar) {}
+      StoredEdge() : src(0), tar(0)
+      {
+        if constexpr (std::is_same_v<NoProp, EdgeProp>)
+        {
+          ep = nullptr;
+        }
+        else
+        {
+          ep = new EdgePropT();
+        }
+      }
+      StoredEdge(std::size_t src, std::size_t tar, EdgeProp ep) : src(src), tar(tar), edge(&ep) {}
     };
 
     using VList = std::vector<StoredVertex>;
@@ -367,7 +400,6 @@ namespace graph
       }
     }
 
-
   public: // BidirectionalGraph
     friend InEdgeRange inEdges(const VertexDescriptor v,
                                const AdjacencyList &g)
@@ -392,7 +424,8 @@ namespace graph
       }
     }
 
-    friend std::size_t inDegree(const VertexDescriptor v, const AdjacencyList &g) {
+    friend std::size_t inDegree(const VertexDescriptor v, const AdjacencyList &g)
+    {
       if constexpr (std::is_same_v<DirectedCategory, tags::Undirected>)
       {
         // return the number of in-edges of v in g
@@ -417,8 +450,6 @@ namespace graph
     friend EdgeDescriptor addEdge(VertexDescriptor u, VertexDescriptor v,
                                   AdjacencyList g)
     {
-      // Return an edge descriptor representing the newly added edge.
-
       // Both u and v are valid vertex descriptors for g
       assert(u <= g.vList.size() && v <= g.vList.size());
 
@@ -432,20 +463,87 @@ namespace graph
         assert(it->src != u && it->tar != v);
       }
 
-      // Put edge into list of edges of graph g
       g.eList.emplace_back(u, v);
 
-      // return the graph along with the new id
-      return EdgeDescriptor(
-          u, v,
-          g.eList.size() - 1); // We set a unique id to be equal to the size of
-                               // the list of vectors -1, as it is 0-indexed
+      EdgeDescriptor edge = EdgeDescriptor(u, v, g.eList.size() - 1);
+
+      g.vList[u].eOut.emplace_back(edge);
+
+      if constexpr (std::is_same_v<DirectedCategory, tags::Directed>)
+      {
+        g.vList[v].eIn.emplace_back(edge);
+      }
+      if constexpr (std::is_same_v<DirectedCategory, tags::Undirected>)
+      {
+        g.vList[v].eOut.emplace_back(edge);
+      }
+
+      return edge;
     }
+
   public: // MutablePropertyGraph
-          // TODO
+    friend VertexDescriptor addVertex(VertexProp vp, AdjacencyList g)
+    {
+      // Add a vertex and return a descriptor representing the newly added vertex
+      g.vList.emplace_back(vp);
+      return g.vList.size() - 1;
+    }
+
+    friend EdgeDescriptor addEdge(VertexDescriptor u, VertexDescriptor v, EdgeProp ep, AdjacencyList g)
+    {
+      // Both u and v are valid vertex descriptors for g
+      assert(u <= g.vList.size() && v <= g.vList.size());
+
+      // u and v are different
+      assert(u != v);
+
+      // No edge (u, v) exist already in g
+      for (auto it = g.eList.begin(); it != g.eList.end;
+           ++it)
+      { // use iterator to iterate through each edge
+        assert(it->src != u && it->tar != v);
+      }
+
+      // Put edge into list of out-edges of u
+      g.eList.emplace_back(u, v, ep);
+
+      EdgeDescriptor edge = EdgeDescriptor(u, v, g.eList.Size() - 1);
+      g.vList[u].eOut.emplace_back(edge);
+
+      if constexpr (std::is_same_v<DirectedCategory, tags::Bidirectional>)
+      {
+        g.vList[v].eIn.emplace_back(edge);
+      }
+      if constexpr (std::is_same_v<DirectedCategory, tags::Undirected>)
+      {
+        g.vList[v].eOut.emplace_back(edge);
+      }
+
+      return edge;
+    }
+
   public: // PropertyGraph
-          // TODO
+  VertexProp &operator[](VertexDescriptor v)
+  {
+    return vList[v].vp;
   };
+
+  VertexProp operator[](VertexDescriptor v) const
+  {
+    return vList[v].vp;
+  };
+
+EdgeProp &operator[](EdgeDescriptor e)
+{
+  return eList[e].ep;
+};
+
+EdgeProp operator[](EdgeDescriptor e) const
+{
+  return eList[e].ep;
+};
+
+
 
 } // namespace graph
 
