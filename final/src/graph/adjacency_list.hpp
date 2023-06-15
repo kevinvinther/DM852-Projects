@@ -55,7 +55,8 @@ namespace graph
       StoredVertexDirected(OutEdgeList eOut) : eOut(eOut) {}
     };
 
-    struct StoredVertexBidirectional {
+    struct StoredVertexBidirectional
+    {
       OutEdgeList eOut;
       InEdgeList eIn;
 
@@ -64,11 +65,10 @@ namespace graph
       StoredVertexBidirectional(OutEdgeList eOut, InEdgeList eIn) : eOut(eOut), eIn(eIn) {}
     };
 
-    using StoredVertex = 
-        std::conditional_t
-        <std::is_same_v<DirectedCategoryT, tags::Undirected> || std::is_same_v<DirectedCategoryT, tags::Directed>, 
-        StoredVertexDirected, 
-        StoredVertexBidirectional>;
+    using StoredVertex =
+        std::conditional_t<std::is_same_v<DirectedCategoryT, tags::Undirected> || std::is_same_v<DirectedCategoryT, tags::Directed>,
+                           StoredVertexDirected,
+                           StoredVertexBidirectional>;
 
     struct StoredEdge
     {
@@ -218,9 +218,10 @@ namespace graph
     public:
       OutEdgeRange(VertexDescriptor v, const AdjacencyList &g) : v(v), g(&g) {}
 
-      iterator begin() const {
-          return iterator(g->vList[v].eOut.begin(), g->vList[v].eOut.begin());
-          }
+      iterator begin() const
+      {
+        return iterator(g->vList[v].eOut.begin(), g->vList[v].eOut.begin());
+      }
 
       iterator end() const
       {
@@ -270,9 +271,10 @@ namespace graph
     public:
       InEdgeRange(VertexDescriptor v, const AdjacencyList &g) : v(v), g(&g) {}
 
-      iterator begin() const {
-          return iterator(g->vList[v].eIn.begin(), g->vList[v].eIn.begin());
-          }
+      iterator begin() const
+      {
+        return iterator(g->vList[v].eIn.begin(), g->vList[v].eIn.begin());
+      }
 
       iterator end() const
       {
@@ -282,9 +284,9 @@ namespace graph
     private:
       const AdjacencyList *g;
       VertexDescriptor v;
-
     };
-    public: 
+
+  public:
     AdjacencyList() = default;
     AdjacencyList(std::size_t n) : vList(n) {}
 
@@ -400,11 +402,45 @@ namespace graph
       return EdgeDescriptor(
           u, v,
           g.eList.size() - 1); // We set a unique id to be equal to the size of
-                                 // the list of vectors -1, as it is 0-indexed
+                               // the list of vectors -1, as it is 0-indexed
     }
 
   public: // BidirectionalGraph
-          // TODO
+    friend InEdgeRange inEdges(const VertexDescriptor v,
+                               const AdjacencyList &g)
+    {
+      if constexpr (std::is_same_v<DirectedCategory, tags::Undirected>)
+      {
+        // return a range of the in-edges of v in g
+        return InEdgeRange(v, g);
+      }
+      else
+      {
+        // return a range of the incident edges of v in g
+        for (auto e : g.eList)
+        {
+          if (e.src == v || e.tar == v)
+          {
+            // add to incident list
+          }
+        }
+        // two edges are incident if they share a common vertex
+        return InEdgeRange(v, g);
+      }
+    }
+
+    friend std::size_t inDegree(const VertexDescriptor v, const AdjacencyList &g) {
+      if constexpr (std::is_same_v<DirectedCategory, tags::Undirected>)
+      {
+        // return the number of in-edges of v in g
+        return g.inEdgeList[v].size();
+      }
+      else
+      {
+        // return the number of incident edges of v in g
+      }
+    }
+
   public: // MutableGraph
   public: // MutablePropertyGraph
           // TODO
