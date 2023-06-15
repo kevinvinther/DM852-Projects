@@ -528,7 +528,7 @@ namespace graph
       return vList[v].vp;
     }
 
-    VertexProp operator[](VertexDescriptor v) const
+    const VertexProp operator[](VertexDescriptor v) const
     {
       return vList[v].vp;
     }
@@ -538,7 +538,7 @@ namespace graph
       return eList[e].ep;
     }
 
-    EdgeProp operator[](EdgeDescriptor e) const
+    const EdgeProp operator[](EdgeDescriptor e) const
     {
       return eList[e].ep;
     }
