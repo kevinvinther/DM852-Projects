@@ -542,7 +542,7 @@ namespace graph
     {
       return eList[e].ep;
     }
-
+  };
   } // namespace graph
 
 #endif // GRAPH_ADJACENCY_LIST_HPP
