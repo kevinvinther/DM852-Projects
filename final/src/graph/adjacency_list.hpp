@@ -192,11 +192,11 @@ namespace graph
                             std::bidirectional_iterator_tag, // we can use RA as the underlying iterator supports it
                             EdgeDescriptor>
       { // when we dereference we return by value, not by reference
-        using Base = boost::iterator_adaptor(iterator,
+        using Base = boost::iterator_adaptor<iterator,
                                              OutEdgeListIterator,
                                              EdgeDescriptor,
                                              std::bidirectional_iterator_tag,
-                                             EdgeDescriptor);
+                                             EdgeDescriptor>;
 
       public:
         iterator() = default;
@@ -243,11 +243,11 @@ namespace graph
                             std::bidirectional_iterator_tag, // we can use RA as the underlying iterator supports it
                             EdgeDescriptor>
       { // when we dereference we return by value, not by reference
-        using Base = boost::iterator_adaptor(iterator,
+        using Base = boost::iterator_adaptor<iterator,
                                              InEdgeListIterator,
                                              EdgeDescriptor,
                                              std::bidirectional_iterator_tag,
-                                             EdgeDescriptor);
+                                             EdgeDescriptor>;
 
       public:
         iterator() = default;
@@ -328,7 +328,7 @@ namespace graph
                                  const AdjacencyList &g)
 
     {
-      if constexpr (std::is_same(DirectedCategory, tags::Undirected)) // constexpr, because is_same is compile time
+      if constexpr (std::is_same_v<DirectedCategory, tags::Undirected>) // constexpr, because is_same is compile time
       {
         // Return a range of the out-edges of v in g
         return OutEdgeRange(v, g);
@@ -352,7 +352,7 @@ namespace graph
     friend std::size_t outDegree(const VertexDescriptor v,
                                  const AdjacencyList &g)
     {
-      if constexpr (std::is_same(DirectedCategory, tags::Undirected) // constexpr, because is_same is compile time
+      if constexpr (std::is_same_v<DirectedCategory, tags::Undirected>) // constexpr, because is_same is compile time
       {
         // Return the number of out-edges of v in g
         return g.outEdgeList[v].size();
