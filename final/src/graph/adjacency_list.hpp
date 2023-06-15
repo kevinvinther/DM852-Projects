@@ -219,11 +219,11 @@ namespace graph
       OutEdgeRange(VertexDescriptor v, const AdjacencyList &g) : v(v), g(&g) {}
 
       iterator begin() const {
-          return iterator(g->vList[v].eOut.begin(), g->vList[v].eOut.begin())}
+          return iterator(g->vList[v].eOut.begin(), g->vList[v].eOut.begin())};
 
       iterator end() const
       {
-        return iterator(g->vList[v].eOut.end(), g->vList[v].eOut.begin())
+        return iterator(g->vList[v].eOut.end(), g->vList[v].eOut.begin());
       }
 
     private:
@@ -270,11 +270,11 @@ namespace graph
       InEdgeRange(VertexDescriptor v, const AdjacencyList &g) : v(v), g(&g) {}
 
       iterator begin() const {
-          return iterator(g->vList[v].eIn.begin(), g->vList[v].eIn.begin())}
+          return iterator(g->vList[v].eIn.begin(), g->vList[v].eIn.begin())};
 
       iterator end() const
       {
-        return iterator(g->vList[v].eIn.end(), g->vList[v].eIn.begin())
+        return iterator(g->vList[v].eIn.end(), g->vList[v].eIn.begin());
       }
 
     private:
@@ -336,9 +336,9 @@ namespace graph
       else
       {
         // Return a range of the incident edges of v in g
-        for (EListIterator it = g.eList.begin(); it != g.eList.end(); ++it)
+        for (auto e : g.eList)
         {
-          if (it->src == v || it->tar == v)
+          if (e.src == v || e.tar == v)
           {
             // add to inciident list
           }
