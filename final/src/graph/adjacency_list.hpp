@@ -219,7 +219,8 @@ namespace graph
       OutEdgeRange(VertexDescriptor v, const AdjacencyList &g) : v(v), g(&g) {}
 
       iterator begin() const {
-          return iterator(g->vList[v].eOut.begin(), g->vList[v].eOut.begin())};
+          return iterator(g->vList[v].eOut.begin(), g->vList[v].eOut.begin());
+          }
 
       iterator end() const
       {
@@ -270,7 +271,8 @@ namespace graph
       InEdgeRange(VertexDescriptor v, const AdjacencyList &g) : v(v), g(&g) {}
 
       iterator begin() const {
-          return iterator(g->vList[v].eIn.begin(), g->vList[v].eIn.begin())};
+          return iterator(g->vList[v].eIn.begin(), g->vList[v].eIn.begin());
+          }
 
       iterator end() const
       {
