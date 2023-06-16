@@ -10,7 +10,11 @@ template<typename OIter>
 struct TopoVisitor : DFSNullVisitor {
 	TopoVisitor(OIter iter) : iter(iter) {}
 
-	// TODO
+	template<typename G, typename V>
+	void finishVertex(const V &v, const G &) {
+		*iter++ = v;
+	}
+
 private:
 	OIter iter;
 };
@@ -19,7 +23,7 @@ private:
 
 template<typename Graph, typename OutputIterator>
 void topoSort(const Graph &g, OutputIterator oIter) {
-	// TODO
+	dfs(g, detail::TopoVisitor<OutputIterator>(oIter));
 }
 
 
