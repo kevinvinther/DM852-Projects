@@ -46,13 +46,13 @@ public: // Graph
 	using EdgeDescriptor = typename G::EdgeDescriptor;
 	using DirectedCategory = typename G::DirectedCategory;
 public: // VertexListGraph
-	GRAPH_TRAITS_RANGE(Vertex);
+	GRAPH_TRAITS_RANGE(Vertex)
 public: // EdgeListGraph
-	GRAPH_TRAITS_RANGE(Edge);
+	GRAPH_TRAITS_RANGE(Edge)
 public: // IncidenceGraph
-	GRAPH_TRAITS_RANGE(OutEdge);
+	GRAPH_TRAITS_RANGE(OutEdge)
 public: // BidirectionalGraph
-	GRAPH_TRAITS_RANGE(InEdge);
+	GRAPH_TRAITS_RANGE(InEdge)
 public: // PropertyGraph
 	using VertexProp = typename detail::TraitsMember_VertexProp<G>::type;
 	using EdgeProp = typename detail::TraitsMember_EdgeProp<G>::type;
