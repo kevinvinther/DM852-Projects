@@ -53,14 +53,14 @@ namespace graph
     struct StoredVertexDirected
     {
       OutEdgeList eOut;
-      VertexProp *vp;
+      VertexProp vp;
 
     public:
       StoredVertexDirected() : eOut(new OutEdgeList)
       {
         if constexpr (!std::is_same_v<NoProp, VertexProp>)
         {
-          vp = new VertexPropT();
+          vp = VertexPropT();
         }
       }
       StoredVertexDirected(OutEdgeList eOut, VertexProp &prop) : eOut(eOut), vp(&vp) {}
@@ -70,14 +70,14 @@ namespace graph
     {
       OutEdgeList eOut;
       InEdgeList eIn;
-      VertexProp *vp;
+      VertexProp vp;
 
     public:
       StoredVertexBidirectional() : eOut(new OutEdgeList), eIn(new InEdgeList)
       {
         if constexpr (!std::is_same_v<NoProp, VertexProp>)
         {
-          vp = new VertexPropT();
+          vp = VertexPropT();
         }
       }
       StoredVertexBidirectional(OutEdgeList eOut, InEdgeList eIn, VertexProp &vp) : eOut(eOut), eIn(eIn), vp(&vp) {}
@@ -91,15 +91,11 @@ namespace graph
     struct StoredEdge
     {
       std::size_t src, tar;
-      EdgeProp *ep;
+      EdgeProp ep;
 
       StoredEdge() : src(0), tar(0)
       {
-        if constexpr (std::is_same_v<NoProp, EdgeProp>)
-        {
-          ep = nullptr;
-        }
-        else
+        if constexpr (!std::is_same_v<NoProp, EdgeProp>)
         {
           ep = new EdgePropT();
         }
@@ -233,7 +229,7 @@ namespace graph
         EdgeDescriptor dereference() const
         {
           const OutEdgeListIterator &i = this->base_reference();
-          return EdgeDescriptor{i->src, i->tar, static_cast<std::size_t>(i - first)};
+          return EdgeDescriptor{v, i->tar, i->storedEdgeIdx};
         }
 
       private:
@@ -357,184 +353,169 @@ namespace graph
                                  const AdjacencyList &g)
 
     {
-      if constexpr (std::is_same_v<DirectedCategory, tags::Undirected>) // constexpr, because is_same is compile time
+      // Two edges are incident if they share a common vertex
+      return OutEdgeRange(v, g);
+    }
+  }
+
+  friend std::size_t outDegree(const VertexDescriptor v,
+            const AdjacencyList &g)
+  {
+    if constexpr (std::is_same_v<DirectedCategory, tags::Undirected>) // constexpr, because is_same is compile time
+    {
+      // Return the number of out-edges of v in g
+      return g.outEdgeList[v].size();
+    }
+    else
+    {
+      // Return the number of incident edges of v in g
+      std::size_t count = 0;
+      for (auto e : g.eList)
       {
-        // Return a range of the out-edges of v in g
-        return OutEdgeRange(v, g);
-      }
-      else
-      {
-        // Return a range of the incident edges of v in g
-        for (auto e : g.eList)
+        if (e.src == v || e.tar == v)
         {
-          if (e.src == v || e.tar == v)
-          {
-            // add to inciident list
-          }
+          count++;
         }
-
-        // Two edges are incident if they share a common vertex
-        return OutEdgeRange(v, g);
       }
+      return count;
     }
+  }
 
-    friend std::size_t outDegree(const VertexDescriptor v,
-                                 const AdjacencyList &g)
+public: // BidirectionalGraph
+  friend InEdgeRange inEdges(const VertexDescriptor v,
+                             const AdjacencyList &g)
+  {
+    // return a range of the in-edges of v in g
+    return InEdgeRange(v, g);
+  }
+
+  friend std::size_t inDegree(const VertexDescriptor v, const AdjacencyList &g)
+  {
+    if constexpr (std::is_same_v<DirectedCategory, tags::Undirected>)
     {
-      if constexpr (std::is_same_v<DirectedCategory, tags::Undirected>) // constexpr, because is_same is compile time
-      {
-        // Return the number of out-edges of v in g
-        return g.outEdgeList[v].size();
-      }
-      else
-      {
-        // Return the number of incident edges of v in g
-      }
+      // return the number of in-edges of v in g
+      return g.inEdgeList[v].size();
     }
-
-  public: // BidirectionalGraph
-    friend InEdgeRange inEdges(const VertexDescriptor v,
-                               const AdjacencyList &g)
+    else
     {
-      if constexpr (std::is_same_v<DirectedCategory, tags::Undirected>)
+      std::size_t count = 0;
+      for (auto e : g.eList)
       {
-        // return a range of the in-edges of v in g
-        return InEdgeRange(v, g);
-      }
-      else
-      {
-        // return a range of the incident edges of v in g
-        for (auto e : g.eList)
+        if (e.src == v || e.tar == v)
         {
-          if (e.src == v || e.tar == v)
-          {
-            // add to incident list
-          }
+          count++;
         }
-        // two edges are incident if they share a common vertex
-        return InEdgeRange(v, g);
-      }
-    }
-
-    friend std::size_t inDegree(const VertexDescriptor v, const AdjacencyList &g)
-    {
-      if constexpr (std::is_same_v<DirectedCategory, tags::Undirected>)
-      {
-        // return the number of in-edges of v in g
-        return g.inEdgeList[v].size();
-      }
-      else
-      {
-        // return the number of incident edges of v in g
-      }
-    }
-
-  public: // MutableGraph
-    friend VertexDescriptor addVertex(AdjacencyList g)
-    {
-      std::size_t id = g.vList.size()-1;
-      // Add a vertex and return a descriptor representing the newly added vertex
-      g.vList.emplace_back(id);
-      return id;// We set a unique id to be equal to the size of the list of
-                // vectors - 1, as it is 0-indexed. Note that this will not work
-                // in case removing a node is supported.
-    }
-    friend EdgeDescriptor addEdge(VertexDescriptor u, VertexDescriptor v,
-                                  AdjacencyList g)
-    {
-      // Both u and v are valid vertex descriptors for g
-      assert(u <= g.vList.size() && v <= g.vList.size());
-
-      // u and v are different
-      assert(u != v);
-
-      // No edge (u, v) exist already in g
-      for (auto it = g.eList.begin(); it != g.eList.end;
-           ++it)
-      { // use iterator to iterate through each edge
-        assert(it->src != u && it->tar != v);
       }
 
-      g.eList.emplace_back(u, v);
+      return count;
+    }
+  }
 
-      EdgeDescriptor edge = EdgeDescriptor(u, v, g.eList.size() - 1);
+public: // MutableGraph
+  friend VertexDescriptor addVertex(AdjacencyList &g)
+  {
+    std::size_t id = g.vList.size() - 1;
+    // Add a vertex and return a descriptor representing the newly added vertex
+    g.vList.emplace_back(id);
+    return id; // We set a unique id to be equal to the size of the list of
+               // vectors - 1, as it is 0-indexed. Note that this will not work
+               // in case removing a node is supported.
+  }
+  friend EdgeDescriptor addEdge(VertexDescriptor u, VertexDescriptor v,
+                                AdjacencyList &g)
+  {
+    // Both u and v are valid vertex descriptors for g
+    assert(u <= g.vList.size() && v <= g.vList.size());
 
-      g.vList[u].eOut.emplace_back(edge);
+    // u and v are different
+    assert(u != v);
 
-      if constexpr (std::is_same_v<DirectedCategory, tags::Directed>)
-      {
-        g.vList[v].eIn.emplace_back(edge);
-      }
-      if constexpr (std::is_same_v<DirectedCategory, tags::Undirected>)
-      {
-        g.vList[v].eOut.emplace_back(edge);
-      }
-
-      return edge;
+    // No edge (u, v) exist already in g
+    for (const auto &it : g.eList)
+    { // use iterator to iterate through each edge
+      assert(it.src != u && it.tar != v);
     }
 
-  public: // MutablePropertyGraph
-    friend VertexDescriptor addVertex(VertexProp vp, AdjacencyList g)
+    g.eList.emplace_back(u, v);
+
+    EdgeDescriptor edge = EdgeDescriptor(u, v, g.eList.size() - 1);
+
+    g.vList[u].eOut.emplace_back(edge);
+
+    if constexpr (std::is_same_v<DirectedCategory, tags::Directed>)
     {
-      // Add a vertex and return a descriptor representing the newly added vertex
-      g.vList.emplace_back(vp);
-      return g.vList.size() - 1;
+      g.vList[v].eIn.emplace_back(edge);
     }
-
-    friend EdgeDescriptor addEdge(VertexDescriptor u, VertexDescriptor v, EdgeProp ep, AdjacencyList g)
+    if constexpr (std::is_same_v<DirectedCategory, tags::Undirected>)
     {
-      // Both u and v are valid vertex descriptors for g
-      assert(u <= g.vList.size() && v <= g.vList.size());
-
-      // u and v are different
-      assert(u != v);
-
-      // No edge (u, v) exist already in g
-      for (auto it = g.eList.begin(); it != g.eList.end;
-           ++it)
-      { // use iterator to iterate through each edge
-        assert(it->src != u && it->tar != v);
-      }
-
-      // Put edge into list of out-edges of u
-      g.eList.emplace_back(u, v, ep);
-
-      EdgeDescriptor edge = EdgeDescriptor(u, v, g.eList.Size() - 1);
-      g.vList[u].eOut.emplace_back(edge);
-
-      if constexpr (std::is_same_v<DirectedCategory, tags::Bidirectional>)
-      {
-        g.vList[v].eIn.emplace_back(edge);
-      }
-      if constexpr (std::is_same_v<DirectedCategory, tags::Undirected>)
-      {
-        g.vList[v].eOut.emplace_back(edge);
-      }
-
-      return edge;
+      g.vList[v].eOut.emplace_back(edge);
     }
 
-  public: // PropertyGraph
-    VertexProp &operator[](VertexDescriptor v)
+    return edge;
+  }
+
+public: // MutablePropertyGraph
+  friend VertexDescriptor addVertex(VertexProp vp, AdjacencyList &g)
+  {
+    // Add a vertex and return a descriptor representing the newly added vertex
+    g.vList.emplace_back(vp);
+    return g.vList.size() - 1;
+  }
+
+  friend EdgeDescriptor addEdge(VertexDescriptor u, VertexDescriptor v, EdgeProp ep, AdjacencyList &g)
+  {
+    // Both u and v are valid vertex descriptors for g
+    assert(u <= g.vList.size() && v <= g.vList.size());
+
+    // u and v are different
+    assert(u != v);
+
+    // No edge (u, v) exist already in g
+    for (auto it = g.eList.begin(); it != g.eList.end;
+         ++it)
+    { // use iterator to iterate through each edge
+      assert(it->src != u && it->tar != v);
+    }
+
+    // Put edge into list of out-edges of u
+    g.eList.emplace_back(u, v, ep);
+
+    EdgeDescriptor edge = EdgeDescriptor(u, v, g.eList.size() - 1);
+    g.vList[u].eOut.emplace_back(edge);
+
+    if constexpr (std::is_same_v<DirectedCategory, tags::Bidirectional>)
     {
-      return vList[v].vp;
+      g.vList[v].eIn.emplace_back(edge);
+    }
+    if constexpr (std::is_same_v<DirectedCategory, tags::Undirected>)
+    {
+      g.vList[v].eOut.emplace_back(edge);
     }
 
-    const VertexProp &operator[](VertexDescriptor v) const
-    {
-      return vList[v].vp;
-    }
+    return edge;
+  }
 
-    EdgeProp &operator[](EdgeDescriptor e)
-    {
-      return eList[e].ep;
-    }
+public: // PropertyGraph
+  VertexProp &operator[](VertexDescriptor v)
+  {
+    return vList[v].vp;
+  }
 
-    const EdgeProp &operator[](EdgeDescriptor e) const
-    {
-      return eList[e].ep;
-    }
-  };
-  } // namespace graph
+  const VertexProp &operator[](VertexDescriptor v) const
+  {
+    return vList[v].vp;
+  }
+
+  EdgeProp &operator[](EdgeDescriptor e)
+  {
+    return eList[e].ep;
+  }
+
+  const EdgeProp &operator[](EdgeDescriptor e) const
+  {
+    return eList[e].ep;
+  }
+};
+} // namespace graph
 
 #endif // GRAPH_ADJACENCY_LIST_HPP
