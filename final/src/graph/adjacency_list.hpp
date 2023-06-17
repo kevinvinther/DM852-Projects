@@ -76,7 +76,6 @@ namespace graph
       StoredVertexBidirectional() : eOut(new OutEdgeList), eIn(new InEdgeList)
       {
         if constexpr (!std::is_same_v<NoProp, VertexProp>)
-        else
         {
           vp = new VertexPropT();
         }
