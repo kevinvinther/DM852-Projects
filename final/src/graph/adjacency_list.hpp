@@ -356,7 +356,6 @@ namespace graph
       // Two edges are incident if they share a common vertex
       return OutEdgeRange(v, g);
     }
-  }
 
   friend std::size_t outDegree(const VertexDescriptor v,
             const AdjacencyList &g)
