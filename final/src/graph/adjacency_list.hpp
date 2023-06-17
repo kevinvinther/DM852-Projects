@@ -52,43 +52,35 @@ namespace graph
 
     struct StoredVertexDirected
     {
-      OutEdgeList eOut;
-      VertexProp *vp;
+      std::unique_ptr<OutEdgeList> eOut;
+      std::unique_ptr<VertexProp> vp;
 
     public:
-      StoredVertexDirected() : eOut(new OutEdgeList)
+      StoredVertexDirected() : eOut(std::make_unique(OutEdgeList))
       {
-        if constexpr (std::is_same_v<NoProp, VertexProp>)
+        if constexpr (!std::is_same_v<NoProp, VertexProp>)
         {
-          vp = nullptr;
-        }
-        else
-        {
-          vp = new VertexPropT();
+          vp = std::make_unique<VertexProp>();
         }
       }
-      StoredVertexDirected(OutEdgeList eOut, VertexProp &prop) : eOut(eOut), vp(&vp) {}
+      StoredVertexDirected(std::unique_ptr<OutEdgeList> eOut, std::unique_ptr<VertexProp> vp) : eOut(std::move(eOut)), vp(std::move(vp)) {}
     };
 
     struct StoredVertexBidirectional
     {
-      OutEdgeList eOut;
-      InEdgeList eIn;
-      VertexProp *vp;
+      std::unique_ptr<OutEdgeList> eOut;
+      std::unique_ptr<InEdgeList> eIn;
+      std::unique_ptr<VertexProp>  vp;
 
     public:
-      StoredVertexBidirectional() : eOut(new OutEdgeList), eIn(new InEdgeList)
+      StoredVertexBidirectional() : eOut(std::make_unique(OutEdgeList)), eIn(std::make_unique(InEdgeList))
       {
-        if constexpr (std::is_same_v<NoProp, VertexProp>)
+        if constexpr (!std::is_same_v<NoProp, VertexProp>)
         {
-          vp = nullptr;
-        }
-        else
-        {
-          vp = new VertexPropT();
+          vp = std::make_unique<VertexProp>();
         }
       }
-      StoredVertexBidirectional(OutEdgeList eOut, InEdgeList eIn, VertexProp &vp) : eOut(eOut), eIn(eIn), vp(&vp) {}
+      StoredVertexBidirectional(std::unique_ptr<OutEdgeList> eOut, std::unique_ptr<InEdgeList> eIn, std::unique_ptr<VertexProp> vp) : eOut(std::move(eOut)), eIn(std::move(eIn)), vp(std::move(vp)) {}
     };
 
     using StoredVertex =
