@@ -58,7 +58,7 @@ directed, undirected and bidirectional graphs.
 
 By supporting this, we allow for the graph to be used in multiple different ways.
 
-For the directed graph, each vertex supports a list of edges going out from the vertex.
+For the directed graph, each vertex supports a list of edges going out from the itself.
 For the bidirectional graph, each vertex supports both a list of edges going out from the vertex, and a list of edges going in to the vertex.
 For the undirected graph, each two vertices have an out edge to each other. Thus creating an "undirected" graph, where both vertices are connected through out edges.
 
@@ -123,8 +123,8 @@ As mentioned in Design Choices, we use descriptors for vertices and edges. For V
 \noindent
 \textbf{Edge}\\
 Edges are represented as the struct \textit{StoredEdge}. This struct holds the source and target vertex descriptors, as well as the edge property. 
-In the default constructor fot the \textit{StoredEdge}, the \textit{EdgeProp} is compared to \textit{NoProp} at runtime, to check if a new \textit{EdgeProp} needs to be initialized.
-The stored edge is much simpler than the stored vertex, as it does matter which type of graph we are using, it only needs to know which is the source vertex, and which is the target vertex.
+In the default constructor for the \textit{StoredEdge}, the \textit{EdgeProp} is compared to \textit{NoProp} at runtime, to check if a new \textit{EdgeProp} needs to be initialized.
+The stored edge is much simpler than the stored vertex, as it does not matter which type of graph we are using, it only needs to know which is the source vertex, and which is the target vertex.
 \\\\
 \textit{EdgeDescriptor}\\
 The edge descriptor is not as simple as the vertex descriptor. Instead of simply being an integer, it is a struct containing the source and target vertex descriptors, as well as the identifier for the edge, which is an integer.
@@ -135,7 +135,7 @@ We implement two types of edges; one for in-edges, and one for out-edges. This i
 \noindent
 \textbf{Vertex and Edge Ranges}\\
 Both the vertices and edges have been implemented as ranges. This allows for many uses, such as for-each loops and general iterator use. This, for example, allows for us to easily implement the depth first search algorithm, as it iterates over the vertices and edges through the graph.
-We implement both the vertex- and edge ranges using the boost library, but since the vertex is much simpler, we can just use an existing iterator, while the edge range needs to be implemented as a custom iterator. 
+We implement both the vertex- and edge ranges using the boost library. However, since the vertex is much simpler, we can just use an existing iterator. But the edge range needs to be implemented as a custom iterator.
 \\\\
 \textit{OutEdgeRange and InEdgeRange}\\
 In addition to VertexRange and EdgeRange, we also implement OutEdgeRange and InEdgeRange. These ranges give additional functionality, and allow for us to implement functions such as \textit{outEdges}, which returns a range of all out edges from a Vertex. The same has been done for \textit{InEdgeRange} which returns the in edges for a given vertex. 
