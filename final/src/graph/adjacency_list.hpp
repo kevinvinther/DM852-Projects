@@ -81,8 +81,9 @@ namespace graph
           vp = VertexPropT();
         }
       }
+
       /// @brief  Constructor, vertex property is set by the user
-      StoredVertexDirected(OutEdgeList eOut, VertexProp &prop) : eOut(eOut), vp(&vp) {}
+      StoredVertexDirected(OutEdgeList eOut, VertexProp &vp) : eOut(eOut), vp(vp) {}
     };
 
     /// @brief A bidirectional vertex
@@ -103,7 +104,7 @@ namespace graph
         }
       }
       /// @brief  Constructor, vertex property is set by the user
-      StoredVertexBidirectional(OutEdgeList eOut, InEdgeList eIn, VertexProp &vp) : eOut(eOut), eIn(eIn), vp(&vp) {}
+      StoredVertexBidirectional(OutEdgeList eOut, InEdgeList eIn, VertexProp &vp) : eOut(eOut), eIn(eIn), vp(vp) {}
     };
 
     // If the graph is directed, we use StoredVertexDirected, otherwise we use StoredVertexBidirectional. We do this
@@ -190,17 +191,7 @@ namespace graph
       using iterator = boost::counting_iterator<VertexDescriptor>;
 
     public:
-    public: // VertexListGraph
-      /// @brief Represents a range of vertices
-      struct VertexRange
-      {
-        // the iterator is simply a counter that returns its value when
-        // dereferenced
-        using iterator = boost::counting_iterator<VertexDescriptor>;
-
-      public:
-        /// @brief Constructor
-        /// @param n The number of vertices in the range
+        /// @brief  Constructor
         VertexRange(std::size_t n) : n(n) {}
 
         /// @brief Returns the beginning of the range
@@ -210,12 +201,6 @@ namespace graph
         /// @brief Returns the end of the range
         /// @return An iterator to the end of the range
         iterator end() const { return iterator(n); }
-
-      private:
-        std::size_t n;
-      };
-      iterator begin() const { return iterator(0); }
-      iterator end() const { return iterator(n); }
 
     private:
       std::size_t n;
@@ -552,10 +537,20 @@ namespace graph
     /// @return A descriptor for the newly added vertex
     friend VertexDescriptor addVertex(AdjacencyList &g)
     {
-      std::size_t id = g.vList.size() - 1;
+      OutEdgeList out;
+      InEdgeList in;
+
       // Add a vertex and return a descriptor representing the newly added vertex
-      g.vList.emplace_back(id);
-      return id; // We set a unique id to be equal to the size of the list of
+      if constexpr (std::is_same_v<DirectedCategory, tags::Bidirectional>)
+      {
+        g.vList.emplace_back(out, in);
+      }
+      else
+      {
+        g.vList.emplace_back(out);
+      }
+
+      return g.vList.size() - 1; // We set a unique id to be equal to the size of the list of
                  // vectors - 1, as it is 0-indexed. Note that this will not work
                  // in case removing a node is supported.
     }
@@ -587,13 +582,13 @@ namespace graph
 
       g.vList[u].eOut.emplace_back(edge);
 
-      if constexpr (std::is_same_v<DirectedCategory, tags::Directed>)
-      {
-        g.vList[v].eIn.emplace_back(edge);
-      }
       if constexpr (std::is_same_v<DirectedCategory, tags::Undirected>)
       {
         g.vList[v].eOut.emplace_back(edge);
+      }
+      if constexpr (std::is_same_v<DirectedCategory, tags::Bidirectional>)
+      {
+        g.vList[v].eIn.emplace_back(edge);
       }
 
       return edge;
@@ -606,8 +601,17 @@ namespace graph
     /// @return A descriptor for the newly added vertex
     friend VertexDescriptor addVertex(VertexProp vp, AdjacencyList &g)
     {
+      OutEdgeList out;
+      InEdgeList in;
       // Add a vertex and return a descriptor representing the newly added vertex
-      g.vList.emplace_back(vp);
+      if constexpr (std::is_same_v<tags::Bidirectional, DirectedCategory>)
+      {
+        g.vList.emplace_back(out, in, vp);
+      }
+      else
+      {
+        g.vList.emplace_back(out, vp);
+      }
       return g.vList.size() - 1;
     }
 

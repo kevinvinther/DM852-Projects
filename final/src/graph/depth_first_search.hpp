@@ -53,17 +53,17 @@ namespace graph
 					  std::vector<DFSColour> &colour)
 		{
 			visitor.discoverVertex(u, g);
-			colour[u] = DFSColour::Grey;
+			colour[u] = graph::detail::DFSColour::Grey;
 			visitor.startVertex(u, g);
 			for (typename Traits<Graph>::EdgeDescriptor e : outEdges(u, g))
 			{
 				visitor.examineEdge(e, g);
-				if (colour[e.tar] == DFSColour::White)
+				if (colour[e.tar] == graph::detail::DFSColour::White)
 				{
 					visitor.treeEdge(e, g);
 					dfsVisit(g, visitor, e.tar, colour);
 				}
-				else if (colour[e.tar] == DFSColour::Grey)
+				else if (colour[e.tar] == graph::detail::DFSColour::Grey)
 					visitor.backEdge(e, g);
 				else
 				{
@@ -72,7 +72,7 @@ namespace graph
 
 				visitor.finishEdge(e, g);
 			}
-			colour[u] = DFSColour::Black;
+			colour[u] = graph::detail::DFSColour::Black;
 			visitor.finishVertex(u, g);
 		}
 
@@ -81,15 +81,15 @@ namespace graph
 	template <typename Graph, typename Visitor>
 	void dfs(const Graph &g, Visitor visitor)
 	{
-		std::vector<DFSColour> colour(numVertices(g));
+		std::vector<graph::detail::DFSColour> colour(numVertices(g));
 		for (typename Traits<Graph>::VertexDescriptor u : vertices(g))
 		{
-			colour[u] = DFSColour::White;
+			colour[u] = graph::detail::DFSColour::White;
 			visitor.initVertex(u, g);
 		}
 		for (typename Traits<Graph>::VertexDescriptor u : vertices(g))
 		{
-			if (colour[u] == DFSColour::White)
+			if (colour[u] == graph::detail::DFSColour::White)
 			{
 				visitor.startVertex(u, g);
 				dfsVisit(g, visitor, u, colour);
