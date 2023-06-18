@@ -11,20 +11,10 @@ namespace graph
 	struct DFSNullVisitor
 	{
 		template <typename G, typename V>
-		void initVertex(const V &, const G &)
-		{
-		}
+		void initVertex(const V &, const G &) {}
 
 		template <typename G, typename V>
-		/**
-		 * Called when a vertex is first visited during a depth-first search.
-		 *
-		 * @param vertex The vertex being visited.
-		 * @param graph The graph being traversed.
-		 */
-		void startVertex(const V &, const G &)
-		{
-		}
+		void startVertex(const V &, const G &) {}
 
 		template <typename G, typename V>
 		void discoverVertex(const V &, const G &) {}
@@ -91,13 +81,18 @@ namespace graph
 	template <typename Graph, typename Visitor>
 	void dfs(const Graph &g, Visitor visitor)
 	{
-		std::vector<detail::DFSColour> colour(numVertices(g));
+		std::vector<DFSColour> colour(numVertices(g));
 		for (typename Traits<Graph>::VertexDescriptor u : vertices(g))
 		{
-			if (colour[u] == detail::DFSColour::White)
+			colour[u] = DFSColour::White;
+			visitor.initVertex(u, g);
+		}
+		for (typename Traits<Graph>::VertexDescriptor u : vertices(g))
+		{
+			if (colour[u] == DFSColour::White)
 			{
-				visitor.initVertex(u, g);
-				detail::dfsVisit(g, visitor, u, colour);
+				visitor.startVertex(u, g);
+				dfsVisit(g, visitor, u, colour);
 			}
 		}
 	}

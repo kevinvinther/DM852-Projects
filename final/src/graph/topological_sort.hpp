@@ -12,7 +12,8 @@ struct TopoVisitor : DFSNullVisitor {
 
 	template<typename G, typename V>
 	void finishVertex(const V &v, const G &) {
-		*iter++ = v;
+		*iter = v;
+		*iter++;
 	}
 
 private:
