@@ -48,7 +48,7 @@ namespace graph
     {
       /// @brief  Default constructor
       InEdge() = default;
-      /// @brief  Sets the source vertex and the index of the edge in the edge list
+      /// @brief Sets the source vertex and the index of the edge in the edge list
       /// @param src
       /// @param storedEdgeIdx
       InEdge(std::size_t src, std::size_t storedEdgeIdx)
