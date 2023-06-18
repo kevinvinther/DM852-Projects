@@ -1,0 +1,279 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{listings}
+
+\title{DM852 Generic Programming Final Project}
+\author{\textbf{Kevin Joshua Vinther} & kevin20 & 060201}
+\date{June 2023}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+Today, graphs are used in many different areas: networks, databases, and many more. In order to represent graphs, we need to be able to represent the edges and vertices. One way to do this is by using an adjacency list. 
+
+In this project, we will implement a generic graph library using an adjacency list. Furthermore, we will implement a depth first search algorithm, and a topological sorting algorithm using the graph. 
+
+The generic graph library will be written in C++ and will be restricted to use only the C++ standard library, as well as the Boost Iterator library.
+
+The graph library should be generic, such that it can be used for any type of graph.
+Furthermore, vertices and edges should be able to hold any type of data, which the user will define themself.
+The graph should support three different types: directed, undirected and bidirectional.
+
+The goal of this project has been reached when the generic graph library has been implemented, along with the depth first search and topological sorting algorithms.
+
+The code is based on code delivered for this project specifically, thus giving a starting point from which to build on. 
+
+\section{Design Choices}
+
+\subsection{Graph}
+The graph will be implemented as an adjacency list. This means that, depending on the type of graph, each vertex will hold a list of edges.
+
+The generality of the graph library is very important for the project. 
+Thus, the graph should be able to: 
+\begin{enumerate}
+    \item Hold any type of data
+    \item Be either directed, undirected or bidirectional
+\end{enumerate}
+
+We allow both the vertices and edges to hold any type of data.
+This will allow them to be used for many different purposes, and not 
+just for the purposes presented in this project (depth first search and topological sorting.)
+For example, a user would be able to implement weights on the edges, or 
+store usernames on the vertices. There are many possibilities.
+
+We use descriptors for the vertices and the edges to allow for easy handling 
+with the graph. This means, that instead of using the vertices and edges directly,
+the descriptors act as a type of pointer to the vertices and edges.
+
+An edge should be able to hold information about the soruce and the target vertex. 
+Furthermore, the edge descriptors and vertex descriptors should be identifiable by a unique id. 
+
+\subsection{Directed, Bidirectional and Undirected}
+
+As mentioned before, the graph should be able to support three types of graphs: 
+directed, undirected and bidirectional graphs. 
+
+By supporting this, we allow for the graph to be used in multiple different ways.
+
+For the directed graph, each vertex supports a list of edges going out from the vertex.
+For the bidirectional graph, each vertex supports both a list of edges going out from the vertex, and a list of edges going in to the vertex.
+For the undirected graph, each two vertices have an out edge to each other. Thus creating an "undirected" graph, where both vertices are connected through out edges.
+
+
+\subsection{Depth First Search}
+
+The depth first search algorithm is implemented recursively. It uses visitor pattern to allow for different actions to be taken when a vertex is discovered, finished, or when an edge is traversed.
+This also allows for an easy way to use the depth first search for other purposes, such as topological sorting.
+
+
+\subsection{Topological Sorting}
+
+The topological sorting algorithm is implemented using the depth first search algorithm. 
+
+
+\section{Implementation}
+
+\subsection{Graph}
+\textbf{Template Parameters}\\
+\noindent
+The generality of the graph is implemented using templates.
+The parameters for the template are \textit{DirectedCategoryT}, \textit{VertexPropertyT} and \textit{EdgePropertyT}. 
+\textit{DirectedCategoryT} is the type of graph we are using, it can either be \textit{Directed}, \textit{Undirected} or \textit{Bidirectional}. We implement these tags for the direction in the \texttt{graph::tags}  namespace. Each of the tags are implemented as structs, with the bidirectional tag inheriting from the directed tag.
+\textit{VertexPropertyT} and \textit{EdgePropertyT} are the types of the properties which the vertices and edges hold. This is what allows for the edges and vertex to hold values, which the user will define themself.
+\\\\
+\textbf{Adjacency List \& Overview}\\
+\noindent
+The graph is implemented using an adjacency list. This is represented through the struct \textit{AdjacencyList}. 
+
+The adjacency list struct has multiple sub types: 
+\begin{itemize}
+    \item StoredVertex
+    \begin{itemize}
+    \item StoredVertexDirected
+    \item StoredVertexBidirectional
+    \end{itemize}
+    \item StoredEdge
+    \item EdgeDescriptor
+    \item OutEdge
+    \item InEdge
+    \item VertexRange
+    \item EdgeRange
+    \item OutEdgeRange
+    \item InEdgeRange
+\end{itemize}
+\\\\
+\noindent
+\textbf{Vertex}\\
+Vertices are represented as the struct \textit{StoredVertex}. If the graph is directed or undirected, the struct \textit{StoredVertexDirected} is used, otherwise the struct \textit{StoredVertexBidirectional} is used. 
+The way this works, is by conditionally using the \textit{using} keyword to define the type \textit{StoredVertex}.
+This is done using \texttt{std::conditional\_t} to check which type of graph we are using, and then using the correct struct depending on the result.
+We could have implemented this using traditional tag dispatching, but this made a cleaner implementation.
+Using \texttt{std::conditional\_t} allows us to, at compile-time, decide which struct to use. This gives a very efficient implementation.
+
+The vertex struct holds a list of edges. In the case where it is a directed or undirected graph, it only holds out-edges, but in case it is bidirectional, it holds both in- and out-edges.
+The reason for the undirected graph holding out-edges, is an implementation decision which has been made in order to make an undirected graph work, without using more types than necessary. 
+Thus, in an undirected graph, both vertices connected by an edge see the edge as an out-edge.
+\\\\
+\textit{VertexDescriptor}\\
+As mentioned in Design Choices, we use descriptors for vertices and edges. For VertexDescriptor we simply use an integer (\texttt{std::size\_t}) to represent the vertex descriptor. As was the purpose, this allows for easier use of the graph, as the user does not need to understand the implementation deeply.
+\\\\
+\noindent
+\textbf{Edge}\\
+Edges are represented as the struct \textit{StoredEdge}. This struct holds the source and target vertex descriptors, as well as the edge property. 
+In the default constructor fot the \textit{StoredEdge}, the \textit{EdgeProp} is compared to \textit{NoProp} at runtime, to check if a new \textit{EdgeProp} needs to be initialized.
+The stored edge is much simpler than the stored vertex, as it does matter which type of graph we are using, it only needs to know which is the source vertex, and which is the target vertex.
+\\\\
+\textit{EdgeDescriptor}\\
+The edge descriptor is not as simple as the vertex descriptor. Instead of simply being an integer, it is a struct containing the source and target vertex descriptors, as well as the identifier for the edge, which is an integer.
+\\\\
+\textit{InEdge and OutEdge}\\
+We implement two types of edges; one for in-edges, and one for out-edges. This is much like StoredEdge, except it only holds one vertex description: the source or target (depending on the type of edge.)
+\\\\
+\noindent
+\textbf{Vertex and Edge Ranges}\\
+Both the vertices and edges have been implemented as ranges. This allows for many uses, such as for-each loops and general iterator use. This, for example, allows for us to easily implement the depth first search algorithm, as it iterates over the vertices and edges through the graph.
+We implement both the vertex- and edge ranges using the boost library, but since the vertex is much simpler, we can just use an existing iterator, while the edge range needs to be implemented as a custom iterator. 
+\\\\
+\textit{OutEdgeRange and InEdgeRange}\\
+In addition to VertexRange and EdgeRange, we also implement OutEdgeRange and InEdgeRange. These ranges give additional functionality, and allow for us to implement functions such as \textit{outEdges}, which returns a range of all out edges from a Vertex. The same has been done for \textit{InEdgeRange} which returns the in edges for a given vertex. 
+Furthermore, we implement two edge ranges: \textit{OutEdgeRange} and \textit{InEdgeRange}. This allows for the user to iterate over the out-edges and in-edges of a vertex, respectively. These can be used to find the number of in-edges and out-edges of a vertex, as well as iterating over them. 
+\\\\
+\noindent
+\textbf{constexpr}\\
+\noindent
+Multiple times in the implemenation, we use the \textit{constexpr} keyword in \textit{if} statements. This allows for compile-time evaluation of \textit{if} statements. 
+We do it, because it is needed for \texttt{std::is\_same}, which is used multiple times to check the type of graph, and whether or not the edge or vertex has a property. 
+\\\\
+\noindent
+\textit{addEdge}\\
+\noindent
+One of the functions in which \textit{constexpr} is used is in the \textit{addEdge} function. 
+When adding an edge, we need to know the type of graph, as to create the edge correctly. If the graph is directed we only set an out edge from the source vertex to the target vertex. If the graph is undirected, we additionally set one more out edge from the target to the source graph (this has been discussed in design choices.) If the graph is bidirectional, we set an \textit{in} edge from the target vertex to the source vertex, as per the requirements of a bidirectional graph.
+\\\\
+\noindent
+\textit{StoredVertex}\\
+\noindent
+In the constructor for \textit{StoredVertex}, whether it is the Directed or Bidirectional vertex, also uses \textit{constexpr} to, at compile time, check whether or not the VertexProp is given to be something else than \textit{NoProp}, which is the default. 
+\\\\
+\noindent
+\textbf{Two functions for addEdge and addVertex}\\
+\noindent
+In the graph interface, we have two functions for adding edges and vertices. One of them takes a property, and the other does not.
+The reason for this is that we want to be able to add edges and vertices without properties, but we also want to be able to add them with properties.
+The compiler will choose the correct function, depending on whether or not the user has given a property.
+\\\\
+\noindent
+\textbf{Overloading the [] operator}\\
+\noindent
+The [] operator is used to access a vertex prop or an edge prop from the graph.
+This has been done by overloading the [] operator for the vertex and edge ranges.
+Thus, the user can use the [] operator on a graph to access the vertex prop or 
+the edge prop because of this overloading.
+
+\subsection{Depth First Search}
+For depth first search, we take heavy inspiration from the pseudocode in Appendix A.
+This provides us with both the function \textit{DFS} and \textit{DFS-VISIT}. 
+Thus, this implementation uses visitor pattern, as the pseudocode does. 
+The visitor design pattern allows for us to implement various functions 
+which are called at different points in the algorithm. These functions 
+are called by the algorithm, and thus the user can implement them and 
+do whatever they want in their implementation.
+
+The visitor pattern is very important for our implementation of topological
+sorting, as we will see later.
+
+The most important part about the implementation of depth first search is
+the \textit{dfsVisit} function. This function is called recursively, and
+it is the function which actually does the depth first search. It is called
+by the \textit{dfs} function, which sets up the colour of the vertices, and
+calls \textit{dfsVisit} on all vertices which are white (as, if a vertex is 
+white, it is because it has not yet been processed).
+
+
+\subsection{Topological Sorting}
+
+We implement topological sorting using the depth first search algorithm.
+We do this by overriding the \textit{finishVertex} function, which is 
+a part of the visitor pattern. 
+
+The \textit{finishVertex} function uses an iterator, \textit{iter} which 
+is an argument to the function to insert the vertex into the beginning of
+a list. This list becomes the sorted list of vertices. 
+
+We sort it by using the depth-first search with the new \textit{finishVertex}
+function. As it is added recursively, the vertices are added in reverse order.
+
+\section{Evaluation and Testing}
+
+In order to test whether or not the implementation works as intended, 
+I have written a number of tests. 
+These tests check whether specific functions work as intended. The 
+tests are: 
+\begin{itemize}
+    \item \texttt{test\_directed\_graph\_creation()} tests if you can successfully create a directed graph 
+    \item \texttt{test\_bidirectional\_graph\_creation()} test if you can succesfully create a bidirectional graph
+    \item \texttt{test\_undirected\_graph\_creation()} test if you can succesfully create an undirected graph
+    \item \texttt{test\_topo\_sort()} tests if the topological sorting works as intended, i.e. if it returns the correct order of vertices
+    \item \texttt{test\_getIndex()} tests the \textit{getIndex()} function
+    \item \texttt{test\_default\_constructor()} tests if you can create a graph with the default constructor succesfully
+    \item \texttt{test\_copyable} tests if the graph is copyable
+\end{itemize}
+
+
+
+\section{Conclusion}
+
+In this project we have implemented a generic graph library using the adjacency list representation.
+This implementation allows for the creation of generic graphs, with or without properties, which can be both 
+directed, undirected and bidirectional.
+Using this graph library we have implement depth first search, and in turn using depth first search, we have implemented topological sorting.
+When testing the implementation, I have unfortunately not been able to get the tests to work as intended. I was not able to find the cause because of time constraints, and the error messages seemed rather cryptic. 
+However, although these did not work as intended, I believe the cause to be a minor one, as the implementation theoretically should work. 
+
+
+
+\newpage
+\appendix
+
+\section{Depth First Search Algorithm}
+\begin{figure}[h]
+    \begin{lstlisting}
+DFS(G, Visitor):
+        initialize 'colour'
+        for each vertex u in V:
+            colour[u] := WHITE
+            Visitor.initVertex(u, G)
+        end for
+        for each vertex u in V:
+            if colour[u] = WHITE:
+                Visitor.startVertex(u, G)
+                DFS-VISIT(G, Visitor, colour, u)
+        end for
+
+DFS-VISIT(G, Visitor, colour, u):
+        Visitor.discoverVertex(u, G)
+        colour[u] := GRAY
+        for each v in Adj[u]:
+            Visitor.examineEdge((u, v), G)
+            if(colour[v] = WHITE):
+                Visitor.treeEdge((u, v), G)
+                DFS-VISIT(G, Visitor, colour, v)
+            else if(colour[v] = GRAY):
+                Visitor.backEdge((u, v), G)
+            else if(colour[v] = BLACK):
+                if d[u] < d[v]:
+                    Visitor.forwardOrCrossEdge((u,v), G)
+                Visitor.finishEdge((u, v), G)
+        end for
+        colour[u] := BLACK
+        Visitor.finishVertex(u, G)
+    \end{lstlisting}
+    \label{dfs}
+    \caption{Depth First Search Algorithm}
+\end{figure}
+
+
+\end{document}

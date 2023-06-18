@@ -76,12 +76,33 @@ int test_getIndex() {
     return 0;
 }
 
+int test_default_constructor() {
+    graph::AdjacencyList<graph::tags::Directed> g;
+
+    return 0;
+}
+
+int test_copyable() {
+    graph::AdjacencyList<graph::tags::Directed> g(0);
+
+    vertex v1 = addVertex(g);
+    vertex v2 = addVertex(g);
+
+    addEdge(v1, v2, g);
+
+    graph::AdjacencyList<graph::tags::Directed> g2(g);
+
+    return 0;
+}
+
 int main() {
     test_directed_graph_creation();
     test_bidirectional_graph_creation();
     test_undirected_graph_creation();
     test_topo_sort();
     test_getIndex();
+    test_default_constructor();
+    test_copyable();
 
     return 0;
 }
