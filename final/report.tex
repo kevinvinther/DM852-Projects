@@ -29,12 +29,13 @@ The code is based on code delivered for this project specifically, thus giving a
 \section{Design Choices}
 
 \subsection{Graph}
-The graph will be implemented as an adjacency list. This means that, depending on the type of graph, each vertex will hold a list of edges.
+The graph will be implemented as an adjacency list. This means that, depending on the type of graph, each vertex will hold a list of edges. For the directed and undirected graph, the edges held will be out edges. For bidirectional, both in- and out-edges will be held.
 
 The generality of the graph library is very important for the project. 
-Thus, the graph should be able to: 
+We have some requirements for the graph, which should be in the back of our mind during the design process. 
+The graph should:
 \begin{enumerate}
-    \item Hold any type of data
+    \item Be able to hold any type of data
     \item Be either directed, undirected or bidirectional
 \end{enumerate}
 
@@ -42,14 +43,17 @@ We allow both the vertices and edges to hold any type of data.
 This will allow them to be used for many different purposes, and not 
 just for the purposes presented in this project (depth first search and topological sorting.)
 For example, a user would be able to implement weights on the edges, or 
-store usernames on the vertices. There are many possibilities.
+store usernames on the vertices. There are many possibilities besides this.
 
 We use descriptors for the vertices and the edges to allow for easy handling 
 with the graph. This means, that instead of using the vertices and edges directly,
-the descriptors act as a type of pointer to the vertices and edges.
+the descriptors act as a type of pointer to the vertices and edges. Not to be 
+confused for actual pointers in C++, these just serve as a way to identify the 
+vertices and edges. Each of the vertex and edge descriptors should be uniquely identifiable 
+by an id. 
 
-An edge should be able to hold information about the soruce and the target vertex. 
-Furthermore, the edge descriptors and vertex descriptors should be identifiable by a unique id. 
+Furthermore, an edge should be able to hold information about the source, and the target vertex
+descriptors, as to identify them.
 
 \subsection{Directed, Bidirectional and Undirected}
 
@@ -123,7 +127,7 @@ As mentioned in Design Choices, we use descriptors for vertices and edges. For V
 \noindent
 \textbf{Edge}\\
 Edges are represented as the struct \textit{StoredEdge}. This struct holds the source and target vertex descriptors, as well as the edge property. 
-In the default constructor for the \textit{StoredEdge}, the \textit{EdgeProp} is compared to \textit{NoProp} at runtime, to check if a new \textit{EdgeProp} needs to be initialized.
+In the default constructor for the \textit{StoredEdge}, the \textit{EdgeProp} is compared to \textit{NoProp} at compile-time, to check if a new \textit{EdgeProp} needs to be initialized.
 The stored edge is much simpler than the stored vertex, as it does not matter which type of graph we are using, it only needs to know which is the source vertex, and which is the target vertex.
 \\\\
 \textit{EdgeDescriptor}\\
@@ -145,7 +149,9 @@ Furthermore, we implement two edge ranges: \textit{OutEdgeRange} and \textit{InE
 \textbf{constexpr}\\
 \noindent
 Multiple times in the implemenation, we use the \textit{constexpr} keyword in \textit{if} statements. This allows for compile-time evaluation of \textit{if} statements. 
-We do it, because it is needed for \texttt{std::is\_same}, which is used multiple times to check the type of graph, and whether or not the edge or vertex has a property. 
+We do it, because it is needed for \texttt{std::is\_same} and \texttt{std::conditional\_t}. \texttt{std::is\_same} is used multiple times to check the type of graph, and whether or not the edge or vertex has a property. 
+\texttt{std::conditional\_t} is used to set the type of vertex, depending on the type of the graph. We will explore two examples of when 
+\textit{constexpr} is used:
 \\\\
 \noindent
 \textit{addEdge}\\
@@ -170,6 +176,7 @@ The compiler will choose the correct function, depending on whether or not the u
 \noindent
 The [] operator is used to access a vertex prop or an edge prop from the graph.
 This has been done by overloading the [] operator for the vertex and edge ranges.
+Simply, it returns the property of the vertex or edge the user is accessing.
 Thus, the user can use the [] operator on a graph to access the vertex prop or 
 the edge prop because of this overloading.
 
@@ -178,9 +185,8 @@ For depth first search, we take heavy inspiration from the pseudocode in Appendi
 This provides us with both the function \textit{DFS} and \textit{DFS-VISIT}. 
 Thus, this implementation uses visitor pattern, as the pseudocode does. 
 The visitor design pattern allows for us to implement various functions 
-which are called at different points in the algorithm. These functions 
-are called by the algorithm, and thus the user can implement them and 
-do whatever they want in their implementation.
+which are called at different points in the algorithm. Thus the user can implement them and 
+do whatever they want in their implementation, allowing for use cases such as topological sorting.
 
 The visitor pattern is very important for our implementation of topological
 sorting, as we will see later.
@@ -213,13 +219,13 @@ I have written a number of tests.
 These tests check whether specific functions work as intended. The 
 tests are: 
 \begin{itemize}
-    \item \texttt{test\_directed\_graph\_creation()} tests if you can successfully create a directed graph 
-    \item \texttt{test\_bidirectional\_graph\_creation()} test if you can succesfully create a bidirectional graph
-    \item \texttt{test\_undirected\_graph\_creation()} test if you can succesfully create an undirected graph
-    \item \texttt{test\_topo\_sort()} tests if the topological sorting works as intended, i.e. if it returns the correct order of vertices
-    \item \texttt{test\_getIndex()} tests the \textit{getIndex()} function
-    \item \texttt{test\_default\_constructor()} tests if you can create a graph with the default constructor succesfully
-    \item \texttt{test\_copyable} tests if the graph is copyable
+    \item \texttt{test\_directed\_graph\_creation()} which tests if you can successfully create a directed graph 
+    \item \texttt{test\_bidirectional\_graph\_creation()} which test if you can succesfully create a bidirectional graph
+    \item \texttt{test\_undirected\_graph\_creation()} which tests if you can succesfully create an undirected graph
+    \item \texttt{test\_topo\_sort()} which tests if the topological sorting works as intended, i.e. if it returns the correct order of vertices
+    \item \texttt{test\_getIndex()} which tests the \textit{getIndex()} function
+    \item \texttt{test\_default\_constructor()} which tests if you can create a graph with the default constructor succesfully
+    \item \texttt{test\_copyable} which tests if the graph is copyable
 \end{itemize}
 
 
